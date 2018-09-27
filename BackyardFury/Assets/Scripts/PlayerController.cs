@@ -129,7 +129,7 @@ public class PlayerController : MonoBehaviour
         {
             if (h.collider.gameObject == ghostBuilding)
                 continue;
-            if(h.distance < cDist)
+            if (h.distance < cDist)
             {
                 cPos = h.point;
                 cNorm = h.normal;
@@ -153,7 +153,7 @@ public class PlayerController : MonoBehaviour
 
         ghostBuilding.transform.position = newPos;
 
-        if(Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1"))
         {
             GameObject newBuilding = Instantiate(buildingPrefab);
             newBuilding.transform.position = newPos;
@@ -162,8 +162,13 @@ public class PlayerController : MonoBehaviour
 
     void UpdateShootMode()
     {
-        float xRot = Input.GetAxis("Vertical");
-        float yRot = Input.GetAxis("Horizontal");
+        // get the sign of the camera's forward/right vectors so we can move
+        // the arc in the same direction that the camera is facing
+        float front = Mathf.Sign(_mainCamera.transform.forward.z);
+        float right = Mathf.Sign(_mainCamera.transform.right.x);
+
+        float xRot = Input.GetAxis("Vertical") * front;
+        float yRot = Input.GetAxis("Horizontal") * right;
 
         const float rotSpeed = 20.0f;
 
@@ -220,5 +225,21 @@ public class PlayerController : MonoBehaviour
         ghostBuilding.SetActive(false);
         arcLineRenderer.enabled = true;
         _cursorImage.gameObject.SetActive(false);
+    }
+
+    public void Enable()
+    {
+        this.enabled = true;
+        // start the last mode we were in 
+        if (currentMode == TurnMode.SHOOT)
+            StartShootMode();
+        else
+            StartBuildMode();
+    }
+
+    public void Disable()
+    {
+        this.enabled = false;
+        arcLineRenderer.enabled = false;
     }
 }
