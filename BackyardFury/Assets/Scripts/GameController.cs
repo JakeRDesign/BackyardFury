@@ -12,12 +12,15 @@ public class GameController : MonoBehaviour
     // transforms that the camera should copy when on a certain player's turn
     public List<Transform> cameraTransforms;
     public int currentTurn = 0;
-
-    [Header("Objects To Link")]
-    public Camera mainCamera;
+    
+    private Camera mainCamera;
 
     void Awake()
     {
+        // grab the camera so we can control it like moving between positions and stuff
+        GameObject camObject = GameObject.FindGameObjectWithTag("MainCamera");
+        mainCamera = camObject.GetComponent<Camera>();
+
         // disable all playercontrollers so the turn management can handle it
         foreach (PlayerController p in players)
             p.Disable();
