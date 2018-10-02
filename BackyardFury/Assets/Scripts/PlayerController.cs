@@ -51,6 +51,10 @@ public class PlayerController : MonoBehaviour
     private Vector3 lastMousePos;
     private Camera _mainCamera;
 
+    // shooting delegate/event for GameController to handle the end of the turn
+    public delegate void ProjectileShotEvent(GameObject projectile);
+    public ProjectileShotEvent onShoot;
+
     void Awake()
     {
         shootRotation = startingAngle;
@@ -125,9 +129,12 @@ public class PlayerController : MonoBehaviour
         float cDist = Mathf.Infinity;
         Vector3 cPos = Vector3.zero;
         Vector3 cNorm = Vector3.zero;
+
         foreach (RaycastHit h in hits)
         {
             if (h.collider.gameObject == ghostBuilding)
+                continue;
+            if (h.collider.isTrigger)
                 continue;
             if (h.distance < cDist)
             {
@@ -204,6 +211,9 @@ public class PlayerController : MonoBehaviour
             newProjectile.transform.position =
                 launcherObject.transform.position;
             newProjectile.GetComponent<Rigidbody>().velocity = shootForce;
+
+            // call any attached functions
+            onShoot(newProjectile);
         }
     }
 

@@ -526,10 +526,10 @@ MeshCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 66582456}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 3
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 437763143}
@@ -2974,7 +2974,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh11202
+  m_Name: pb_Mesh11242
   serializedVersion: 8
   m_SubMeshes:
   - serializedVersion: 2
@@ -3830,7 +3830,12 @@ Prefab:
     - target: {fileID: 114589373802617624, guid: a36bbc5bb1b805b41a0bd92c22082543,
         type: 2}
       propertyPath: buildSnap.y
-      value: 1
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114589373802617624, guid: a36bbc5bb1b805b41a0bd92c22082543,
+        type: 2}
+      propertyPath: startingAngle.x
+      value: -60
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a36bbc5bb1b805b41a0bd92c22082543, type: 2}
@@ -4878,7 +4883,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh11756
+  m_Name: pb_Mesh11796
   serializedVersion: 8
   m_SubMeshes:
   - serializedVersion: 2
@@ -6978,7 +6983,12 @@ Prefab:
     - target: {fileID: 114552367763446480, guid: a1506eb55ba10d84ea5108962e7ef8f2,
         type: 2}
       propertyPath: buildSnap.y
-      value: 1
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114552367763446480, guid: a1506eb55ba10d84ea5108962e7ef8f2,
+        type: 2}
+      propertyPath: startingAngle.x
+      value: -120
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a1506eb55ba10d84ea5108962e7ef8f2, type: 2}
@@ -15569,10 +15579,10 @@ MeshCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1790351897}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 3
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 670933134}
@@ -18118,7 +18128,10 @@ MonoBehaviour:
   players:
   - {fileID: 972646008}
   - {fileID: 530502303}
-  currentTurn: 0
+  cameraTransforms:
+  - {fileID: 1695935174}
+  - {fileID: 362010431}
+  currentTurn: 1
 --- !u!4 &2080667397
 Transform:
   m_ObjectHideFlags: 0
