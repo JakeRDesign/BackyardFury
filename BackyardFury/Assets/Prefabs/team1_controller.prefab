@@ -52,16 +52,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   launcherObject: {fileID: 0}
-  currentMode: 1
+  currentMode: 0
   arcLineMaterial: {fileID: 2100000, guid: 92298df8fcba44c4a83b33b19e93ced9, type: 2}
   arcLineWidth: 0.1
   projectilePrefab: {fileID: 1795762042662386, guid: 9733e5d467b33204f8bd5a7cc9fb3ce5,
     type: 2}
   shootStrength: 13
-  startingAngle: {x: -50, y: -90, z: 0}
+  startingAngle: {x: -120, y: -90, z: 0}
   buildingPrefab: {fileID: 1470294906832452, guid: 34787da9ab9d98442855b515781e1646,
     type: 2}
-  zoneCenter: {x: -0.024219155, y: 4.979389, z: -10}
+  zoneCenter: {x: 10, y: 5, z: 0}
   zoneSize: {x: 10, y: 10, z: 9.515957}
   ghostMaterial: {fileID: 2100000, guid: 698fc149eebb7814fb393a1ab6f36996, type: 2}
-  buildSnap: {x: 1, y: 0.5, z: 1}
+  buildSnap: {x: 1, y: 1, z: 1}
+  buildingObjects: []

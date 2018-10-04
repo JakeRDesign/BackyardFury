@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.UI;
 
 // Attach this to an empty object and set up all exposed things in inspector
@@ -19,7 +20,7 @@ public class PlayerController : MonoBehaviour
 
     // whether we're shooting or building - default switch key is 
     // right click or alt
-    public TurnMode currentMode = TurnMode.SHOOT;
+    public TurnMode currentMode = TurnMode.BUILD;
 
     [Header("Arc Settings")]
     // normal material will do
@@ -46,10 +47,12 @@ public class PlayerController : MonoBehaviour
     private GameObject ghostBuilding;
     // units to snap to, will snap every 1 meter for X and Z and every 0.5 for Y
     public Vector3 buildSnap = new Vector3(1.0f, 0.5f, 1.0f);
+    public List<GameObject> buildingObjects;
 
     private RectTransform _cursorImage;
     private Vector3 lastMousePos;
     private Camera _mainCamera;
+    private GameController _gameController;
 
     // shooting delegate/event for GameController to handle the end of the turn
     public delegate void ProjectileShotEvent(GameObject projectile);
@@ -71,18 +74,31 @@ public class PlayerController : MonoBehaviour
 
             ghostBuilding.GetComponent<MeshRenderer>().material = ghostMaterial;
             ghostBuilding.SetActive(false);
+
+            // remove buildingcomponent before rigidbody because 
+            // buildingcomponent depends on it!
+            Destroy(ghostBuilding.GetComponent<BuildingComponent>());
+            // remove rigidbody and boxcollider from ghost building so placing 
+            // boxes with rigidbodies doesn't throw them away instantly
+            Destroy(ghostBuilding.GetComponent<Rigidbody>());
+            Destroy(ghostBuilding.GetComponent<BoxCollider>());
         }
 
+        // grab references to objects
         GameObject cursor = GameObject.FindGameObjectWithTag("UICursor");
         _cursorImage = cursor.GetComponent<RectTransform>();
         GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");
         _mainCamera = camera.GetComponent<Camera>();
+        GameObject controller = GameObject.FindGameObjectWithTag("GameController");
+        Assert.IsNotNull(controller, "GameController must exist and be tagged!!");
+        _gameController = controller.GetComponent<GameController>();
 
+        StartBuildMode();
+        Disable();
     }
 
     void Start()
     {
-        StartShootMode();
     }
 
     void Update()
@@ -99,6 +115,10 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetButtonDown("Fire2"))
         {
+            // don't allow switching modes if we're in the build phase
+            if (_gameController.IsBuildPhase())
+                return;
+
             if (currentMode == TurnMode.BUILD)
                 StartShootMode();
             else
@@ -129,6 +149,7 @@ public class PlayerController : MonoBehaviour
         float cDist = Mathf.Infinity;
         Vector3 cPos = Vector3.zero;
         Vector3 cNorm = Vector3.zero;
+        GameObject clickedOn = null;
 
         foreach (RaycastHit h in hits)
         {
@@ -141,6 +162,7 @@ public class PlayerController : MonoBehaviour
                 cPos = h.point;
                 cNorm = h.normal;
                 cDist = h.distance;
+                clickedOn = h.collider.gameObject;
             }
         }
 
@@ -148,10 +170,21 @@ public class PlayerController : MonoBehaviour
             return;
 
         Vector3 newPos = cPos;
+
         newPos += cNorm * 0.5f;
 
+        // raycast downwards to place on the ground
+        Ray downRay = new Ray(newPos + Vector3.up, Vector3.down);
+        RaycastHit downHit;
+        if (Physics.Raycast(downRay, out downHit))
+            newPos.y = downHit.point.y + 0.5f;
+        else
+            return;
+
+
+
         float xFactor = 1.0f / Mathf.Max(0.0001f, buildSnap.x);
-        float yFactor = 1.0f / Mathf.Max(0.0001f, buildSnap.y);
+        float yFactor = 1.0f / 0.0001f;
         float zFactor = 1.0f / Mathf.Max(0.0001f, buildSnap.z);
 
         newPos.x = Mathf.Round(newPos.x * xFactor) / xFactor;
@@ -163,7 +196,24 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Fire1"))
         {
             GameObject newBuilding = Instantiate(buildingPrefab);
+            buildingObjects.Add(newBuilding);
+            BuildingComponent cmp = newBuilding.GetComponent<BuildingComponent>();
+            cmp.onDestroy += BuildingDestroyed;
             newBuilding.transform.position = newPos;
+
+            SpringJoint newSpring = null;
+            if(clickedOn.tag == "BuildingBox")
+            {
+                Rigidbody clickedBody = clickedOn.GetComponent<Rigidbody>();
+
+                newSpring = newBuilding.AddComponent<SpringJoint>();
+                newSpring.connectedBody = clickedBody;
+                newSpring.enableCollision = true;
+                newSpring.breakForce = 10.0f;
+
+            }
+
+            cmp.Placed(newSpring);
         }
     }
 
@@ -251,5 +301,16 @@ public class PlayerController : MonoBehaviour
     {
         this.enabled = false;
         arcLineRenderer.enabled = false;
+        this.ghostBuilding.gameObject.SetActive(false);
     }
+
+    private void BuildingDestroyed(GameObject destroyed)
+    {
+        buildingObjects.Remove(destroyed);
+        if (_gameController.IsBuildPhase())
+            return;
+        if(buildingObjects.Count == 0)
+            _gameController.PlayerLost(this);
+    }
+
 }
