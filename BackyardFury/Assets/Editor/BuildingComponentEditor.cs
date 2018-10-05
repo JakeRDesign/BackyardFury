@@ -73,6 +73,26 @@ public class BuildingComponentEditor : Editor
             "Force required to break springs\n" +
             "Seems to be dependent on mass, so tweaking might be needed"),
             cmp.forceToBreak);
+
+        EditorGUILayout.Separator();
+        EditorGUILayout.LabelField("Animation", EditorStyles.boldLabel);
+
+        cmp.fallTime = EditorGUILayout.FloatField("Fall Time", cmp.fallTime);
+        cmp.fallHeight = EditorGUILayout.FloatField("Fall Height", 
+            cmp.fallHeight);
+
+        cmp.stretchAmount =
+            EditorGUILayout.FloatField(new GUIContent("Stretch Amount", 
+            "The factor to stretch by at peak stretch levels"),
+            cmp.stretchAmount);
+        cmp.squashAmount =
+            EditorGUILayout.FloatField(new GUIContent("Squash Amount", 
+            "The factor to squash by upon landing"),
+            cmp.squashAmount);
+        cmp.inflateSpeed =
+            EditorGUILayout.FloatField(new GUIContent("Inflate Speed", 
+            "How fast the box should un-squash back to its original size"),
+            cmp.inflateSpeed);
     }
 
 }

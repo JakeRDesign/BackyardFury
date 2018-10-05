@@ -22,6 +22,13 @@ public class BuildingComponent : MonoBehaviour
     // how far to look to connect boxes
     public float connectDistance = 0.6f;
 
+    // animation
+    public float fallTime = 0.2f;
+    public float fallHeight = 10.0f;
+    public float stretchAmount = 5.0f;
+    public float squashAmount = 0.6f;
+    public float inflateSpeed = 20.0f;
+
     // is this box still existing
     // this gets set to false as soon as the box starts disappearing, so we
     // can count it as "dead" before it's fully animated out
@@ -31,24 +38,68 @@ public class BuildingComponent : MonoBehaviour
     private Vector3 placedPosition;
     private List<SpringJoint> connectedSprings;
 
+    // timer used to lerp it to the ground
+    private float dropTimer;
+    // stuff used for stretching/squashing
+    private Vector3 startScale;
+
     // delegate event things
-    public delegate void BuildingCallback(GameObject destroyed);
+    public delegate void BuildingCallback(GameObject obj);
     public BuildingCallback onDestroy;
     public BuildingCallback onFinishedPlacing;
+
+    public Rigidbody body;
 
     // Called when building is placed
     private void Start()
     {
+        body = GetComponent<Rigidbody>();
+        // turn off physics until we land
+        body.useGravity = false;
+        body.detectCollisions = false;
+
+        dropTimer = 0.0f;
+        startScale = transform.localScale;
         placedPosition = transform.position;
-        CreateSpringConnections();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (dropTimer < fallTime)
+        {
+            dropTimer += Time.deltaTime;
+
+            // animate
+            float animPercent = 1 - (dropTimer / fallTime);
+            float yOffset = fallHeight * animPercent;
+            transform.position = placedPosition + Vector3.up * yOffset;
+
+            float yStretch = stretchAmount * animPercent;
+            Vector3 destScale = startScale;
+            destScale.y *= squashAmount;
+            transform.localScale = destScale + (Vector3.up * yStretch * startScale.y);
+
+            // check if the fall finished this frame
+            if (dropTimer >= fallTime)
+            {
+                // re-enable physics
+                body.useGravity = true;
+                body.detectCollisions = true;
+
+                transform.position = placedPosition;
+                CreateSpringConnections();
+                //onFinishedPlacing(this.gameObject);
+            }
+            return;
+        }
+
+        transform.localScale -= (transform.localScale - startScale) * 
+            Time.deltaTime * inflateSpeed;
+
         if (connectedSprings.Count == 0)
         {
-            if (Vector3.Distance(transform.position, placedPosition) > 
+            if (Vector3.Distance(transform.position, placedPosition) >
                 distanceToRemove)
                 StartCoroutine(StartRemoving());
 
