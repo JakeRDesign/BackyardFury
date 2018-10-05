@@ -176,9 +176,11 @@ public class PlayerController : MonoBehaviour
         Ray downRay = new Ray(newPos + Vector3.up, Vector3.down);
         RaycastHit downHit;
         if (Physics.Raycast(downRay, out downHit, Mathf.Infinity, ~0, QueryTriggerInteraction.Ignore))
-            newPos.y = downHit.point.y + 0.5f;
+            newPos.y = downHit.point.y;
         else
             return; // exit if there's no ground
+
+        newPos.y += 0.05f;
 
         // factors to multiply and divide by to snap to the desired measurement
         // Max(0.0001, x) makes sure we don't divide by 0 and is small enough
@@ -211,27 +213,6 @@ public class PlayerController : MonoBehaviour
             cmp.onDestroy += BuildingDestroyed;
             // add to the buildingObjects list to detect when we lose
             buildingObjects.Add(newBuilding);
-
-            // to keep it from being super easy to destroy peoples bases,
-            // attach boxes with spring joints which make the buildings
-            // stay standing if they weren't hit very hard
-            SpringJoint newSpring = null;
-            if (clickedOn.tag == "BuildingBox")
-            {
-                Rigidbody clickedBody = clickedOn.GetComponent<Rigidbody>();
-
-                // make new spring joint
-                newSpring = newBuilding.AddComponent<SpringJoint>();
-                // attach to what we clicked on
-                newSpring.connectedBody = clickedBody;
-                newSpring.enableCollision = true;
-                // break force might need tweaking - should probably expose
-                newSpring.breakForce = 10.0f;
-            }
-
-            // let the component know it's been placed so it can start
-            // detecting if it needs to break
-            cmp.Placed(newSpring);
         }
     }
 

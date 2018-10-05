@@ -13,6 +13,8 @@ public class GameController : MonoBehaviour
     // transforms that the camera should copy when on a certain player's turn
     public List<Transform> cameraTransforms;
 
+    public float cameraFollowStrength = 10.0f;
+
     public int currentTurn = 0;
     private float turnTimer = 0.0f;
 
@@ -50,7 +52,7 @@ public class GameController : MonoBehaviour
     {
         turnTimer -= Time.deltaTime;
         uiController.SetTimer(turnTimer);
-        if (turnTimer <= 0.0f)
+        if (turnTimer <= 0.0f || Input.GetKeyDown(KeyCode.P))
             StartNextTeam();
 
         if (followingProjectile != null)
@@ -58,11 +60,9 @@ public class GameController : MonoBehaviour
             Vector3 destPosition =
                 followingProjectile.transform.position + followingOffset;
 
-            const float smoothAmount = 3.0f;
-
             mainCamera.transform.position -=
                 (mainCamera.transform.position - destPosition) *
-                smoothAmount * Time.deltaTime;
+                cameraFollowStrength * Time.deltaTime;
 
             return;
         }
