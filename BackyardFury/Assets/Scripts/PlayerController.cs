@@ -40,17 +40,19 @@ public class PlayerController : MonoBehaviour
     public GameObject buildingPrefab;
     // build zone info - make sure PlayerControllerEditor.cs is in the Editor
     // folder in the root Assets folder!
-    public Vector3 zoneCenter;
-    public Vector3 zoneSize;
+    public Bounds buildZone;
+    //public Vector3 zoneCenter;
+    //public Vector3 zoneSize;
     // any material will do, probably a translucent one
     public Material ghostMaterial;
+    // material to show when transparent block can't be placed
+    public Material ghostMaterialError;
     private GameObject ghostBuilding;
     // units to snap to, will snap every 1 meter for X and Z and every 0.5 for Y
     public Vector3 buildSnap = new Vector3(1.0f, 0.5f, 1.0f);
     public List<GameObject> buildingObjects;
 
     private RectTransform _cursorImage;
-    private Vector3 lastMousePos;
     private Camera _mainCamera;
     private GameController _gameController;
 
@@ -81,7 +83,9 @@ public class PlayerController : MonoBehaviour
             // remove rigidbody and boxcollider from ghost building so placing 
             // boxes with rigidbodies doesn't throw them away instantly
             Destroy(ghostBuilding.GetComponent<Rigidbody>());
-            Destroy(ghostBuilding.GetComponent<BoxCollider>());
+            // make collider a trigger so it doesn't collide but we can still
+            // use it to get its extents
+            ghostBuilding.GetComponent<BoxCollider>().isTrigger = true;
         }
 
         // grab references to objects
@@ -128,24 +132,14 @@ public class PlayerController : MonoBehaviour
 
     void UpdateBuildMode()
     {
-        float moveSens = Mathf.Max(Screen.width, Screen.height) * 0.5f;
-        float yMov = Input.GetAxis("Vertical");
-        float xMov = Input.GetAxis("Horizontal");
-
-        Vector3 cursorPos = _cursorImage.position;
-        cursorPos.x += xMov * moveSens * Time.deltaTime;
-        cursorPos.y += yMov * moveSens * Time.deltaTime;
-
-        if (Vector3.Distance(Input.mousePosition, lastMousePos) > 0.0f)
-            cursorPos = Input.mousePosition;
-
+        Vector3 cursorPos = Input.mousePosition;
         _cursorImage.position = cursorPos;
 
-        lastMousePos = Input.mousePosition;
-
+        // cast ray from mouse position to choose where to build
         Ray r = _mainCamera.ScreenPointToRay(cursorPos);
         RaycastHit[] hits = Physics.RaycastAll(r);
 
+        // stuff to keep track of what we're hovering over
         float cDist = Mathf.Infinity;
         Vector3 cPos = Vector3.zero;
         Vector3 cNorm = Vector3.zero;
@@ -153,10 +147,14 @@ public class PlayerController : MonoBehaviour
 
         foreach (RaycastHit h in hits)
         {
+            // don't detect itself
             if (h.collider.gameObject == ghostBuilding)
                 continue;
+            // don't detect triggers - only physical colliders
             if (h.collider.isTrigger)
                 continue;
+
+            // keep track of the closest hit to the camera
             if (h.distance < cDist)
             {
                 cPos = h.point;
@@ -166,53 +164,73 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        // nothing was moused over!
         if (cDist == Mathf.Infinity)
             return;
 
         Vector3 newPos = cPos;
-
+        // push back in the direction that the raycast "bounces"
         newPos += cNorm * 0.5f;
 
         // raycast downwards to place on the ground
         Ray downRay = new Ray(newPos + Vector3.up, Vector3.down);
         RaycastHit downHit;
-        if (Physics.Raycast(downRay, out downHit))
+        if (Physics.Raycast(downRay, out downHit, Mathf.Infinity, ~0, QueryTriggerInteraction.Ignore))
             newPos.y = downHit.point.y + 0.5f;
         else
-            return;
+            return; // exit if there's no ground
 
-
-
+        // factors to multiply and divide by to snap to the desired measurement
+        // Max(0.0001, x) makes sure we don't divide by 0 and is small enough
+        // to be effectively the same as having no snapping
         float xFactor = 1.0f / Mathf.Max(0.0001f, buildSnap.x);
-        float yFactor = 1.0f / 0.0001f;
         float zFactor = 1.0f / Mathf.Max(0.0001f, buildSnap.z);
 
+        // snappy snap
         newPos.x = Mathf.Round(newPos.x * xFactor) / xFactor;
-        newPos.y = Mathf.Round(newPos.y * yFactor) / yFactor;
         newPos.z = Mathf.Round(newPos.z * zFactor) / zFactor;
 
         ghostBuilding.transform.position = newPos;
 
-        if (Input.GetButtonDown("Fire1"))
+        // check if the place is buildable
+        BoxCollider ghostCollider = ghostBuilding.GetComponent<BoxCollider>();
+        bool isValidPosition = Encapsulates(buildZone, ghostCollider.bounds);
+
+        ghostBuilding.GetComponent<MeshRenderer>().material = isValidPosition ? ghostMaterial : ghostMaterialError;
+
+        // click to build
+        if (Input.GetButtonDown("Fire1") && isValidPosition)
         {
+            // make our new building
             GameObject newBuilding = Instantiate(buildingPrefab);
-            buildingObjects.Add(newBuilding);
             BuildingComponent cmp = newBuilding.GetComponent<BuildingComponent>();
-            cmp.onDestroy += BuildingDestroyed;
+            // place where the ghost cube is
             newBuilding.transform.position = newPos;
 
+            // add destroy event to detect when we lose
+            cmp.onDestroy += BuildingDestroyed;
+            // add to the buildingObjects list to detect when we lose
+            buildingObjects.Add(newBuilding);
+
+            // to keep it from being super easy to destroy peoples bases,
+            // attach boxes with spring joints which make the buildings
+            // stay standing if they weren't hit very hard
             SpringJoint newSpring = null;
-            if(clickedOn.tag == "BuildingBox")
+            if (clickedOn.tag == "BuildingBox")
             {
                 Rigidbody clickedBody = clickedOn.GetComponent<Rigidbody>();
 
+                // make new spring joint
                 newSpring = newBuilding.AddComponent<SpringJoint>();
+                // attach to what we clicked on
                 newSpring.connectedBody = clickedBody;
                 newSpring.enableCollision = true;
+                // break force might need tweaking - should probably expose
                 newSpring.breakForce = 10.0f;
-
             }
 
+            // let the component know it's been placed so it can start
+            // detecting if it needs to break
             cmp.Placed(newSpring);
         }
     }
@@ -274,8 +292,6 @@ public class PlayerController : MonoBehaviour
         ghostBuilding.SetActive(true);
         arcLineRenderer.enabled = false;
         _cursorImage.gameObject.SetActive(true);
-
-        lastMousePos = Input.mousePosition;
     }
 
     void StartShootMode()
@@ -309,8 +325,13 @@ public class PlayerController : MonoBehaviour
         buildingObjects.Remove(destroyed);
         if (_gameController.IsBuildPhase())
             return;
-        if(buildingObjects.Count == 0)
+        if (buildingObjects.Count == 0)
             _gameController.PlayerLost(this);
+    }
+
+    private bool Encapsulates(Bounds a, Bounds b)
+    {
+        return a.Contains(b.min) && a.Contains(b.max);
     }
 
 }

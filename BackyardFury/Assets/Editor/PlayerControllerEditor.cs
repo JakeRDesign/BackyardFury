@@ -21,15 +21,14 @@ public class PlayerControllerEditor : Editor
     {
         Handles.zTest = UnityEngine.Rendering.CompareFunction.Less;
         Handles.color = Color.cyan;
-        controller.zoneCenter =
-            Handles.PositionHandle(controller.zoneCenter, Quaternion.identity);
+        controller.buildZone.center = Handles.PositionHandle(controller.buildZone.center, Quaternion.identity);
         Handles.color = Color.cyan;
-        Handles.DrawWireCube(controller.zoneCenter, controller.zoneSize);
-        Handles.Label(controller.zoneCenter - Vector3.up*0.5f, "Build Zone");
+        Handles.DrawWireCube(controller.buildZone.center, controller.buildZone.extents*2.0f);
+        Handles.Label(controller.buildZone.center - Vector3.up*0.5f, "Build Zone");
 
-        controller.zoneSize = 
-            Handles.ScaleHandle(controller.zoneSize, 
-            controller.zoneCenter - Vector3.up * 1.3f, 
+        controller.buildZone.extents = 
+            Handles.ScaleHandle(controller.buildZone.extents, 
+            controller.buildZone.center - Vector3.up * 1.3f, 
             Quaternion.identity, 1.0f);
     }
 }
