@@ -51,6 +51,7 @@ public class PlayerController : MonoBehaviour
     // units to snap to, will snap every 1 meter for X and Z and every 0.5 for Y
     public Vector3 buildSnap = new Vector3(1.0f, 0.5f, 1.0f);
     public List<GameObject> buildingObjects;
+    private bool waitingForBox = false;
 
     private RectTransform _cursorImage;
     private Camera _mainCamera;
@@ -196,7 +197,9 @@ public class PlayerController : MonoBehaviour
 
         // check if the place is buildable
         BoxCollider ghostCollider = ghostBuilding.GetComponent<BoxCollider>();
-        bool isValidPosition = Encapsulates(buildZone, ghostCollider.bounds);
+        bool isValidPosition = 
+            Encapsulates(buildZone, ghostCollider.bounds) &&
+            !waitingForBox;
 
         ghostBuilding.GetComponent<MeshRenderer>().material = isValidPosition ? ghostMaterial : ghostMaterialError;
 
@@ -208,9 +211,12 @@ public class PlayerController : MonoBehaviour
             BuildingComponent cmp = newBuilding.GetComponent<BuildingComponent>();
             // place where the ghost cube is
             newBuilding.transform.position = newPos;
+            // set the flag which stops us from bulding while box is falling
+            waitingForBox = true;
 
             // add destroy event to detect when we lose
             cmp.onDestroy += BuildingDestroyed;
+            cmp.onFinishedPlacing += x => waitingForBox = false;
             // add to the buildingObjects list to detect when we lose
             buildingObjects.Add(newBuilding);
         }

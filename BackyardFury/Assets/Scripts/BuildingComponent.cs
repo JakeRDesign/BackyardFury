@@ -71,7 +71,7 @@ public class BuildingComponent : MonoBehaviour
             dropTimer += Time.deltaTime;
 
             // animate
-            float animPercent = 1 - (dropTimer / fallTime);
+            float animPercent = 1 - Mathf.Min(1.0f, dropTimer / fallTime);
             float yOffset = fallHeight * animPercent;
             transform.position = placedPosition + Vector3.up * yOffset;
 
@@ -89,7 +89,7 @@ public class BuildingComponent : MonoBehaviour
 
                 transform.position = placedPosition;
                 CreateSpringConnections();
-                //onFinishedPlacing(this.gameObject);
+                onFinishedPlacing(this.gameObject);
             }
             return;
         }
@@ -183,6 +183,8 @@ public class BuildingComponent : MonoBehaviour
         foreach (RaycastHit hit in Physics.RaycastAll(r))
         {
             if (hit.collider.gameObject == this.gameObject)
+                continue;
+            if (hit.collider.isTrigger)
                 continue;
             if (hit.collider.gameObject.tag != "BuildingBox")
                 continue;

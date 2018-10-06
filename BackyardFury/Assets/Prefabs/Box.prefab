@@ -141,4 +141,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0316fc4c66ce9b458e47052800f87c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  removeOnSpringBreak: 1
+  distanceToRemove: 0.5
+  forceToBreak: 5
+  connectUnder: 0
+  connectAdjacent: 0
+  connectDistance: 0.6
+  fallTime: 0.2
+  fallHeight: 10
+  stretchAmount: 15
+  squashAmount: 0.6
+  inflateSpeed: 25
   isAlive: 1
+  body: {fileID: 0}
