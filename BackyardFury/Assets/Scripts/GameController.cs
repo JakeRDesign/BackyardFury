@@ -51,7 +51,13 @@ public class GameController : MonoBehaviour
     void Update()
     {
         turnTimer -= Time.deltaTime;
+        // debug key to add time to a turn
+        if (Input.GetKeyDown(KeyCode.O))
+            turnTimer += 10.0f;
+
         uiController.SetTimer(turnTimer);
+
+        // TODO: make a proper binding for skipping turn
         if (turnTimer <= 0.0f || Input.GetKeyDown(KeyCode.P))
             StartNextTeam();
 
