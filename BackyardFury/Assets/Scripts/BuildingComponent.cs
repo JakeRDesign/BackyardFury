@@ -94,20 +94,39 @@ public class BuildingComponent : MonoBehaviour
             return;
         }
 
-        transform.localScale -= (transform.localScale - startScale) * 
+        transform.localScale -= (transform.localScale - startScale) *
             Time.deltaTime * inflateSpeed;
 
-        if (connectedSprings.Count == 0)
+        if (connectedSprings.Count == 0 || !removeOnSpringBreak)
         {
             if (Vector3.Distance(transform.position, placedPosition) >
                 distanceToRemove)
                 StartCoroutine(StartRemoving());
+        }
+        else if (connectedSprings.Count > 0 && removeOnSpringBreak)
+        {
+            // check if any springs are still connected
+            bool hasConnectedSpring = false;
+            foreach (SpringJoint joint in connectedSprings)
+            {
+                if (joint != null && joint.connectedBody != null)
+                {
+                    hasConnectedSpring = true;
+                    break;
+                }
+            }
 
+            // and remove if there's none left
+            if (!hasConnectedSpring)
+                StartCoroutine(StartRemoving());
         }
     }
 
     private IEnumerator StartRemoving()
     {
+        if (!isAlive)
+            yield break;
+
         isAlive = false;
 
         MeshRenderer mesh = GetComponent<MeshRenderer>();
@@ -115,7 +134,7 @@ public class BuildingComponent : MonoBehaviour
         while (mesh.material.color.a > 0)
         {
             Color c = mesh.material.color;
-            c.a -= Time.deltaTime * 0.1f;
+            c.a -= Time.deltaTime * 1.0f;
             mesh.material.color = c;
 
             yield return new WaitForEndOfFrame();
@@ -198,6 +217,7 @@ public class BuildingComponent : MonoBehaviour
         jointObject.transform.parent = gameObject.transform;
         jointObject.transform.localPosition = Vector3.zero;
         SpringJoint downJoint = jointObject.AddComponent<SpringJoint>();
+        downJoint.GetComponent<Rigidbody>().isKinematic = true;
 
         // make sure the boxes can still collide
         downJoint.enableCollision = true;
