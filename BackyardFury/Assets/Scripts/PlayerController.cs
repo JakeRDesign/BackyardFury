@@ -83,10 +83,12 @@ public class PlayerController : MonoBehaviour
             Destroy(ghostBuilding.GetComponent<BuildingComponent>());
             // remove rigidbody and boxcollider from ghost building so placing 
             // boxes with rigidbodies doesn't throw them away instantly
-            Destroy(ghostBuilding.GetComponent<Rigidbody>());
+            ghostBuilding.GetComponent<Rigidbody>().isKinematic = true;
             // make collider a trigger so it doesn't collide but we can still
             // use it to get its extents
             ghostBuilding.GetComponent<BoxCollider>().isTrigger = true;
+
+            ghostBuilding.AddComponent<GhostBox>();
         }
 
         // grab references to objects
@@ -131,10 +133,24 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
+    private Vector3 lastMousePos;
     void UpdateBuildMode()
     {
-        Vector3 cursorPos = Input.mousePosition;
+        float moveSens = Mathf.Max(Screen.width, Screen.height) * 0.5f;
+        float yMov = Input.GetAxis("Vertical");
+        float xMov = Input.GetAxis("Horizontal");
+
+        Vector3 cursorPos = _cursorImage.position;
+        cursorPos.x += xMov * moveSens * Time.deltaTime;
+        cursorPos.y += yMov * moveSens * Time.deltaTime;
+
+        if (Vector3.Distance(Input.mousePosition, lastMousePos) > 0.0f)
+            cursorPos = Input.mousePosition;
+
         _cursorImage.position = cursorPos;
+
+        lastMousePos = Input.mousePosition;
 
         // cast ray from mouse position to choose where to build
         Ray r = _mainCamera.ScreenPointToRay(cursorPos);
@@ -199,7 +215,13 @@ public class PlayerController : MonoBehaviour
         BoxCollider ghostCollider = ghostBuilding.GetComponent<BoxCollider>();
         bool isValidPosition = 
             Encapsulates(buildZone, ghostCollider.bounds) &&
-            !waitingForBox;
+            !waitingForBox && !ghostBuilding.GetComponent<GhostBox>().IsIntersecting();
+
+        List<string> allowedTags = new List<string>();
+        allowedTags.Add("Ground");
+        allowedTags.Add("BuildingBox");
+
+        //isValidPosition = isValidPosition && (allowedTags.Contains(downHit.collider.gameObject.tag));
 
         ghostBuilding.GetComponent<MeshRenderer>().material = isValidPosition ? ghostMaterial : ghostMaterialError;
 
