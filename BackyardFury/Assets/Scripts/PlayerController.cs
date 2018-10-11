@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.UI;
+using XInputDotNetPure;
+using XboxCtrlrInput;
 
 // Attach this to an empty object and set up all exposed things in inspector
 
@@ -56,6 +58,7 @@ public class PlayerController : MonoBehaviour
     private RectTransform _cursorImage;
     private Camera _mainCamera;
     private GameController _gameController;
+    private float sensitivity = 400.0f;
 
     // shooting delegate/event for GameController to handle the end of the turn
     public delegate void ProjectileShotEvent(GameObject projectile);
@@ -133,24 +136,30 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    Vector3 lastMousePosition;
 
-    private Vector3 lastMousePos;
     void UpdateBuildMode()
     {
-        float moveSens = Mathf.Max(Screen.width, Screen.height) * 0.5f;
-        float yMov = Input.GetAxis("Vertical");
-        float xMov = Input.GetAxis("Horizontal");
 
-        Vector3 cursorPos = _cursorImage.position;
-        cursorPos.x += xMov * moveSens * Time.deltaTime;
-        cursorPos.y += yMov * moveSens * Time.deltaTime;
+        Vector3 cursorPos;
 
-        if (Vector3.Distance(Input.mousePosition, lastMousePos) > 0.0f)
+        if (Vector3.Distance(lastMousePosition, Input.mousePosition) > 1)
+        {
             cursorPos = Input.mousePosition;
-
+            lastMousePosition = Input.mousePosition;
+        }
+        else
+        {
+            cursorPos = _cursorImage.position;
+            GamePadState state = GamePad.GetState(PlayerIndex.One);
+            cursorPos.x += state.ThumbSticks.Left.X * Time.deltaTime * sensitivity;
+            cursorPos.y += state.ThumbSticks.Left.Y * Time.deltaTime * sensitivity;
+        }
         _cursorImage.position = cursorPos;
 
-        lastMousePos = Input.mousePosition;
+        //Debug.Log(Input.GetJoystickNames());
+
+
 
         // cast ray from mouse position to choose where to build
         Ray r = _mainCamera.ScreenPointToRay(cursorPos);
@@ -213,7 +222,7 @@ public class PlayerController : MonoBehaviour
 
         // check if the place is buildable
         BoxCollider ghostCollider = ghostBuilding.GetComponent<BoxCollider>();
-        bool isValidPosition = 
+        bool isValidPosition =
             Encapsulates(buildZone, ghostCollider.bounds) &&
             !waitingForBox && !ghostBuilding.GetComponent<GhostBox>().IsIntersecting();
 
@@ -254,7 +263,7 @@ public class PlayerController : MonoBehaviour
         float xRot = Input.GetAxis("Vertical") * front;
         float yRot = Input.GetAxis("Horizontal") * right;
 
-        const float rotSpeed = 20.0f;
+        const float rotSpeed = 30.0f;
 
         shootRotation.x += xRot * rotSpeed * Time.deltaTime;
         shootRotation.y += yRot * rotSpeed * Time.deltaTime;
