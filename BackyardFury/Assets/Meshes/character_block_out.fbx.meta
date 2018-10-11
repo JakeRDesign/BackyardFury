@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: b669888143ce1b14a9c134bcc05f835f
-timeCreated: 1538698953
+guid: 394770ed0df4bf448ad099f183a6efb9
+timeCreated: 1539225534
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -10,7 +10,7 @@ ModelImporter:
     2100000: lambert1
     2300000: //RootNode
     3300000: //RootNode
-    4300000: slingshot_main_v2
+    4300000: character_block_out
     9500000: //RootNode
   externalObjects: {}
   materials:
