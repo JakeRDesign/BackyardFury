@@ -31,8 +31,8 @@ public class PlayerController : MonoBehaviour
     private LineRenderer arcLineRenderer;
 
     [Header("Projectile Settings")]
-    // a prefab of an object with a RigidBody attached to it!
-    public GameObject projectilePrefab;
+    public List<GameObject> projectilePrefabs;
+    //public GameObject projectilePrefab;
     public float shootStrength = 11.0f;
     public Vector3 startingAngle;
     private Vector3 shootRotation;
@@ -293,7 +293,10 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetButtonDown("Fire1"))
         {
-            GameObject newProjectile = Instantiate(projectilePrefab);
+            // choose a projectile
+            GameObject projectile = projectilePrefabs[Random.Range(0, projectilePrefabs.Count)];
+
+            GameObject newProjectile = Instantiate(projectile);
             newProjectile.transform.position =
                 launcherObject.transform.position;
             newProjectile.GetComponent<Rigidbody>().velocity = shootForce;

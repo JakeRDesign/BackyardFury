@@ -17,12 +17,6 @@ public class BuildingComponentEditor : Editor
     SerializedProperty connectDistance;
     SerializedProperty forceToBreak;
 
-    SerializedProperty fallTime;
-    SerializedProperty fallHeight;
-    SerializedProperty stretchAmount;
-    SerializedProperty squashAmount;
-    SerializedProperty inflateSpeed;
-
     void OnEnable()
     {
         removeOnSpringBreak = 
@@ -38,19 +32,6 @@ public class BuildingComponentEditor : Editor
             serializedObject.FindProperty("connectDistance");
         forceToBreak = 
             serializedObject.FindProperty("forceToBreak");
-
-        fallTime = 
-            serializedObject.FindProperty("fallTime");
-        fallHeight = 
-            serializedObject.FindProperty("fallHeight");
-        stretchAmount = 
-            serializedObject.FindProperty("stretchAmount");
-        squashAmount = 
-            serializedObject.FindProperty("squashAmount");
-        inflateSpeed = 
-            serializedObject.FindProperty("inflateSpeed");
-
-        Debug.Log("enabled!");
     }
 
     public override void OnInspectorGUI()
@@ -124,24 +105,6 @@ public class BuildingComponentEditor : Editor
 
         EditorGUILayout.Separator();
         EditorGUILayout.LabelField("Animation", EditorStyles.boldLabel);
-
-        fallTime.floatValue = EditorGUILayout.FloatField("Fall Time", 
-            fallTime.floatValue);
-        fallHeight.floatValue = EditorGUILayout.FloatField("Fall Height", 
-            fallHeight.floatValue);
-
-        stretchAmount.floatValue =
-            EditorGUILayout.FloatField(new GUIContent("Stretch Amount", 
-            "The factor to stretch by at peak stretch levels"),
-            stretchAmount.floatValue);
-        squashAmount.floatValue =
-            EditorGUILayout.FloatField(new GUIContent("Squash Amount", 
-            "The factor to squash by upon landing"),
-            squashAmount.floatValue);
-        inflateSpeed.floatValue =
-            EditorGUILayout.FloatField(new GUIContent("Inflate Speed", 
-            "How fast the box should un-squash back to its original size"),
-            inflateSpeed.floatValue);
 
         serializedObject.ApplyModifiedProperties();
     }

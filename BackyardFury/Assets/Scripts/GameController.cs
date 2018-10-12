@@ -16,6 +16,7 @@ public class GameController : MonoBehaviour
     public float cameraFollowStrength = 10.0f;
 
     public int currentTurn = 0;
+    public float turnLength = 30.0f;
     private float turnTimer = 0.0f;
 
     private Camera mainCamera;
@@ -38,6 +39,8 @@ public class GameController : MonoBehaviour
         {
             p.onShoot += PlayerShot;
             p.Disable();
+
+            GetComponent<ObstaclePlacer>().PlaceObstacles(p.buildZone);
         }
 
         currentTurn = -1;
@@ -76,7 +79,7 @@ public class GameController : MonoBehaviour
 
     void StartNextTeam()
     {
-        turnTimer = 30.0f;
+        turnTimer = turnLength;
 
         // make sure we're not following a projectile
         followingProjectile = null;
