@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: c5cc25a23de934746b073f37c27ffa48
-timeCreated: 1539147816
+guid: 31bf353038b309542b229f5e32f50424
+timeCreated: 1539229203
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -10,7 +10,7 @@ ModelImporter:
     2100000: lambert1
     2300000: //RootNode
     3300000: //RootNode
-    4300000: pCube7
+    4300000: pCube9
     9500000: //RootNode
   externalObjects: {}
   materials:
