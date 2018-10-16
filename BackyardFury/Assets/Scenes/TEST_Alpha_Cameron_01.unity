@@ -11199,11 +11199,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3486846b6775b0046a4c50f37c2a4142, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obstaclesPerSide: 1
+  obstaclesPerSide: 5
   rotateObstacles: 1
+  isPlacing: 0
   obstacles:
-  - {fileID: 1813681200948016, guid: 431b840d3d66d1746951b112d9f3f1fe, type: 2}
-  - {fileID: 1446524006287094, guid: b5b7e4311ac60854da392d45747c5a22, type: 2}
+  - {fileID: 1304319860016308, guid: 05a7f28caddb19245a451967d43ec628, type: 2}
+  - {fileID: 1368641205979942, guid: 16a432243eca12446ae519a133fe14b2, type: 2}
+  - {fileID: 1316518554164914, guid: 78fa8742b86012b47aafe2ee8aee74b3, type: 2}
 --- !u!1001 &2090598969
 Prefab:
   m_ObjectHideFlags: 0

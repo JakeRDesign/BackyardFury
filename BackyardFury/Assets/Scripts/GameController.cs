@@ -39,12 +39,9 @@ public class GameController : MonoBehaviour
         {
             p.onShoot += PlayerShot;
             p.Disable();
-
-            GetComponent<ObstaclePlacer>().PlaceObstacles(p.buildZone);
         }
 
         currentTurn = -1;
-        StartNextTeam();
     }
 
     void Start()
@@ -53,6 +50,12 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.J))
+            StartCoroutine(PlaceObstacles());
+
+        if (currentTurn < 0)
+            return;
+
         turnTimer -= Time.deltaTime;
         // debug key to add time to a turn
         if (Input.GetKeyDown(KeyCode.O))
@@ -75,6 +78,32 @@ public class GameController : MonoBehaviour
 
             return;
         }
+    }
+
+    IEnumerator PlaceObstacles()
+    {
+        currentTurn = -1;
+        ObstaclePlacer placer = GetComponent<ObstaclePlacer>();
+        for (int i = 0; i < players.Count; ++i)
+        {
+            // move camera to see obstacles being dropped
+            Transform destTransform = cameraTransforms[i];
+            mainCamera.transform.SetPositionAndRotation(
+                destTransform.position,
+                destTransform.rotation
+            );
+
+            PlayerController p = players[i];
+            placer.isPlacing = true;
+            StartCoroutine(placer.PlaceObstacles(p.buildZone));
+            while (placer.isPlacing)
+                yield return new WaitForSeconds(0.1f);
+
+            yield return new WaitForSeconds(1.0f);
+        }
+
+        currentTurn = -1;
+        StartNextTeam();
     }
 
     void StartNextTeam()

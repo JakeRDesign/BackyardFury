@@ -7,38 +7,47 @@ public class ObstaclePlacer : MonoBehaviour
 
     public int obstaclesPerSide = 2;
     public bool rotateObstacles = true;
+    public bool isPlacing = false;
     public List<GameObject> obstacles;
 
-    public void PlaceObstacles(Bounds inBounds)
+    public IEnumerator PlaceObstacles(Bounds inBounds)
     {
+        isPlacing = true;
         int placedObstacles = 0;
         for (int i = 0; i < obstaclesPerSide; ++i)
-            if (PlaceObstacle(inBounds))
-                placedObstacles++;
+        {
+            ObjectDropper obs = PlaceObstacle(inBounds);
+            if (obs == null)
+                continue;
 
-        Debug.Log("Placed " + placedObstacles + " obstacles");
+            while (!obs.hasLanded)
+                yield return new WaitForEndOfFrame();
+
+            placedObstacles++;
+        }
+        isPlacing = false;
     }
 
-    private bool PlaceObstacle(Bounds inBounds)
+    private ObjectDropper PlaceObstacle(Bounds inBounds)
     {
         Vector3 point;
         if (!GetRandomPoint(inBounds, out point))
         {
             Debug.LogError("Couldn't find a position for an obstacle!");
-            return false;
+            return null;
         }
 
         Quaternion randomRotation = Quaternion.Euler(0, Random.Range(0.0f, 360.0f), 0);
 
-        GameObject newObstacle = 
-            Instantiate(obstacles[Random.Range(0, obstacles.Count)], point, 
+        GameObject newObstacle =
+            Instantiate(obstacles[Random.Range(0, obstacles.Count)], point,
             randomRotation);
 
         ObjectDropper dropper = newObstacle.GetComponent<ObjectDropper>();
         if (dropper)
             dropper.fallTime += Random.Range(-0.1f, 0.1f);
 
-        return true;
+        return dropper;
     }
 
     private bool GetRandomPoint(Bounds inBounds, out Vector3 point)

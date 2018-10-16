@@ -209,6 +209,8 @@ public class BuildPlayerMode : MonoBehaviour
         // make collider a trigger so it doesn't collide but we can still
         // use it to get its extents
         ghostBuilding.GetComponent<BoxCollider>().isTrigger = true;
+        // and remove object dropper so it doesn't weirdly drop from the sky
+        Destroy(ghostBuilding.GetComponent<ObjectDropper>());
 
         ghostBuilding.AddComponent<GhostBox>();
     }
