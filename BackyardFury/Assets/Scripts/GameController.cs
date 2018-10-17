@@ -23,7 +23,9 @@ public class GameController : MonoBehaviour
     private UIController uiController;
     private GameObject followingProjectile;
     private Vector3 followingOffset;
+
     private bool buildPhase = true;
+    private bool gameOver = false;
 
     void Awake()
     {
@@ -51,7 +53,7 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
-        if (currentTurn < 0)
+        if (currentTurn < 0 || gameOver)
             return;
 
         turnTimer -= Time.deltaTime;
@@ -106,6 +108,8 @@ public class GameController : MonoBehaviour
 
     void StartNextTeam()
     {
+        if (gameOver)
+            return;
         turnTimer = turnLength;
 
         // make sure we're not following a projectile
@@ -188,6 +192,11 @@ public class GameController : MonoBehaviour
 
         Assert.AreNotEqual(-1, index, "Winning player couldn't be found in players list!!");
         uiController.ShowWinnerText(index + 1);
+
+        // disable all player controllers :)
+        foreach (PlayerController p in players)
+            p.Disable();
+        gameOver = true;
     }
 
     public bool IsBuildPhase()
