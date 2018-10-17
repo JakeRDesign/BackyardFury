@@ -5,9 +5,10 @@ using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
+    public Text timerText;
     public Text winnerText;
     public Text buildBaseText;
-    public Text timerText;
+    public Text nextBuildText;
 
     public RectTransform meterTransform;
 
@@ -48,6 +49,20 @@ public class UIController : MonoBehaviour
 
         const float maxWidth = 200.0f;
         meterTransform.sizeDelta = new Vector2(maxWidth * percentage, meterTransform.sizeDelta.y);
+    }
+
+    public void UpdateNextBuildTurn(int turnCount, int interval)
+    {
+        int next = turnCount % interval;
+        nextBuildText.gameObject.SetActive(next > 0);
+
+        int turnsToNext = interval - next;
+
+        string turnText = "turns";
+        if (turnsToNext == 1)
+            turnText = "turn";
+
+        nextBuildText.text = string.Format("next build phase in {0} {1}", interval - next, turnText);
     }
 
 }
