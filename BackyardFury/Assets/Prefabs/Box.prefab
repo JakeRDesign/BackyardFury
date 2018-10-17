@@ -161,7 +161,7 @@ MonoBehaviour:
   removeOnSpringBreak: 1
   distanceToRemove: 0.5
   forceToBreak: 5
-  connectUnder: 1
-  connectAdjacent: 1
+  connectUnder: 0
+  connectAdjacent: 0
   connectDistance: 0.6
   isAlive: 1
