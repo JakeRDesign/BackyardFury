@@ -20,7 +20,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4595098409380918}
   - component: {fileID: 114242906098472568}
-  m_Layer: 0
+  - component: {fileID: 65724546014669928}
+  m_Layer: 2
   m_Name: Obstacle_TreeMushroom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,8 +39,7 @@ GameObject:
   - component: {fileID: 33989011862263066}
   - component: {fileID: 23936357649961592}
   - component: {fileID: 95097243847063290}
-  - component: {fileID: 136548111093833768}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: tree_mushroom_02_v2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -66,7 +66,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1316518554164914}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -13.717019, y: 0, z: -32.741264}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4385109168615018}
@@ -114,6 +114,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1761893322387464}
   m_Mesh: {fileID: 4300000, guid: 8f53aea0e165cf84cad789426973db7c, type: 3}
+--- !u!65 &65724546014669928
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1316518554164914}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3, y: 1.51, z: 3}
+  m_Center: {x: 0, y: 0.82, z: 0}
 --- !u!95 &95097243847063290
 Animator:
   serializedVersion: 3
@@ -147,16 +159,3 @@ MonoBehaviour:
   stretchAmount: 5
   squashAmount: 0.6
   inflateSpeed: 20
---- !u!136 &136548111093833768
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1761893322387464}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 112.69
-  m_Height: 416.026
-  m_Direction: 1
-  m_Center: {x: 0.0000076293945, y: 0.000022888184, z: 0.0000076293945}

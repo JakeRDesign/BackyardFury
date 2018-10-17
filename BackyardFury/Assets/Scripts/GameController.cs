@@ -42,7 +42,6 @@ public class GameController : MonoBehaviour
         }
 
         currentTurn = -1;
-        StartCoroutine(PlaceObstacles());
     }
 
     void Start()
@@ -51,6 +50,9 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.J))
+            StartCoroutine(PlaceObstacles());
+
         if (currentTurn < 0)
             return;
 
