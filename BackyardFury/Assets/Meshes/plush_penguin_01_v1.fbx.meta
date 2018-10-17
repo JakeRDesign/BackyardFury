@@ -1,18 +1,16 @@
 fileFormatVersion: 2
-guid: 1659f7a4995519646b19e7daa24cf3ed
-timeCreated: 1539317598
+guid: 8d8814439bed6f846b1c3013e4c8b11f
+timeCreated: 1539745709
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
-    100002: pasted__polySurface1
     400000: //RootNode
-    400002: pasted__polySurface1
     2100000: lambert1
-    2300000: pasted__polySurface1
-    3300000: pasted__polySurface1
-    4300000: pasted__polySurface1
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: pCube1
     9500000: //RootNode
   externalObjects: {}
   materials:
