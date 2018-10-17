@@ -42,6 +42,7 @@ public class GameController : MonoBehaviour
         }
 
         currentTurn = -1;
+        StartCoroutine(PlaceObstacles());
     }
 
     void Start()
@@ -51,10 +52,9 @@ public class GameController : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.J))
-            StartCoroutine(PlaceObstacles());
 
-        if (currentTurn < 0)
-            return;
+            if (currentTurn < 0)
+                return;
 
         turnTimer -= Time.deltaTime;
         // debug key to add time to a turn
