@@ -17,7 +17,6 @@ public enum TurnMode
 
 public class PlayerController : MonoBehaviour
 {
-
     // whether we're shooting or building - default switch key is 
     // right click or alt
     public TurnMode currentMode = TurnMode.BUILD;

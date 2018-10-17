@@ -19,7 +19,10 @@ public class ShootPlayerMode : MonoBehaviour
     private LineRenderer arcLineRenderer;
 
     private Camera mainCamera;
+    private UIController uiController;
     private PlayerController parentController;
+
+    private float shootPowerAbs = 0.0f;
 
     void Awake()
     {
@@ -33,6 +36,9 @@ public class ShootPlayerMode : MonoBehaviour
         // depending on which direction we're facing
         GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");
         mainCamera = camera.GetComponent<Camera>();
+
+        GameObject uiObject = GameObject.FindGameObjectWithTag("UIController");
+        uiController = uiObject.GetComponent<UIController>();
 
         parentController = GetComponent<PlayerController>();
 
@@ -61,6 +67,12 @@ public class ShootPlayerMode : MonoBehaviour
         Matrix4x4 matRotation = matRotX * matRotY;
 
         Vector3 dir = matRotation.GetColumn(0);
+        float e = Elastic(shootPowerAbs);
+        float randFactor = 0.01f * e;
+        dir.x += Mathf.Sin(Time.timeSinceLevelLoad * 19.5f) * randFactor;
+        dir.y += Mathf.Cos(Time.timeSinceLevelLoad * 24.0f) * randFactor;
+        dir.z += Mathf.Cos(Time.timeSinceLevelLoad * 26.0f) * randFactor;
+
         Vector3 shootForce = dir * shootStrength;
 
         const float arcDelta = 0.016f;
@@ -77,20 +89,37 @@ public class ShootPlayerMode : MonoBehaviour
             lastPos += tempForce * arcDelta;
         }
 
-        if (Input.GetButtonDown("Fire1"))
+        const float increaseSpeed = 0.2f;
+        if (Input.GetButton("Fire1"))
         {
-            // choose a projectile
-            GameObject projectile = projectilePrefabs[Random.Range(0, projectilePrefabs.Count)];
-
-            GameObject newProjectile = Instantiate(projectile);
-            newProjectile.transform.position =
-                launcherObject.transform.position;
-            newProjectile.GetComponent<Rigidbody>().velocity = shootForce;
-
-            // call any attached functions
-            if (parentController.onShoot != null)
-                parentController.onShoot(newProjectile);
+            shootPowerAbs += Time.deltaTime * increaseSpeed;
+            if (shootPowerAbs > 1.0f)
+                shootPowerAbs = 1.0f;
         }
+        else
+        {
+            if (shootPowerAbs > 0.05f)
+            {
+                ShootProjectile(shootForce);
+            }
+            shootPowerAbs = 0.0f;
+        }
+        uiController.SetShotMeter(Elastic(shootPowerAbs));
+    }
+
+    private void ShootProjectile(Vector3 shootForce)
+    {
+        // choose a projectile
+        GameObject projectile = projectilePrefabs[Random.Range(0, projectilePrefabs.Count)];
+
+        GameObject newProjectile = Instantiate(projectile);
+        newProjectile.transform.position =
+            launcherObject.transform.position;
+        newProjectile.GetComponent<Rigidbody>().velocity = shootForce;
+
+        // call any attached functions
+        if (parentController.onShoot != null)
+            parentController.onShoot(newProjectile);
     }
 
     public void EnableMode()
@@ -106,6 +135,12 @@ public class ShootPlayerMode : MonoBehaviour
     private void SetEnabled(bool b)
     {
         arcLineRenderer.enabled = b;
-        this.enabled = b;
+        enabled = b;
+        shootPowerAbs = 0.0f;
+    }
+
+    private float Elastic(float abs)
+    {
+        return Mathf.Pow(abs, 0.5f);
     }
 }

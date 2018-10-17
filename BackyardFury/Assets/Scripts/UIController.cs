@@ -9,6 +9,8 @@ public class UIController : MonoBehaviour
     public Text buildBaseText;
     public Text timerText;
 
+    public RectTransform meterTransform;
+
     private void Awake()
     {
         // start by showing build base text
@@ -37,6 +39,15 @@ public class UIController : MonoBehaviour
         if (time < 0)
             timerText.text = "";
         timerText.text = Mathf.Floor(time).ToString();
+    }
+
+    public void SetShotMeter(float percentage)
+    {
+        if (meterTransform == null)
+            return;
+
+        const float maxWidth = 200.0f;
+        meterTransform.sizeDelta = new Vector2(maxWidth * percentage, meterTransform.sizeDelta.y);
     }
 
 }
