@@ -16,6 +16,10 @@ public class ShootPlayerMode : MonoBehaviour
     [Header("Arc Settings")]
     public Material arcLineMaterial;
     public float arcLineWidth = 0.1f;
+    // the length of the trajectory preview in seconds
+    // so 3 = the end of the arc is where the projectile will be after
+    // 3 seconds :)
+    public float arcPreviewLength = 3.0f;
     private LineRenderer arcLineRenderer;
 
     private Camera mainCamera;
@@ -50,7 +54,8 @@ public class ShootPlayerMode : MonoBehaviour
         // get the sign of the camera's forward/right vectors so we can move
         // the arc in the same direction that the camera is facing
         float front = Mathf.Sign(mainCamera.transform.forward.z);
-        float right = Mathf.Sign(mainCamera.transform.right.x);
+        // ignore the right axis since it's broken after moving the camera
+        float right = 1;
 
         float xRot = Input.GetAxis("Vertical") * front;
         float yRot = Input.GetAxis("Horizontal") * right;
@@ -67,6 +72,8 @@ public class ShootPlayerMode : MonoBehaviour
         Matrix4x4 matRotation = matRotX * matRotY;
 
         Vector3 dir = matRotation.GetColumn(0);
+
+        // wobblywobbles
         float e = Elastic(shootPowerAbs);
         float randFactor = 0.01f * e;
         dir.x += Mathf.Sin(Time.timeSinceLevelLoad * 19.5f) * randFactor;
@@ -75,8 +82,9 @@ public class ShootPlayerMode : MonoBehaviour
 
         Vector3 shootForce = dir * shootStrength;
 
+        // each point in the arc is 16ms of movement from the last one
         const float arcDelta = 0.016f;
-        const int arcRes = (int)(3.0f / arcDelta);
+        int arcRes = (int)(arcPreviewLength / arcDelta);
 
         arcLineRenderer.positionCount = arcRes;
         Vector3 lastPos = launcherObject.transform.position;
@@ -99,9 +107,7 @@ public class ShootPlayerMode : MonoBehaviour
         else
         {
             if (shootPowerAbs > 0.05f)
-            {
                 ShootProjectile(shootForce);
-            }
             shootPowerAbs = 0.0f;
         }
         uiController.SetShotMeter(Elastic(shootPowerAbs));
