@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 8d8814439bed6f846b1c3013e4c8b11f
-timeCreated: 1539745709
+guid: df06df87909236145b4f1fe6afc2501b
+timeCreated: 1539750275
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -10,8 +10,7 @@ ModelImporter:
     2100000: lambert1
     2300000: //RootNode
     3300000: //RootNode
-    4300000: pCube1
-    4300002: plush_penguin_01_v1
+    4300000: dog2
     9500000: //RootNode
   externalObjects: {}
   materials:
