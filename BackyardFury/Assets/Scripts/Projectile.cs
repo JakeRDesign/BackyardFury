@@ -7,6 +7,8 @@ public class Projectile : MonoBehaviour
     public delegate void ProjectileHitEvent();
     public ProjectileHitEvent onLand;
 
+    public string instantDestroyTag = "Collider";
+
     public float timeBeforeDestroying = 2.0f;
     private bool isRemoving = false;
 
@@ -16,7 +18,10 @@ public class Projectile : MonoBehaviour
             return;
 
         onLand();
-        StartCoroutine(StartRemoving());
+        if (collision.gameObject.tag == instantDestroyTag)
+            Destroy(gameObject);
+        else
+            StartCoroutine(StartRemoving());
         isRemoving = true;
     }
 
