@@ -8,6 +8,7 @@ TagManager:
   - BuildingBox
   - UIController
   - Ground
+  - Collider
   layers:
   - Default
   - TransparentFX
