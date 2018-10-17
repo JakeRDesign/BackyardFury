@@ -65,6 +65,9 @@ public class PlayerController : MonoBehaviour
 
     void StartBuildMode()
     {
+        if (!gameController.CanBuildThisTurn())
+            return;
+
         currentMode = TurnMode.BUILD;
 
         buildMode.EnableMode();
@@ -83,7 +86,7 @@ public class PlayerController : MonoBehaviour
     {
         this.enabled = true;
         // start the last mode we were in 
-        if (currentMode == TurnMode.SHOOT)
+        if (!gameController.CanBuildThisTurn())
             StartShootMode();
         else
             StartBuildMode();
@@ -91,9 +94,10 @@ public class PlayerController : MonoBehaviour
 
     public void Disable()
     {
-        this.enabled = false;
         buildMode.DisableMode();
         shootMode.DisableMode();
+
+        enabled = false;
     }
 
 }

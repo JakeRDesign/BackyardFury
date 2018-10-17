@@ -16,15 +16,18 @@ public class GameController : MonoBehaviour
     public float cameraFollowStrength = 10.0f;
 
     public int currentTurn = 0;
+    public float buildPhaseLength = 30.0f;
     public float turnLength = 30.0f;
     private float turnTimer = 0.0f;
+    [Header("Allow building every X turns:")]
+    public int buildInterval = 3;
+    private int turnCount = 0;
 
     private Camera mainCamera;
     private UIController uiController;
     private GameObject followingProjectile;
     private Vector3 followingOffset;
 
-    private bool buildPhase = true;
     private bool gameOver = false;
 
     void Awake()
@@ -110,7 +113,6 @@ public class GameController : MonoBehaviour
     {
         if (gameOver)
             return;
-        turnTimer = turnLength;
 
         // make sure we're not following a projectile
         followingProjectile = null;
@@ -122,9 +124,7 @@ public class GameController : MonoBehaviour
         if (currentTurn >= players.Count)
         {
             currentTurn = 0;
-            // if we're wrapping around back to the first player, then build
-            // phase is over!
-            buildPhase = false;
+            turnCount++;
             uiController.BuildPhaseOver();
         }
 
@@ -140,6 +140,9 @@ public class GameController : MonoBehaviour
 
         if (currentTurn >= 0 && currentTurn < players.Count)
             players[currentTurn].Enable();
+
+        // set turn timer AFTER changing turns so we know if it's build phase
+        turnTimer = IsBuildPhase() ? buildPhaseLength : turnLength;
     }
 
     void PlayerShot(GameObject projectile)
@@ -201,7 +204,12 @@ public class GameController : MonoBehaviour
 
     public bool IsBuildPhase()
     {
-        return buildPhase;
+        return turnCount <= 0;
+    }
+
+    public bool CanBuildThisTurn()
+    {
+        return (turnCount % buildInterval) == 0;
     }
 
 }
