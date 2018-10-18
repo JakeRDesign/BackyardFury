@@ -73,7 +73,8 @@ public class GameController : MonoBehaviour
 
         GamePadState state = GamePad.GetState((PlayerIndex)GetCurrentPlayer().playerIndex);
 
-        turnTimer -= Time.deltaTime;
+        if (GetCurrentPlayer().enabled)
+            turnTimer -= Time.deltaTime;
         // debug key to add time to a turn
         if (Input.GetKeyDown(KeyCode.O))
             turnTimer += 10.0f;
