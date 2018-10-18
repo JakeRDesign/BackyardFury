@@ -58,11 +58,11 @@ public class UIController : MonoBehaviour
 
         int turnsToNext = interval - next;
 
-        string turnText = "turns";
+        string turnText = "turns!";
         if (turnsToNext == 1)
-            turnText = "turn";
+            turnText = "turn!";
 
-        nextBuildText.text = string.Format("next build phase in {0} {1}", interval - next, turnText);
+        nextBuildText.text = string.Format("Next build phase in {0} {1}", interval - next, turnText);
     }
 
 }
