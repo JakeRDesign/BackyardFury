@@ -91,7 +91,7 @@ public class UIController : MonoBehaviour
     public void OpenPauseMenu()
     {
         pauseWindow.anchoredPosition = new Vector3(0.0f, 999.9f);
-        pauseGroup.SetActive(true);
+        ShowPause(true);
         windowLeaving = true;
         StartCoroutine(MoveWindowTo(999.9f, 0.0f, false));
     }
@@ -126,12 +126,20 @@ public class UIController : MonoBehaviour
         windowLeaving = false;
 
         if (closeAfter)
-            pauseGroup.SetActive(false);
+            ShowPause(false);
     }
 
     private float EaseInOutQuad(float t)
     {
         return t < 0.5f ? 2 * t * t : -1 + (4 - 2 * t) * t;
+    }
+
+    private void ShowPause(bool show)
+    {
+        pauseGroup.SetActive(show);
+        timerText.gameObject.SetActive(!show);
+        buildBaseText.gameObject.SetActive(!show);
+        buildPresetsGroup.gameObject.SetActive(!show);
     }
 
 }
