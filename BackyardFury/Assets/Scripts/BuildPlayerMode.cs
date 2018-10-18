@@ -71,6 +71,9 @@ public class BuildPlayerMode : MonoBehaviour
         }
         cursorImage.position = cursorPos;
 
+        if (gameController.IsPaused())
+            return;
+
         // cast ray from mouse position to choose where to build
         Ray r = mainCamera.ScreenPointToRay(cursorPos);
         RaycastHit[] hits = Physics.RaycastAll(r);

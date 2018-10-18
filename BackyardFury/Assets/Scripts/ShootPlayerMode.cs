@@ -52,6 +52,9 @@ public class ShootPlayerMode : MonoBehaviour
 
     void Update()
     {
+        if (uiController.IsInPauseMenu())
+            return;
+
         // get the sign of the camera's forward/right vectors so we can move
         // the arc in the same direction that the camera is facing
         float front = Mathf.Sign(mainCamera.transform.forward.z);

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIController : MonoBehaviour
 {
@@ -13,10 +14,24 @@ public class UIController : MonoBehaviour
     public RectTransform meterTransform;
     public RectTransform buildPresetsGroup;
 
+    [Header("Pause Menu")]
+    public GameObject pauseGroup;
+    public RectTransform pauseWindow;
+    public Image pauseBackground;
+    public float scrollTime = 0.3f;
+    public float backgroundAlpha = 0.8f;
+    private bool windowLeaving = false;
+
     private void Awake()
     {
         // start by showing build base text
         buildBaseText.gameObject.SetActive(true);
+    }
+
+    private void Update()
+    {
+        if (GameController.IsStartDown() && !windowLeaving && IsInPauseMenu())
+            ClosePauseMenu();
     }
 
     public void ShowWinnerText(int player)
@@ -71,6 +86,52 @@ public class UIController : MonoBehaviour
         buildPresetsGroup.anchorMax = new Vector2(!left ? 0.0f : 1.0f, 0.5f);
 
         buildPresetsGroup.anchoredPosition = new Vector2(1920.0f * 0.1f * (!left ? 1.0f : -1.0f), 0.0f);
+    }
+
+    public void OpenPauseMenu()
+    {
+        pauseWindow.anchoredPosition = new Vector3(0.0f, 999.9f);
+        pauseGroup.SetActive(true);
+        windowLeaving = true;
+        StartCoroutine(MoveWindowTo(999.9f, 0.0f, false));
+    }
+
+    public void ClosePauseMenu()
+    {
+        StartCoroutine(MoveWindowTo(0.0f, 999.9f, true));
+    }
+
+    public void QuitToMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public bool IsInPauseMenu()
+    {
+        return pauseGroup.activeSelf;
+    }
+
+    private IEnumerator MoveWindowTo(float starty, float endy, bool closeAfter = false)
+    {
+        windowLeaving = true;
+        Vector2 startPos = new Vector2(0.0f, starty);
+        Vector2 endPos = new Vector2(0.0f, endy);
+        float moveTime = 0.0f;
+        while (moveTime < scrollTime)
+        {
+            pauseWindow.anchoredPosition = startPos + (endPos - startPos) * EaseInOutQuad(moveTime / scrollTime);
+            moveTime += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+        windowLeaving = false;
+
+        if (closeAfter)
+            pauseGroup.SetActive(false);
+    }
+
+    private float EaseInOutQuad(float t)
+    {
+        return t < 0.5f ? 2 * t * t : -1 + (4 - 2 * t) * t;
     }
 
 }

@@ -62,7 +62,11 @@ public class GameController : MonoBehaviour
     ButtonState previousYState = ButtonState.Released;
     void Update()
     {
-       
+        if (uiController.IsInPauseMenu())
+            return;
+
+        if (IsStartDown())
+            uiController.OpenPauseMenu();
 
         if (currentTurn < 0 || gameOver)
             return;
@@ -225,6 +229,20 @@ public class GameController : MonoBehaviour
     public bool CanBuildThisTurn()
     {
         return (turnCount % buildInterval) == 0;
+    }
+
+    public static bool IsStartDown()
+    {
+        for (int i = 0; i < 4; ++i)
+            if (GamePad.GetState((PlayerIndex)i).Buttons.Start == ButtonState.Pressed)
+                return true;
+        if (Input.GetKey(KeyCode.Escape))
+            return true;
+        return false;
+    }
+    public bool IsPaused()
+    {
+        return uiController.IsInPauseMenu();
     }
 
 }
