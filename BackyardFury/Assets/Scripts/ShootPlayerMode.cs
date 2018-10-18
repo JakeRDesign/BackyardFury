@@ -62,9 +62,18 @@ public class ShootPlayerMode : MonoBehaviour
         float right = 1;
 
         GamePadState state = GamePad.GetState((PlayerIndex)parentController.playerIndex);
-   
-        float xRot_P1 = state.ThumbSticks.Left.Y * Time.deltaTime * -front * 200;
-        float yRot_P1 = state.ThumbSticks.Left.X * Time.deltaTime * right * 200;
+
+        float xRawInput = state.ThumbSticks.Left.Y;
+        float yRawInput = state.ThumbSticks.Left.X;
+
+        // get keyboard input if available
+        if (Mathf.Abs(Input.GetAxis("Horizontal")) > 0)
+            yRawInput = Input.GetAxis("Horizontal");
+        if (Mathf.Abs(Input.GetAxis("Vertical")) > 0)
+            xRawInput = Input.GetAxis("Vertical");
+
+        float xRot_P1 = xRawInput * Time.deltaTime * -front * 200;
+        float yRot_P1 = yRawInput * Time.deltaTime * right * 200;
 
         const float rotSpeed = 30.0f;
 
