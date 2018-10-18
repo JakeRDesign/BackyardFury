@@ -156,6 +156,7 @@ public class GameController : MonoBehaviour
         // set turn timer AFTER changing turns so we know if it's build phase
         turnTimer = IsBuildPhase() ? buildPhaseLength : turnLength;
 
+        uiController.SetPresetPosition(currentTurn < 1);
         uiController.UpdateNextBuildTurn(turnCount, buildInterval);
     }
 

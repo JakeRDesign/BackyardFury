@@ -11,17 +11,12 @@ public class UIController : MonoBehaviour
     public Text nextBuildText;
 
     public RectTransform meterTransform;
+    public RectTransform buildPresetsGroup;
 
     private void Awake()
     {
         // start by showing build base text
         buildBaseText.gameObject.SetActive(true);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     public void ShowWinnerText(int player)
@@ -63,6 +58,19 @@ public class UIController : MonoBehaviour
             turnText = "turn!";
 
         nextBuildText.text = string.Format("Next build phase in {0} {1}", interval - next, turnText);
+    }
+
+    public void ShowBuildPresets(bool show)
+    {
+        buildPresetsGroup.gameObject.SetActive(show);
+    }
+
+    public void SetPresetPosition(bool left)
+    {
+        buildPresetsGroup.anchorMin = new Vector2(!left ? 0.0f : 1.0f, 0.5f);
+        buildPresetsGroup.anchorMax = new Vector2(!left ? 0.0f : 1.0f, 0.5f);
+
+        buildPresetsGroup.anchoredPosition = new Vector2(1920.0f * 0.1f * (!left ? 1.0f : -1.0f), 0.0f);
     }
 
 }

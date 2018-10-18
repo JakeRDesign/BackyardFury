@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
     BuildPlayerMode buildMode;
     ShootPlayerMode shootMode;
 
+    private UIController uiController;
     private GameController gameController;
 
     // shooting delegate/event for GameController to handle the end of the turn
@@ -42,6 +43,9 @@ public class PlayerController : MonoBehaviour
         // grab references to objects
         GameObject controller = GameObject.FindGameObjectWithTag("GameController");
         gameController = controller.GetComponent<GameController>();
+
+        GameObject uiControllerObject = GameObject.FindGameObjectWithTag("UIController");
+        uiController = uiControllerObject.GetComponent<UIController>();
 
         buildMode = GetComponent<BuildPlayerMode>();
         shootMode = GetComponent<ShootPlayerMode>();
@@ -78,6 +82,7 @@ public class PlayerController : MonoBehaviour
 
         buildMode.EnableMode();
         shootMode.DisableMode();
+        uiController.ShowBuildPresets(true);
     }
 
     void StartShootMode()
@@ -86,6 +91,7 @@ public class PlayerController : MonoBehaviour
 
         shootMode.EnableMode();
         buildMode.DisableMode();
+        uiController.ShowBuildPresets(false);
     }
 
     public void Enable()
@@ -100,6 +106,7 @@ public class PlayerController : MonoBehaviour
 
     public void Disable()
     {
+        uiController.ShowBuildPresets(false);
         buildMode.DisableMode();
         shootMode.DisableMode();
 
