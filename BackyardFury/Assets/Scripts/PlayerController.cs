@@ -21,6 +21,8 @@ public class PlayerController : MonoBehaviour
     // right click or alt
     public TurnMode currentMode = TurnMode.BUILD;
 
+    public int playerIndex = -1;
+
     [Header("Build Settings")]
     public Bounds buildZone;
 
@@ -48,9 +50,12 @@ public class PlayerController : MonoBehaviour
         Disable();
     }
 
+    ButtonState previousXState = ButtonState.Released;
     void Update()
     {
-        if (Input.GetButtonDown("Fire2"))
+        GamePadState state = GamePad.GetState((PlayerIndex)playerIndex);
+
+        if ((Input.GetMouseButtonDown(1) || (state.Buttons.X == ButtonState.Pressed && state.Buttons.X != previousXState)) )
         {
             // don't allow switching modes if we're in the build phase
             if (gameController.IsBuildPhase())
@@ -61,6 +66,7 @@ public class PlayerController : MonoBehaviour
             else
                 StartBuildMode();
         }
+        previousXState = state.Buttons.X;
     }
 
     void StartBuildMode()

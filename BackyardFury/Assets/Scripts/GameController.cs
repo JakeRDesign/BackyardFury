@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
+using XInputDotNetPure;
 
 // Attach this to an empty GameObject and make sure the object is 
 // tagged 'GameController'
@@ -40,10 +41,13 @@ public class GameController : MonoBehaviour
         uiController = uiObject.GetComponent<UIController>();
 
         // disable all playercontrollers so the turn management can handle it
+        int butts = 0;
         foreach (PlayerController p in players)
         {
             p.onShoot += PlayerShot;
             p.Disable();
+            p.playerIndex = butts;
+            butts++;
         }
 
         currentTurn = -1;
@@ -54,10 +58,16 @@ public class GameController : MonoBehaviour
     {
     }
 
+
+    ButtonState previousYState = ButtonState.Released;
     void Update()
     {
+       
+
         if (currentTurn < 0 || gameOver)
             return;
+
+        GamePadState state = GamePad.GetState((PlayerIndex)GetCurrentPlayer().playerIndex);
 
         turnTimer -= Time.deltaTime;
         // debug key to add time to a turn
@@ -67,8 +77,10 @@ public class GameController : MonoBehaviour
         uiController.SetTimer(turnTimer);
 
         // TODO: make a proper binding for skipping turn
-        if (turnTimer <= 0.0f || Input.GetKeyDown(KeyCode.P))
+        if (turnTimer <= 0.0f || (Input.GetKeyDown(KeyCode.P) || state.Buttons.Y == ButtonState.Pressed))
             StartNextTeam();
+
+        previousYState = state.Buttons.Y;
 
         if (followingProjectile != null)
         {

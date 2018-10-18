@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 33258745337005906}
   - component: {fileID: 23446836359915250}
   - component: {fileID: 95327978747947752}
-  - component: {fileID: 135630937222081800}
+  - component: {fileID: 65078246012785824}
   m_Layer: 2
   m_Name: shrub_v1
   m_TagString: Untagged
@@ -66,7 +66,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1368641205979942}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.41105, y: 0, z: -35.10541}
+  m_LocalPosition: {x: 3.1726456, y: -0.016306417, z: -0.790987}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4108208457869190}
@@ -114,6 +114,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1679984295345136}
   m_Mesh: {fileID: 4300000, guid: 4bb8edad21c3386419cae0625917487e, type: 3}
+--- !u!65 &65078246012785824
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1679984295345136}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 0.054648597, z: 2}
+  m_Center: {x: 0.00000011775701, y: 0.027324298, z: -0.000000058878506}
 --- !u!95 &95327978747947752
 Animator:
   serializedVersion: 3
@@ -147,15 +159,3 @@ MonoBehaviour:
   stretchAmount: 5
   squashAmount: 0.6
   inflateSpeed: 20
---- !u!135 &135630937222081800
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1679984295345136}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.97
-  m_Center: {x: 0.00000008940697, y: 0.41, z: -0.000000059604645}

@@ -56,6 +56,7 @@ public class BuildPlayerMode : MonoBehaviour
     void Update()
     {
         Vector3 cursorPos;
+        GamePadState state = GamePad.GetState((PlayerIndex)parentController.playerIndex);
 
         if (Vector3.Distance(lastMousePosition, Input.mousePosition) > 1)
         {
@@ -65,7 +66,6 @@ public class BuildPlayerMode : MonoBehaviour
         else
         {
             cursorPos = cursorImage.position;
-            GamePadState state = GamePad.GetState(PlayerIndex.One);
             cursorPos.x += state.ThumbSticks.Left.X * Time.deltaTime * cursorSensitivity;
             cursorPos.y += state.ThumbSticks.Left.Y * Time.deltaTime * cursorSensitivity;
         }
@@ -145,7 +145,7 @@ public class BuildPlayerMode : MonoBehaviour
         ghostBuilding.GetComponent<MeshRenderer>().material = isValidPosition ? ghostMaterial : ghostMaterialError;
 
         // click to build
-        if (Input.GetButtonDown("Fire1") && isValidPosition)
+        if ((Input.GetMouseButtonDown(0) || state.Buttons.A == ButtonState.Pressed) && isValidPosition)
         {
             // make our new building
             GameObject newBuilding = Instantiate(buildingPrefab);

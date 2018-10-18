@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using XInputDotNetPure;
 
 public class ShootPlayerMode : MonoBehaviour
 {
@@ -57,13 +58,18 @@ public class ShootPlayerMode : MonoBehaviour
         // ignore the right axis since it's broken after moving the camera
         float right = 1;
 
-        float xRot = Input.GetAxis("Vertical") * front;
-        float yRot = Input.GetAxis("Horizontal") * right;
+        GamePadState state = GamePad.GetState((PlayerIndex)parentController.playerIndex);
+   
+        float xRot_P1 = state.ThumbSticks.Left.Y * Time.deltaTime * -front * 200;
+        float yRot_P1 = state.ThumbSticks.Left.X * Time.deltaTime * right * 200;
 
         const float rotSpeed = 30.0f;
 
-        shootRotation.x += xRot * rotSpeed * Time.deltaTime;
-        shootRotation.y += yRot * rotSpeed * Time.deltaTime;
+        shootRotation.x += xRot_P1 * rotSpeed * Time.deltaTime;
+        shootRotation.y += yRot_P1 * rotSpeed * Time.deltaTime;
+
+        //shootRotation.x += xRot_P2 * rotSpeed * Time.deltaTime;
+        //shootRotation.y += yRot_P2 * rotSpeed * Time.deltaTime;
 
         Matrix4x4 matRotX =
             Matrix4x4.Rotate(Quaternion.Euler(shootRotation.x, 0, 0));
@@ -98,7 +104,7 @@ public class ShootPlayerMode : MonoBehaviour
         }
 
         const float increaseSpeed = 0.2f;
-        if (Input.GetButton("Fire1"))
+        if (Input.GetMouseButton(0) || state.Buttons.A == ButtonState.Pressed)
         {
             shootPowerAbs += Time.deltaTime * increaseSpeed;
             if (shootPowerAbs > 1.0f)
