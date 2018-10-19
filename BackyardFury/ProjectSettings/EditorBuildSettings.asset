@@ -6,8 +6,5 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/MAINMENU_Alpha.unity
-    guid: f22ed5305c4d4974aa183830b47ce18f
-  - enabled: 1
     path: Assets/Scenes/MAIN_Alpha_Greybox_06.unity
     guid: 79a5f06ee6fbb7849aeaeecf0f16197f
