@@ -14,8 +14,10 @@ public class BuildPlayerMode : PlayerModeBase
     public Vector3 buildSnap = new Vector3(1.0f, 0.5f, 1.0f);
     // prefab used to build
     public GameObject buildingPrefab;
+    public GameObject verticalLinePrefab;
 
     private GameObject ghostBuilding;
+    private GameObject verticalLine;
 
     // whether or not we're waiting for a box to be placed
     private bool waitingForBox = false;
@@ -34,6 +36,8 @@ public class BuildPlayerMode : PlayerModeBase
         base.Awake();
         // create the translucent box
         MakeGhostBuilding();
+
+        //verticalLine = Instantiate(verticalLinePrefab);
     }
 
     void Update()
@@ -59,6 +63,8 @@ public class BuildPlayerMode : PlayerModeBase
             // don't detect triggers - only physical colliders
             if (h.collider.isTrigger)
                 continue;
+            if (h.collider.gameObject.tag != "Ground")
+                continue;
 
             // keep track of the closest hit to the camera
             if (h.distance < cDist)
@@ -74,12 +80,13 @@ public class BuildPlayerMode : PlayerModeBase
         if (cDist == Mathf.Infinity)
             return;
 
+
         Vector3 newPos = cPos;
         // push back in the direction that the raycast "bounces"
         newPos += cNorm * 0.5f;
 
         // raycast downwards to place on the ground
-        Ray downRay = new Ray(newPos + Vector3.up, Vector3.down);
+        Ray downRay = new Ray(newPos + Vector3.up * 10.0f, Vector3.down);
         RaycastHit downHit;
         if (Physics.Raycast(downRay, out downHit, Mathf.Infinity, ~0, QueryTriggerInteraction.Ignore))
             newPos.y = downHit.point.y;
@@ -97,6 +104,9 @@ public class BuildPlayerMode : PlayerModeBase
         // snappy snap
         newPos.x = Mathf.Round(newPos.x * xFactor) / xFactor;
         newPos.z = Mathf.Round(newPos.z * zFactor) / zFactor;
+
+        if(verticalLine)
+        verticalLine.transform.position = new Vector3(newPos.x, cPos.y, newPos.z);
 
         ghostBuilding.transform.position = newPos;
 
@@ -160,6 +170,7 @@ public class BuildPlayerMode : PlayerModeBase
     private void SetEnabled(bool b)
     {
         ghostBuilding.gameObject.SetActive(b);
+        //verticalLine.SetActive(b);
         uiController.SetCursorVisible(b);
         enabled = b;
     }
