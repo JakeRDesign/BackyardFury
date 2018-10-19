@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using XInputDotNetPure;
 
-public class ShootPlayerMode : MonoBehaviour
+public class ShootPlayerMode : PlayerModeBase
 {
 
     public GameObject launcherObject;
@@ -23,27 +23,17 @@ public class ShootPlayerMode : MonoBehaviour
     public float arcPreviewLength = 3.0f;
     private LineRenderer arcLineRenderer;
 
-    private Camera mainCamera;
-    private UIController uiController;
-    private PlayerController parentController;
 
     private float shootPowerAbs = 0.0f;
 
-    void Awake()
+    public override void Awake()
     {
+        base.Awake();
         // create the linerenderer used to display the trajectory
         arcLineRenderer = gameObject.AddComponent<LineRenderer>();
         arcLineRenderer.positionCount = 0;
         arcLineRenderer.material = arcLineMaterial;
         arcLineRenderer.widthMultiplier = arcLineWidth;
-
-        // grab the camera which is used to change the controls to make sense
-        // depending on which direction we're facing
-        GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");
-        mainCamera = camera.GetComponent<Camera>();
-
-        GameObject uiObject = GameObject.FindGameObjectWithTag("UIController");
-        uiController = uiObject.GetComponent<UIController>();
 
         parentController = GetComponent<PlayerController>();
 

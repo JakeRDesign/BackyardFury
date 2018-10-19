@@ -21,6 +21,8 @@ public class BuildingComponent : MonoBehaviour
     public bool connectAdjacent = true;
     // how far to look to connect boxes
     public float connectDistance = 0.6f;
+    public float springTolerance = 0.025f;
+    public float springMaxDistance = 0.5f;
 
     // is this box still existing
     // this gets set to false as soon as the box starts disappearing, so we
@@ -192,6 +194,8 @@ public class BuildingComponent : MonoBehaviour
         downJoint.enableCollision = true;
         downJoint.breakForce = forceToBreak;
         downJoint.connectedBody = underBody;
+        downJoint.tolerance = springTolerance;
+        downJoint.maxDistance = springMaxDistance;
 
         // add to our list so we can keep track of broken springs
         connectedSprings.Add(downJoint);

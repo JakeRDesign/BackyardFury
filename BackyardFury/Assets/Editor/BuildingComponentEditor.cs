@@ -16,6 +16,8 @@ public class BuildingComponentEditor : Editor
     SerializedProperty connectAdjacent;
     SerializedProperty connectDistance;
     SerializedProperty forceToBreak;
+    SerializedProperty springTolerance;
+    SerializedProperty springMaxDistance;
 
     void OnEnable()
     {
@@ -32,6 +34,10 @@ public class BuildingComponentEditor : Editor
             serializedObject.FindProperty("connectDistance");
         forceToBreak = 
             serializedObject.FindProperty("forceToBreak");
+        springTolerance = 
+            serializedObject.FindProperty("springTolerance");
+        springMaxDistance = 
+            serializedObject.FindProperty("springMaxDistance");
     }
 
     public override void OnInspectorGUI()
@@ -102,6 +108,17 @@ public class BuildingComponentEditor : Editor
             "Force required to break springs\n" +
             "Seems to be dependent on mass, so tweaking might be needed"),
             forceToBreak.floatValue);
+
+        springTolerance.floatValue =
+            EditorGUILayout.FloatField(new GUIContent("Spring Tolerance",
+            "Tolerance of spring joints\n" +
+            "higher = more distance allowed between connected objects"),
+            springTolerance.floatValue);
+
+        springMaxDistance.floatValue =
+            EditorGUILayout.FloatField(new GUIContent("Spring Max Distance",
+            "Max distance allowed between connected objects"),
+            springMaxDistance.floatValue);
 
         EditorGUILayout.Separator();
         EditorGUILayout.LabelField("Animation", EditorStyles.boldLabel);

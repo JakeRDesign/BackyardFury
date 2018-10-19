@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using XInputDotNetPure;
 
-public class BuildPlayerMode : MonoBehaviour
+public class BuildPlayerMode : PlayerModeBase
 {
 
     // sensitivity of cursor when using controller
@@ -15,12 +15,7 @@ public class BuildPlayerMode : MonoBehaviour
     // prefab used to build
     public GameObject buildingPrefab;
 
-    // buncha references to objects
-    private Camera mainCamera;
     private GameObject ghostBuilding;
-    private RectTransform cursorImage;
-    private GameController gameController;
-    private PlayerController parentController;
 
     // whether or not we're waiting for a box to be placed
     private bool waitingForBox = false;
@@ -34,48 +29,20 @@ public class BuildPlayerMode : MonoBehaviour
     // moved, used for disabling mouse input for controller
     private Vector3 lastMousePosition;
 
-    void Awake()
+    public override void Awake()
     {
+        base.Awake();
         // create the translucent box
         MakeGhostBuilding();
-
-        // grab references to all the objects we need
-        // gamecontroller
-        GameObject controller = GameObject.FindGameObjectWithTag("GameController");
-        gameController = controller.GetComponent<GameController>();
-        // UI cursor
-        GameObject cursor = GameObject.FindGameObjectWithTag("UICursor");
-        cursorImage = cursor.GetComponent<RectTransform>();
-        // camera - for raycasting
-        GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");
-        mainCamera = camera.GetComponent<Camera>();
-        // the playercontroller on this object
-        parentController = GetComponent<PlayerController>();
     }
 
     void Update()
     {
-        Vector3 cursorPos;
-        GamePadState state = GamePad.GetState((PlayerIndex)parentController.playerIndex);
-
-        if (Vector3.Distance(lastMousePosition, Input.mousePosition) > 1)
-        {
-            cursorPos = Input.mousePosition;
-            lastMousePosition = Input.mousePosition;
-        }
-        else
-        {
-            cursorPos = cursorImage.position;
-            cursorPos.x += state.ThumbSticks.Left.X * Time.deltaTime * cursorSensitivity;
-            cursorPos.y += state.ThumbSticks.Left.Y * Time.deltaTime * cursorSensitivity;
-        }
-        cursorImage.position = cursorPos;
-
         if (gameController.IsPaused())
             return;
 
         // cast ray from mouse position to choose where to build
-        Ray r = mainCamera.ScreenPointToRay(cursorPos);
+        Ray r = mainCamera.ScreenPointToRay(uiController.GetCursorPos());
         RaycastHit[] hits = Physics.RaycastAll(r);
 
         // stuff to keep track of what we're hovering over
@@ -148,7 +115,8 @@ public class BuildPlayerMode : MonoBehaviour
         ghostBuilding.GetComponent<MeshRenderer>().material = isValidPosition ? ghostMaterial : ghostMaterialError;
 
         // click to build
-        if ((Input.GetMouseButtonDown(0) || state.Buttons.A == ButtonState.Pressed) && isValidPosition)
+        GamePadState state = GamePad.GetState((PlayerIndex)parentController.playerIndex);
+        if ((Input.GetMouseButton(0) || state.Buttons.A == ButtonState.Pressed) && isValidPosition)
         {
             // make our new building
             GameObject newBuilding = Instantiate(buildingPrefab);
@@ -192,8 +160,8 @@ public class BuildPlayerMode : MonoBehaviour
     private void SetEnabled(bool b)
     {
         ghostBuilding.gameObject.SetActive(b);
-        cursorImage.gameObject.SetActive(b);
-        this.enabled = b;
+        uiController.SetCursorVisible(b);
+        enabled = b;
     }
 
     private void MakeGhostBuilding()
