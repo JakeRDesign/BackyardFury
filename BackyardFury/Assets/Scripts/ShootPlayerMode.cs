@@ -21,6 +21,7 @@ public class ShootPlayerMode : PlayerModeBase
     // so 3 = the end of the arc is where the projectile will be after
     // 3 seconds :)
     public float arcPreviewLength = 3.0f;
+    public float aimSensitivity = 1.0f;
     private LineRenderer arcLineRenderer;
 
 
@@ -62,16 +63,28 @@ public class ShootPlayerMode : PlayerModeBase
         if (Mathf.Abs(Input.GetAxis("Vertical")) > 0)
             xRawInput = Input.GetAxis("Vertical");
 
-        float xRot_P1 = xRawInput * Time.deltaTime * -front * 200;
-        float yRot_P1 = yRawInput * Time.deltaTime * right * 200;
+        float xRot_P1 = xRawInput * -front * 200;
+        float yRot_P1 = yRawInput * right * 200;
 
-        const float rotSpeed = 30.0f;
+        shootRotation.x += xRot_P1 * aimSensitivity * Time.deltaTime;
+        shootRotation.y += yRot_P1 * aimSensitivity * Time.deltaTime;
 
-        shootRotation.x += xRot_P1 * rotSpeed * Time.deltaTime;
-        shootRotation.y += yRot_P1 * rotSpeed * Time.deltaTime;
+        // limit rotation
+        float maxY = 140.0f * -front;
+        float minY = 40.0f * -front;
 
-        //shootRotation.x += xRot_P2 * rotSpeed * Time.deltaTime;
-        //shootRotation.y += yRot_P2 * rotSpeed * Time.deltaTime;
+        float maxX = 89.0f * -front;
+        float minX = 0.0f * -front;
+
+        if (shootRotation.y < Mathf.Min(maxY, minY))
+            shootRotation.y = Mathf.Min(maxY, minY);
+        if (shootRotation.y > Mathf.Max(maxY, minY))
+            shootRotation.y = Mathf.Max(maxY, minY);
+
+        if (shootRotation.x < Mathf.Min(maxX, minX))
+            shootRotation.x = Mathf.Min(maxX, minX);
+        if (shootRotation.x > Mathf.Max(maxX, minX))
+            shootRotation.x = Mathf.Max(maxX, minX);
 
         Matrix4x4 matRotX =
             Matrix4x4.Rotate(Quaternion.Euler(shootRotation.x, 0, 0));
