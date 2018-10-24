@@ -47,6 +47,7 @@ public class BuildPlayerMode : PlayerModeBase
         Vector3 gridPos = parentController.buildZone.center;
         gridPos.y = parentController.buildZone.min.y + 0.1f;
         gridObject.transform.position = gridPos;
+        gridObject.transform.localScale = (parentController.buildZone.extents * 2.0f)/10.0f;
         // grab the material for shader stuff
         gridMaterial = gridObject.GetComponent<MeshRenderer>().material;
     }
