@@ -17,8 +17,9 @@ public class GameController : MonoBehaviour
     public float cameraFollowStrength = 10.0f;
 
     public int currentTurn = 0;
-    public float buildPhaseLength = 30.0f;
-    public float turnLength = 30.0f;
+    public float initialBuildPhaseLength = 30.0f;
+    public float otherBuildTurnLength = 30.0f;
+    public float shootTurnLength = 15.0f;
     private float turnTimer = 0.0f;
     [Header("Allow building every X turns:")]
     public int buildInterval = 3;
@@ -54,10 +55,7 @@ public class GameController : MonoBehaviour
         StartCoroutine(PlaceObstacles());
     }
 
-    void Start()
-    {
-    }
-
+    void Start() { }
 
     ButtonState previousYState = ButtonState.Released;
     void Update()
@@ -159,7 +157,12 @@ public class GameController : MonoBehaviour
             players[currentTurn].Enable();
 
         // set turn timer AFTER changing turns so we know if it's build phase
-        turnTimer = IsBuildPhase() ? buildPhaseLength : turnLength;
+        if (turnCount <= 0)
+            turnTimer = initialBuildPhaseLength;
+        else if (CanBuildThisTurn())
+            turnTimer = otherBuildTurnLength;
+        else
+            turnTimer = shootTurnLength;
 
         uiController.SetPresetPosition(currentTurn < 1);
         uiController.UpdateNextBuildTurn(turnCount, buildInterval);
