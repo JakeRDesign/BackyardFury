@@ -14,10 +14,9 @@ public class BuildPlayerMode : PlayerModeBase
     public Vector3 buildSnap = new Vector3(1.0f, 0.5f, 1.0f);
     // prefab used to build
     public GameObject buildingPrefab;
-    public GameObject verticalLinePrefab;
+    public GameObject gridPrefab;
 
     private GameObject ghostBuilding;
-    private GameObject verticalLine;
 
     // whether or not we're waiting for a box to be placed
     private bool waitingForBox = false;
@@ -31,13 +30,25 @@ public class BuildPlayerMode : PlayerModeBase
     // moved, used for disabling mouse input for controller
     private Vector3 lastMousePosition;
 
+    // grab a reference to the grid's material so we can set the highlight
+    // position to be the position of the building
+    Material gridMaterial;
+    GameObject gridObject;
+    Vector3 buildingPos = Vector3.zero;
+
     public override void Awake()
     {
         base.Awake();
         // create the translucent box
         MakeGhostBuilding();
 
-        //verticalLine = Instantiate(verticalLinePrefab);
+        // create our grid
+        gridObject = Instantiate(gridPrefab);
+        Vector3 gridPos = parentController.buildZone.center;
+        gridPos.y = parentController.buildZone.min.y + 0.1f;
+        gridObject.transform.position = gridPos;
+        // grab the material for shader stuff
+        gridMaterial = gridObject.GetComponent<MeshRenderer>().material;
     }
 
     void Update()
@@ -105,10 +116,11 @@ public class BuildPlayerMode : PlayerModeBase
         newPos.x = Mathf.Round(newPos.x * xFactor) / xFactor;
         newPos.z = Mathf.Round(newPos.z * zFactor) / zFactor;
 
-        if(verticalLine)
-        verticalLine.transform.position = new Vector3(newPos.x, cPos.y, newPos.z);
-
         ghostBuilding.transform.position = newPos;
+
+        // update building position for the highlight on the grid
+        buildingPos -= (buildingPos - newPos) * Time.deltaTime * 10.0f;
+        gridMaterial.SetVector("_HighlightPos", buildingPos);
 
         // check if the place is buildable
         BoxCollider ghostCollider = ghostBuilding.GetComponent<BoxCollider>();
@@ -116,9 +128,11 @@ public class BuildPlayerMode : PlayerModeBase
             Encapsulates(parentController.buildZone, ghostCollider.bounds) &&
             !waitingForBox && !ghostBuilding.GetComponent<GhostBox>().IsIntersecting();
 
-        List<string> allowedTags = new List<string>();
-        allowedTags.Add("Ground");
-        allowedTags.Add("BuildingBox");
+        List<string> allowedTags = new List<string>
+        {
+            "Ground",
+            "BuildingBox"
+        };
 
         //isValidPosition = isValidPosition && (allowedTags.Contains(downHit.collider.gameObject.tag));
 
@@ -169,9 +183,10 @@ public class BuildPlayerMode : PlayerModeBase
 
     private void SetEnabled(bool b)
     {
-        ghostBuilding.gameObject.SetActive(b);
-        //verticalLine.SetActive(b);
+        gridObject.SetActive(b);
         uiController.SetCursorVisible(b);
+        ghostBuilding.gameObject.SetActive(b);
+
         enabled = b;
     }
 

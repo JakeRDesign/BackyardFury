@@ -76,6 +76,8 @@ public class ShootPlayerMode : PlayerModeBase
         float maxX = 89.0f * -front;
         float minX = 0.0f * -front;
 
+        // this is kinda gross, just ignore it
+        // it's done because the min isn't actually the min on one team
         if (shootRotation.y < Mathf.Min(maxY, minY))
             shootRotation.y = Mathf.Min(maxY, minY);
         if (shootRotation.y > Mathf.Max(maxY, minY))
