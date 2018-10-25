@@ -36,6 +36,8 @@ public class BuildPlayerMode : PlayerModeBase
     GameObject gridObject;
     Vector3 buildingPos = Vector3.zero;
 
+    private ButtonState lastAState = ButtonState.Released;
+
     public override void Awake()
     {
         base.Awake();
@@ -92,7 +94,6 @@ public class BuildPlayerMode : PlayerModeBase
         if (cDist == Mathf.Infinity)
             return;
 
-
         Vector3 newPos = cPos;
         // push back in the direction that the raycast "bounces"
         newPos += cNorm * 0.5f;
@@ -141,7 +142,7 @@ public class BuildPlayerMode : PlayerModeBase
 
         // click to build
         GamePadState state = GamePad.GetState((PlayerIndex)parentController.playerIndex);
-        if ((Input.GetMouseButton(0) || state.Buttons.A == ButtonState.Pressed) && isValidPosition)
+        if ((Input.GetMouseButtonDown(0) || (state.Buttons.A == ButtonState.Pressed && lastAState != ButtonState.Pressed)) && isValidPosition)
         {
             // make our new building
             GameObject newBuilding = Instantiate(buildingPrefab);
@@ -157,6 +158,8 @@ public class BuildPlayerMode : PlayerModeBase
             // add to the buildingObjects list to detect when we lose
             buildingObjects.Add(newBuilding);
         }
+
+        lastAState = state.Buttons.A;
     }
     private void BuildingDestroyed(GameObject destroyed)
     {
