@@ -22,6 +22,7 @@ public class ShootPlayerMode : PlayerModeBase
     // 3 seconds :)
     public float arcPreviewLength = 3.0f;
     public float aimSensitivity = 1.0f;
+    // wobble amounts
     public float wobbleVertical = 1.0f;
     public float wobbleHorizontal = 2.0f;
     private LineRenderer arcLineRenderer;
@@ -91,12 +92,15 @@ public class ShootPlayerMode : PlayerModeBase
         if (shootRotation.x > Mathf.Max(maxX, minX))
             shootRotation.x = Mathf.Max(maxX, minX);
 
+        // use matrices to easily combine rotations
         Matrix4x4 matRotX =
             Matrix4x4.Rotate(Quaternion.Euler(shootRotation.x, 0, 0));
         Matrix4x4 matRotY =
             Matrix4x4.Rotate(Quaternion.Euler(0, shootRotation.y, 0));
         Matrix4x4 matRotation = matRotX * matRotY;
 
+        // also because the first column of a matrix is the forward direction
+        // so it's easy to get the direction of the matrix rotation :)
         Vector3 dir = matRotation.GetColumn(0);
 
         // wobblywobbles
@@ -118,6 +122,7 @@ public class ShootPlayerMode : PlayerModeBase
 
         arcLineRenderer.positionCount = arcRes;
         Vector3 lastPos = launcherObject.transform.position;
+        // temporary force which will be changed due to simulated gravity
         Vector3 tempForce = shootForce;
         for (int i = 0; i < arcRes; ++i)
         {
@@ -126,28 +131,34 @@ public class ShootPlayerMode : PlayerModeBase
             tempForce += Physics.gravity * arcDelta;
             lastPos += tempForce * arcDelta;
 
+            // set shader highlight position
             if(i * arcDelta < previewTimeMod)
-            {
                 arcLineMaterial.SetVector("_HighlightPos", lastPos);
-            }
         }
 
         const float increaseSpeed = 0.2f;
+        // chargy charge!
         if (Input.GetMouseButton(0) || state.Buttons.A == ButtonState.Pressed)
         {
             shootPowerAbs += Time.deltaTime * increaseSpeed;
+            // limit shoot power to 1
             if (shootPowerAbs > 1.0f)
                 shootPowerAbs = 1.0f;
         }
         else
         {
+            // shot must be charged a little bit before firing so a
+            // single click doesn't shoot it
             if (shootPowerAbs > 0.05f)
                 ShootProjectile(shootForce);
             shootPowerAbs = 0.0f;
         }
+
+        // update the shot meter on the UI
         uiController.SetShotMeter(Elastic(shootPowerAbs));
     }
 
+    // shoots a random projectile with a specified velocity
     private void ShootProjectile(Vector3 shootForce)
     {
         // choose a projectile
@@ -163,23 +174,22 @@ public class ShootPlayerMode : PlayerModeBase
             parentController.onShoot(newProjectile);
     }
 
-    public void EnableMode()
-    {
-        SetEnabled(true);
-    }
+    public void EnableMode() { SetEnabled(true); } 
+    public void DisableMode() { SetEnabled(false); }
 
-    public void DisableMode()
-    {
-        SetEnabled(false);
-    }
-
+    // function just called by EnableMode and DisableMode to reduce redundant code
     private void SetEnabled(bool b)
     {
+        // show/hide the prediction line
         arcLineRenderer.enabled = b;
-        enabled = b;
+        // reset the shoot power for when the time runs out while charging
         shootPowerAbs = 0.0f;
+
+        // enable/disable this component
+        enabled = b;
     }
 
+    // tiny lil function to make a number increase less the closer it gets to 1
     private float Elastic(float abs)
     {
         return Mathf.Pow(abs, 0.5f);

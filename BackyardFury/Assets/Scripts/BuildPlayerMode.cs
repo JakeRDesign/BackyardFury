@@ -36,6 +36,8 @@ public class BuildPlayerMode : PlayerModeBase
     GameObject gridObject;
     Vector3 buildingPos = Vector3.zero;
 
+    // keep track of the last known state of the A button so we know which
+    // frame it was pressed
     private ButtonState lastAState = ButtonState.Released;
 
     public override void Awake()
@@ -49,7 +51,7 @@ public class BuildPlayerMode : PlayerModeBase
         Vector3 gridPos = parentController.buildZone.center;
         gridPos.y = parentController.buildZone.min.y + 0.1f;
         gridObject.transform.position = gridPos;
-        gridObject.transform.localScale = (parentController.buildZone.extents * 2.0f)/10.0f;
+        gridObject.transform.localScale = (parentController.buildZone.extents * 2.0f) / 10.0f;
         // grab the material for shader stuff
         gridMaterial = gridObject.GetComponent<MeshRenderer>().material;
     }
@@ -106,6 +108,7 @@ public class BuildPlayerMode : PlayerModeBase
         else
             return; // exit if there's no ground
 
+        // lift up a little to make 100% sure we're not through the ground
         newPos.y += 0.05f;
 
         // factors to multiply and divide by to snap to the desired measurement
@@ -118,6 +121,7 @@ public class BuildPlayerMode : PlayerModeBase
         newPos.x = Mathf.Round(newPos.x * xFactor) / xFactor;
         newPos.z = Mathf.Round(newPos.z * zFactor) / zFactor;
 
+        // stick the ghost building in its newly snapped position
         ghostBuilding.transform.position = newPos;
 
         // update building position for the highlight on the grid
@@ -126,19 +130,18 @@ public class BuildPlayerMode : PlayerModeBase
 
         // check if the place is buildable
         BoxCollider ghostCollider = ghostBuilding.GetComponent<BoxCollider>();
+        // condition for being buildable:
+        //      - entire box is within the build zone
+        //      - box isn't intersecting with anything (obstacles)
+        //      - previously placed box has finished being placed
         bool isValidPosition =
             Encapsulates(parentController.buildZone, ghostCollider.bounds) &&
             !waitingForBox && !ghostBuilding.GetComponent<GhostBox>().IsIntersecting();
 
-        List<string> allowedTags = new List<string>
-        {
-            "Ground",
-            "BuildingBox"
-        };
-
-        //isValidPosition = isValidPosition && (allowedTags.Contains(downHit.collider.gameObject.tag));
-
-        ghostBuilding.GetComponent<MeshRenderer>().material = isValidPosition ? ghostMaterial : ghostMaterialError;
+        // set translucent box's material based on whether 
+        // or not it can be placed
+        ghostBuilding.GetComponent<MeshRenderer>().material =
+            isValidPosition ? ghostMaterial : ghostMaterialError;
 
         // click to build
         GamePadState state = GamePad.GetState((PlayerIndex)parentController.playerIndex);
@@ -161,36 +164,44 @@ public class BuildPlayerMode : PlayerModeBase
 
         lastAState = state.Buttons.A;
     }
+
+    // callback function for when a box is destroyed
     private void BuildingDestroyed(GameObject destroyed)
     {
+        // remove from the list that keeps track of all boxes
+        // just so we can know when there's 0 left for ending the game
         buildingObjects.Remove(destroyed);
+        // don't make people lose if all of their boxes get destroyed in the 
+        // build phase
         if (gameController.IsBuildPhase())
             return;
+
+        // loser haha
         if (buildingObjects.Count == 0)
             gameController.PlayerLost(parentController);
     }
 
+    // little helper function to check if one bounds encapsulates another
+    // returns true if 'a' encapsulates all of 'b'
     private bool Encapsulates(Bounds a, Bounds b)
     {
         return a.Contains(b.min) && a.Contains(b.max);
     }
 
-    public void EnableMode()
-    {
-        SetEnabled(true);
-    }
+    public void EnableMode() { SetEnabled(true); }
+    public void DisableMode() { SetEnabled(false); }
 
-    public void DisableMode()
-    {
-        SetEnabled(false);
-    }
-
+    // function just called by EnableMode and DisableMode to reduce redundant code
     private void SetEnabled(bool b)
     {
+        // hide/show grid
         gridObject.SetActive(b);
+        // hide/show UI cursor
         uiController.SetCursorVisible(b);
+        // hide/show translucent building
         ghostBuilding.gameObject.SetActive(b);
 
+        // enable/disable this component
         enabled = b;
     }
 
