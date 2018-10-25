@@ -78,6 +78,8 @@ public class UIController : MonoBehaviour
 
     public void SetCursorVisible(bool e)
     {
+        if (cursorImage == null)
+            return;
         cursorImage.gameObject.SetActive(e);
     }
 
