@@ -26,6 +26,7 @@ public class ShootPlayerMode : PlayerModeBase
 
     private float shootPowerAbs = 0.0f;
     private float shootPreviewSpeed = 2.0f;
+    private float previewTime = 0.0f;
 
     public override void Awake()
     {
@@ -110,7 +111,8 @@ public class ShootPlayerMode : PlayerModeBase
         int arcRes = (int)(arcPreviewLength / arcDelta);
 
         // get time point of the arc pulsy thing
-        float previewTime = (Time.timeSinceLevelLoad * shootPreviewSpeed) % arcPreviewLength;
+        previewTime += Time.deltaTime * shootPreviewSpeed * (shootPowerAbs + 0.5f);
+        float previewTimeMod = previewTime % arcPreviewLength;
 
         arcLineRenderer.positionCount = arcRes;
         Vector3 lastPos = launcherObject.transform.position;
@@ -122,7 +124,7 @@ public class ShootPlayerMode : PlayerModeBase
             tempForce += Physics.gravity * arcDelta;
             lastPos += tempForce * arcDelta;
 
-            if(i * arcDelta < previewTime)
+            if(i * arcDelta < previewTimeMod)
             {
                 arcLineMaterial.SetVector("_HighlightPos", lastPos);
             }
