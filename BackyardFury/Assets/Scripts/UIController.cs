@@ -57,6 +57,9 @@ public class UIController : MonoBehaviour
 
     void UpdateCursorPosition()
     {
+        if(gameController.GetCurrentPlayer() == null)
+            return;
+
         GamePadState state = GamePad.GetState((PlayerIndex)gameController.GetCurrentPlayer().playerIndex);
         Vector3 cursorPos = cursorImage.position;
 
