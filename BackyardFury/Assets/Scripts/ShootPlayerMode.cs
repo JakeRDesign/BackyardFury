@@ -22,6 +22,8 @@ public class ShootPlayerMode : PlayerModeBase
     // 3 seconds :)
     public float arcPreviewLength = 3.0f;
     public float aimSensitivity = 1.0f;
+    public float wobbleVertical = 1.0f;
+    public float wobbleHorizontal = 2.0f;
     private LineRenderer arcLineRenderer;
 
     private float shootPowerAbs = 0.0f;
@@ -100,8 +102,8 @@ public class ShootPlayerMode : PlayerModeBase
         // wobblywobbles
         float e = Elastic(shootPowerAbs);
         float randFactor = 0.01f * e;
-        dir.x += Mathf.Sin(Time.timeSinceLevelLoad * 19.5f) * randFactor;
-        dir.y += Mathf.Cos(Time.timeSinceLevelLoad * 24.0f) * randFactor;
+        dir.x += Mathf.Sin(Time.timeSinceLevelLoad * 19.5f) * randFactor * wobbleVertical;
+        dir.y += Mathf.Cos(Time.timeSinceLevelLoad * 24.0f) * randFactor * wobbleHorizontal;
         dir.z += Mathf.Cos(Time.timeSinceLevelLoad * 26.0f) * randFactor;
 
         Vector3 shootForce = dir * shootStrength;
