@@ -766,6 +766,10 @@ Prefab:
       propertyPath: m_Name
       value: lasercannon_launcher_01
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 0dd914cc569c13a4ebbc7778b20702a8, type: 3}
+      propertyPath: m_TagString
+      value: Launcher
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0dd914cc569c13a4ebbc7778b20702a8, type: 3}
   m_IsPrefabParent: 0
@@ -5662,7 +5666,7 @@ GameObject:
   - component: {fileID: 958287492}
   m_Layer: 2
   m_Name: collider_01
-  m_TagString: Collider
+  m_TagString: Out
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5674,7 +5678,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 958287491}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 40, y: 30, z: 1}
@@ -7709,7 +7713,7 @@ GameObject:
   - component: {fileID: 1318349317}
   m_Layer: 0
   m_Name: collider_03
-  m_TagString: Collider
+  m_TagString: Out
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7721,7 +7725,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1318349316}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 57, y: 30, z: 1}
@@ -8756,7 +8760,7 @@ GameObject:
   - component: {fileID: 1508555629}
   m_Layer: 2
   m_Name: collider_02
-  m_TagString: Collider
+  m_TagString: Out
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8768,7 +8772,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1508555628}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 40, y: 30, z: 1}
@@ -11977,7 +11981,7 @@ GameObject:
   - component: {fileID: 2057595696}
   m_Layer: 0
   m_Name: slingshot_02
-  m_TagString: Untagged
+  m_TagString: Launcher
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -9,6 +9,8 @@ TagManager:
   - UIController
   - Ground
   - Collider
+  - Launcher
+  - Out
   layers:
   - Default
   - TransparentFX
