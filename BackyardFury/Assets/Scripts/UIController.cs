@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -57,7 +58,7 @@ public class UIController : MonoBehaviour
 
     void UpdateCursorPosition()
     {
-        if(gameController.GetCurrentPlayer() == null)
+        if (gameController.GetCurrentPlayer() == null)
             return;
 
         GamePadState state = GamePad.GetState((PlayerIndex)gameController.GetCurrentPlayer().playerIndex);

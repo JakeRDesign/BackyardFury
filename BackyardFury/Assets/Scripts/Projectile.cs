@@ -10,24 +10,26 @@ public class Projectile : MonoBehaviour
     public string instantDestroyTag = "Collider";
 
     public float timeBeforeDestroying = 2.0f;
-    private bool isRemoving = false;
+    public bool isRemoving = false;
+    public bool wasShot = false;
 
     void OnCollisionEnter(Collision collision)
     {
+        if (!wasShot)
+            return;
         if (isRemoving)
             return;
 
         onLand();
         if (collision.gameObject.tag == instantDestroyTag)
             Destroy(gameObject);
-        else
-            StartCoroutine(StartRemoving());
         isRemoving = true;
+        wasShot = false;
     }
 
-    IEnumerator StartRemoving()
+    public void Shot()
     {
-        yield return new WaitForSecondsRealtime(timeBeforeDestroying);
-        Destroy(this.gameObject);
+        wasShot = true;
+        isRemoving = false;
     }
 }

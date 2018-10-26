@@ -5,10 +5,26 @@ using UnityEngine;
 public class ObstaclePlacer : MonoBehaviour
 {
 
+    [Header("Build Zone Obstacles")]
     public int obstaclesPerSide = 2;
     public bool rotateObstacles = true;
     public bool isPlacing = false;
     public List<GameObject> obstacles;
+
+    [Header("Projectiles")]
+    public Transform spawnPointContainer;
+    public List<GameObject> projectileList;
+
+    public void PlaceProjectiles()
+    {
+        foreach(Transform t in spawnPointContainer)
+        {
+            GameObject newProj = Instantiate(projectileList[Random.Range(0, projectileList.Count)]);
+            newProj.transform.position = t.position;
+        }
+
+        Destroy(spawnPointContainer.gameObject);
+    }
 
     public IEnumerator PlaceObstacles(Bounds inBounds)
     {

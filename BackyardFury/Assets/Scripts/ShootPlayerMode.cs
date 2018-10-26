@@ -7,12 +7,14 @@ public class ShootPlayerMode : PlayerModeBase
 {
 
     public GameObject launcherObject;
+    public ChildController childObject;
 
     [Header("Projectile Settings")]
     public List<GameObject> projectilePrefabs;
     public float shootStrength = 11.0f;
     public Vector3 startingAngle;
     private Vector3 shootRotation;
+    private GameObject storedProjectile;
 
     [Header("Arc Settings")]
     public Material arcLineMaterial;
@@ -41,6 +43,7 @@ public class ShootPlayerMode : PlayerModeBase
         arcLineRenderer.widthMultiplier = arcLineWidth;
 
         parentController = GetComponent<PlayerController>();
+        childObject.parentMode = this;
 
         shootRotation = startingAngle;
     }
@@ -50,11 +53,17 @@ public class ShootPlayerMode : PlayerModeBase
         if (uiController.IsInPauseMenu())
             return;
 
+
         // get the sign of the camera's forward/right vectors so we can move
         // the arc in the same direction that the camera is facing
         float front = Mathf.Sign(mainCamera.transform.forward.z);
         // ignore the right axis since it's broken after moving the camera
         float right = 1;
+
+        childObject.forwardDirection = -front;
+
+        if (storedProjectile == null)
+            return;
 
         GamePadState state = GamePad.GetState((PlayerIndex)parentController.playerIndex);
 
@@ -132,7 +141,7 @@ public class ShootPlayerMode : PlayerModeBase
             lastPos += tempForce * arcDelta;
 
             // set shader highlight position
-            if(i * arcDelta < previewTimeMod)
+            if (i * arcDelta < previewTimeMod)
                 arcLineMaterial.SetVector("_HighlightPos", lastPos);
         }
 
@@ -161,37 +170,57 @@ public class ShootPlayerMode : PlayerModeBase
     // shoots a random projectile with a specified velocity
     private void ShootProjectile(Vector3 shootForce)
     {
-        // choose a projectile
-        GameObject projectile = projectilePrefabs[Random.Range(0, projectilePrefabs.Count)];
+        // projectile is disabled when stored in launcher, so re-enable it
+        storedProjectile.SetActive(true);
+        // and make sure it's no longer parented to the child
+        storedProjectile.transform.parent = null;
 
-        GameObject newProjectile = Instantiate(projectile);
-        newProjectile.transform.position =
+        storedProjectile.transform.position =
             launcherObject.transform.position;
-        newProjectile.GetComponent<Rigidbody>().velocity = shootForce;
+        storedProjectile.GetComponent<Rigidbody>().isKinematic = false;
+        storedProjectile.GetComponent<Rigidbody>().velocity = shootForce;
+        storedProjectile.GetComponent<Projectile>().Shot();
 
         // call any attached functions
         if (parentController.onShoot != null)
-            parentController.onShoot(newProjectile);
+            parentController.onShoot(storedProjectile);
+
+        storedProjectile = null;
     }
 
-    public void EnableMode() { SetEnabled(true); } 
+    public void EnableMode() { SetEnabled(true); }
     public void DisableMode() { SetEnabled(false); }
 
     // function just called by EnableMode and DisableMode to reduce redundant code
     private void SetEnabled(bool b)
     {
-        // show/hide the prediction line
-        arcLineRenderer.enabled = b;
         // reset the shoot power for when the time runs out while charging
         shootPowerAbs = 0.0f;
 
         // enable/disable this component
         enabled = b;
+
+        childObject.enabled = b && (storedProjectile == null);
+
+        // hide the prediction line by default - it will be shown once
+        // the player has chosen a projectile
+        if (!b)
+            arcLineRenderer.enabled = false;
+        else
+            arcLineRenderer.enabled = !childObject.enabled;
     }
 
     // tiny lil function to make a number increase less the closer it gets to 1
-    private float Elastic(float abs)
+    private float Elastic(float abs) { return Mathf.Pow(abs, 0.5f); }
+
+    public void StoreProjectile(GameObject newProjectile)
     {
-        return Mathf.Pow(abs, 0.5f);
+        storedProjectile = newProjectile;
+        storedProjectile.transform.parent = null;
+        storedProjectile.SetActive(false);
+
+        childObject.enabled = false;
+
+        arcLineRenderer.enabled = true;
     }
 }

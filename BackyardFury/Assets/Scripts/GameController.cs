@@ -102,6 +102,7 @@ public class GameController : MonoBehaviour
     {
         currentTurn = -1;
         ObstaclePlacer placer = GetComponent<ObstaclePlacer>();
+        placer.PlaceProjectiles();
         for (int i = 0; i < players.Count; ++i)
         {
             // move camera to see obstacles being dropped
@@ -182,7 +183,12 @@ public class GameController : MonoBehaviour
         // hook up projectile's onLand event to ProjectileLanded
         Projectile component = projectile.GetComponent<Projectile>();
         if (component)
-            component.onLand += ProjectileLanded;
+            component.onLand = ProjectileLanded;
+    }
+
+    public void StopFollowingProjectile()
+    {
+        followingProjectile = null;
     }
 
     void ProjectileLanded()
@@ -190,10 +196,15 @@ public class GameController : MonoBehaviour
         StartCoroutine(WaitToStartNextTeam(2.0f));
     }
 
+    bool waitingForNextTeam = false;
     IEnumerator WaitToStartNextTeam(float seconds)
     {
+        if (waitingForNextTeam)
+            yield break;
+        waitingForNextTeam = true;
         yield return new WaitForSeconds(seconds);
         StartNextTeam();
+        waitingForNextTeam = false;
     }
 
     public PlayerController GetCurrentPlayer()
