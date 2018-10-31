@@ -39,7 +39,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1887481833373406}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.9093619, y: 18.366962, z: 10.373403}
+  m_LocalPosition: {x: 13.648354, y: 0.5658627, z: 12.854997}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -85,7 +85,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1887481833373406}
-  m_Mesh: {fileID: 4300002, guid: 8d8814439bed6f846b1c3013e4c8b11f, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 03d2dec9db36f2748b455bcfcae74ca1, type: 3}
 --- !u!54 &54889750542597286
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -132,6 +132,7 @@ MonoBehaviour:
   instantDestroyTag: Collider
   timeBeforeDestroying: 1
   isRemoving: 0
+  wasShot: 0
 --- !u!136 &136038651196847908
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -144,4 +145,4 @@ CapsuleCollider:
   m_Radius: 0.48762327
   m_Height: 1.1317253
   m_Direction: 1
-  m_Center: {x: -0.048387036, y: 0.089199305, z: 0}
+  m_Center: {x: 0, y: -0.01, z: 0}

@@ -85,7 +85,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1277171597288872}
-  m_Mesh: {fileID: 4300000, guid: f4b96b38172a6fc4ba0d0df9f6c91f8e, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 8cb5c26dd554efd4c8299d03c2f63d11, type: 3}
 --- !u!54 &54870840673628916
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -132,6 +132,7 @@ MonoBehaviour:
   instantDestroyTag: Collider
   timeBeforeDestroying: 1
   isRemoving: 0
+  wasShot: 0
 --- !u!136 &136474922487971744
 CapsuleCollider:
   m_ObjectHideFlags: 1
