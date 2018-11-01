@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 1de3d57aca193b744ba06c9b3a449fb8
-timeCreated: 1540956080
+guid: 657e4e67b8c04854980a106ffd6c576c
+timeCreated: 1540963961
 licenseType: Pro
 ModelImporter:
   serializedVersion: 22
@@ -10,7 +10,7 @@ ModelImporter:
     2100000: lambert1
     2300000: //RootNode
     3300000: //RootNode
-    4300000: helmet_retop:helmet4
+    4300000: cat_plushy_01_v2
     9500000: //RootNode
   externalObjects: {}
   materials:

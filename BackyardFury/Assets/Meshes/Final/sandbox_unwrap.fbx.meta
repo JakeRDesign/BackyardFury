@@ -1,7 +1,7 @@
 fileFormatVersion: 2
-guid: 39543453294cd2645a1787160fe6f523
-timeCreated: 1539229889
-licenseType: Free
+guid: 95ec9c5e3cd315b4a88f87ec3cc6c574
+timeCreated: 1541032044
+licenseType: Pro
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
@@ -10,7 +10,7 @@ ModelImporter:
     2100000: lambert1
     2300000: //RootNode
     3300000: //RootNode
-    4300000: truck
+    4300000: sand_box
     9500000: //RootNode
   externalObjects: {}
   materials:

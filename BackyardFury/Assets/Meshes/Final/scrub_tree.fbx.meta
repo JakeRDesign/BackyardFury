@@ -1,7 +1,7 @@
 fileFormatVersion: 2
-guid: 3724f45559d8a554e800fd3520479a6b
-timeCreated: 1538711112
-licenseType: Free
+guid: e968faffa5994424a922600ac3ff2f32
+timeCreated: 1541108754
+licenseType: Pro
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
@@ -10,7 +10,7 @@ ModelImporter:
     2100000: lambert1
     2300000: //RootNode
     3300000: //RootNode
-    4300000: sandbox_final
+    4300000: retopo_scrub
     9500000: //RootNode
   externalObjects: {}
   materials:

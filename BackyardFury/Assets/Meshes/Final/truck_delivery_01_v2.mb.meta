@@ -1,7 +1,7 @@
 fileFormatVersion: 2
-guid: 8d8814439bed6f846b1c3013e4c8b11f
-timeCreated: 1539745709
-licenseType: Free
+guid: 7ea8a6d5bd49f6a4688bbe83ee6ce1b6
+timeCreated: 1540963962
+licenseType: Pro
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
@@ -10,8 +10,7 @@ ModelImporter:
     2100000: lambert1
     2300000: //RootNode
     3300000: //RootNode
-    4300000: pCube1
-    4300002: plush_penguin_01_v1
+    4300000: truck_delivery_01_v2
     9500000: //RootNode
   externalObjects: {}
   materials:

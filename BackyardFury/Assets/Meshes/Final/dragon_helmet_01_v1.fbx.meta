@@ -1,7 +1,7 @@
 fileFormatVersion: 2
-guid: c11932fee2171254c8aa9c06d5554c50
-timeCreated: 1538711113
-licenseType: Free
+guid: 06a3b78cdecd2374795e7e99587a0376
+timeCreated: 1541041560
+licenseType: Pro
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
@@ -10,7 +10,7 @@ ModelImporter:
     2100000: lambert1
     2300000: //RootNode
     3300000: //RootNode
-    4300000: grass_final
+    4300000: dragon_helmet_01_v1
     9500000: //RootNode
   externalObjects: {}
   materials:

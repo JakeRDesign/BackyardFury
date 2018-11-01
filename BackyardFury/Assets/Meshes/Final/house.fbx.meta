@@ -1,16 +1,18 @@
 fileFormatVersion: 2
-guid: df06df87909236145b4f1fe6afc2501b
-timeCreated: 1539750275
-licenseType: Free
+guid: ad367e7ee5084354fb4af6c3a19dfd7f
+timeCreated: 1541028600
+licenseType: Pro
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
+    100002: House_retop
     400000: //RootNode
-    2100000: lambert1
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: dog2
+    400002: House_retop
+    2100000: rigging_Skinning_lambert3
+    2300000: House_retop
+    3300000: House_retop
+    4300000: House_retop
     9500000: //RootNode
   externalObjects: {}
   materials:

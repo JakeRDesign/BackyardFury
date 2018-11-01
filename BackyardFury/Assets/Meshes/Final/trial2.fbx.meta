@@ -1,19 +1,16 @@
 fileFormatVersion: 2
-guid: 44d413d0484c2b140952c9c91821c998
-timeCreated: 1540957556
+guid: ef68d6d39fbeb68489a903289295ec9a
+timeCreated: 1541043789
 licenseType: Pro
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
-    100002: rigging_Skinning:math_book
     400000: //RootNode
-    400002: rigging_Skinning:math_book
-    2100000: rigging_Skinning_lambert5
-    2300000: rigging_Skinning:math_book
-    3300000: rigging_Skinning:math_book
-    4300000: rigging_Skinning:math_book
-    9500000: //RootNode
+    2100000: lambert1
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: squishy_cat
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -88,7 +85,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

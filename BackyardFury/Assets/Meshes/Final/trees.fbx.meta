@@ -1,16 +1,18 @@
 fileFormatVersion: 2
-guid: 7add97e83a6d96d44982425c1f03122e
-timeCreated: 1538711112
-licenseType: Free
+guid: 3979f22656672484a8065c79931d61b8
+timeCreated: 1541028600
+licenseType: Pro
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: //RootNode
-    400000: //RootNode
+    100000: retopo_scrub
+    100002: //RootNode
+    400000: retopo_scrub
+    400002: //RootNode
     2100000: lambert1
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: plant_pot_final
+    2300000: retopo_scrub
+    3300000: retopo_scrub
+    4300000: retopo_scrub
     9500000: //RootNode
   externalObjects: {}
   materials:
