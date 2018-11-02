@@ -73,20 +73,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   launcherObject: {fileID: 0}
+  childObject: {fileID: 0}
   projectilePrefabs:
   - {fileID: 1277171597288872, guid: 118b0aa8627a1b3408caa2fb56cb4ada, type: 2}
   - {fileID: 1251786390414738, guid: 8c057cf8cdffc1b4397dfbec420f465a, type: 2}
   - {fileID: 1333993351103676, guid: 4cc50fdccbefd634489f322b28d35e97, type: 2}
   - {fileID: 1372521080022112, guid: 06d06dd6681500c47a2b4a013a59fc24, type: 2}
-  - {fileID: 1018802424605200, guid: affce3435dd085f4c81ea140a71e5ba4, type: 2}
-  - {fileID: 1598948121446026, guid: 2a675c6bcc44ad049ac17c515a0f86d7, type: 2}
-  - {fileID: 1887481833373406, guid: dea8ed1e3872f01429900f877ae25f6d, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   shootStrength: 18
   startingAngle: {x: 35, y: 90, z: 0}
   arcLineMaterial: {fileID: 2100000, guid: 92298df8fcba44c4a83b33b19e93ced9, type: 2}
   arcLineWidth: 0.1
-  arcPreviewLength: 3
+  arcPreviewLength: 5
   aimSensitivity: 1
+  wobbleVertical: 1
+  wobbleHorizontal: 1
 --- !u!114 &114552367763446480
 MonoBehaviour:
   m_ObjectHideFlags: 1

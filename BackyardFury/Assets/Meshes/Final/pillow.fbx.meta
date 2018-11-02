@@ -1,18 +1,16 @@
 fileFormatVersion: 2
-guid: 4fae98d7a320f484fa113e30bb8126f5
-timeCreated: 1540957556
+guid: c14b79e2709910e479d14ff0e519abbd
+timeCreated: 1541108754
 licenseType: Pro
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
-    100002: rigging_Skinning:pillow
     400000: //RootNode
-    400002: rigging_Skinning:pillow
     2100000: lambert1
-    2300000: rigging_Skinning:pillow
-    3300000: rigging_Skinning:pillow
-    4300000: rigging_Skinning:pillow
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: pillow
     9500000: //RootNode
   externalObjects: {}
   materials:

@@ -1,7 +1,7 @@
 fileFormatVersion: 2
-guid: 499a754785d29fd4f97466d9fd9b9bb0
-timeCreated: 1539229642
-licenseType: Free
+guid: 458b8ac3337d4af40a2474d3b3a41def
+timeCreated: 1541120391
+licenseType: Pro
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
@@ -10,7 +10,7 @@ ModelImporter:
     2100000: lambert1
     2300000: //RootNode
     3300000: //RootNode
-    4300000: house_2
+    4300000: cat_retopo
     9500000: //RootNode
   externalObjects: {}
   materials:

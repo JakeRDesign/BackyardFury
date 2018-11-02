@@ -1,17 +1,18 @@
 fileFormatVersion: 2
-guid: 20ad79eda96cc464386e8873730c4070
-timeCreated: 1539910431
+guid: 9314c0a9cf06b274ea2e9f5bfb3d087b
+timeCreated: 1541112682
 licenseType: Pro
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: //RootNode
-    400000: //RootNode
-    2100000: lambert1
-    2100002: blinn1
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: helmet2
+    100000: rigging_Skinning:toy_shovel
+    100002: //RootNode
+    400000: rigging_Skinning:toy_shovel
+    400002: //RootNode
+    2100000: rigging_Skinning_lambert6
+    2300000: rigging_Skinning:toy_shovel
+    3300000: rigging_Skinning:toy_shovel
+    4300000: rigging_Skinning:toy_shovel
     9500000: //RootNode
   externalObjects: {}
   materials:
