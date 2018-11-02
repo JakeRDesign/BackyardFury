@@ -25,4 +25,10 @@ public class PlayerModeBase : MonoBehaviour {
         // the playercontroller on this object
         parentController = GetComponent<PlayerController>();
     }
+
+    public PlayerController GetParentController()
+    {
+        return parentController;
+    }
+
 }
