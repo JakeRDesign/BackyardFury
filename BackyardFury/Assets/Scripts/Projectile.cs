@@ -25,7 +25,7 @@ public class Projectile : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.tag != "Floor" && collision.collider.tag != "BuildingBox")
+        if (collision.collider.isTrigger)
             return;
 
         if (!wasShot)
