@@ -20,15 +20,22 @@ public class UIController : MonoBehaviour
     public GameObject pauseGroup;
     public RectTransform pauseWindow;
     public Image pauseBackground;
+    [Tooltip("How long it takes for the pause menu to scroll in/out of view\n" + 
+        "Should probably change this to using an actual Animation")]
     public float scrollTime = 0.3f;
-    public float backgroundAlpha = 0.8f;
     private bool windowLeaving = false;
     private bool wasMouseVisible = false;
     private bool wasBuildBaseVisible = false;
 
     [Header("Controller Cursor")]
+    [Tooltip("Sensitivity for the controller's movement of the cursor")]
     public float cursorSensitivity = 100.0f;
     private Vector3 lastMousePosition;
+
+    [Header("Preset Menu")]
+    [Tooltip("Percentage of the screen that the menu will be from its side!\n" + 
+        "e.g. 0.2 means the buttons will be 20% of the screen width away from the side of the screen")]
+    public float distanceFromSide = 0.2f;
 
     private RectTransform cursorImage;
     private GameController gameController;
@@ -147,10 +154,14 @@ public class UIController : MonoBehaviour
 
     public void SetPresetPosition(bool left)
     {
-        buildPresetsGroup.anchorMin = new Vector2(!left ? 0.0f : 1.0f, 0.5f);
-        buildPresetsGroup.anchorMax = new Vector2(!left ? 0.0f : 1.0f, 0.5f);
+        float anchorX = left ? (1.0f - distanceFromSide) : distanceFromSide;
 
-        buildPresetsGroup.anchoredPosition = new Vector2(1920.0f * 0.1f * (!left ? 1.0f : -1.0f), 0.0f);
+        Vector2 anchorPos = new Vector2(anchorX, 0.5f);
+
+        buildPresetsGroup.anchorMin = anchorPos;
+        buildPresetsGroup.anchorMax = anchorPos;
+
+        buildPresetsGroup.anchoredPosition = Vector2.zero;
     }
 
     #endregion
