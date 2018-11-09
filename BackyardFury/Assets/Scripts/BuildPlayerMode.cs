@@ -1,25 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 using XInputDotNetPure;
 
 public class BuildPlayerMode : PlayerModeBase
 {
 
-    // sensitivity of cursor when using controller
-    public float cursorSensitivity = 500.0f;
     // list of placed buildings to check if we lost
-    public List<GameObject> buildingObjects;
+    private List<GameObject> buildingObjects = new List<GameObject>();
     // grid size to snap buildings to
     public Vector3 buildSnap = new Vector3(1.0f, 0.5f, 1.0f);
     // prefab used to build
-    public GameObject buildingPrefab;
+    public List<GameObject> buildingPresets;
+    private GameObject selectedPreset;
+
     public GameObject gridPrefab;
 
     private GameObject ghostBuilding;
 
     // whether or not we're waiting for a box to be placed
-    private bool waitingForBox = false;
+    //private bool waitingForBox = false;
+    private int boxesToWait = 0;
 
     // any material will do, probably a translucent one
     public Material ghostMaterial;
@@ -44,7 +46,8 @@ public class BuildPlayerMode : PlayerModeBase
     {
         base.Awake();
         // create the translucent box
-        MakeGhostBuilding();
+        //MakeGhostBuilding();
+        SelectBuildPreset(0);
 
         // create our grid
         gridObject = Instantiate(gridPrefab);
@@ -128,6 +131,8 @@ public class BuildPlayerMode : PlayerModeBase
         buildingPos -= (buildingPos - newPos) * Time.deltaTime * 10.0f;
         gridMaterial.SetVector("_HighlightPos", buildingPos);
 
+        bool intersecting = IntersectingRecursive(ghostBuilding.transform);
+
         // check if the place is buildable
         BoxCollider ghostCollider = ghostBuilding.GetComponent<BoxCollider>();
         // condition for being buildable:
@@ -135,34 +140,52 @@ public class BuildPlayerMode : PlayerModeBase
         //      - box isn't intersecting with anything (obstacles)
         //      - previously placed box has finished being placed
         bool isValidPosition =
-            Encapsulates(parentController.buildZone, ghostCollider.bounds) &&
-            !waitingForBox && !ghostBuilding.GetComponent<GhostBox>().IsIntersecting();
+            //Encapsulates(parentController.buildZone, ghostCollider.bounds) &&
+            EncapsulatesRecursive(parentController.buildZone, ghostBuilding.transform) &&
+            (boxesToWait == 0) && !intersecting;////!ghostBuilding.GetComponent<GhostBox>().IsIntersecting();
 
         // set translucent box's material based on whether 
         // or not it can be placed
-        ghostBuilding.GetComponent<MeshRenderer>().material =
-            isValidPosition ? ghostMaterial : ghostMaterialError;
+        //ghostBuilding.GetComponent<MeshRenderer>().material =
+        //    isValidPosition ? ghostMaterial : ghostMaterialError;
+        SetGhostMaterial(ghostBuilding.transform, isValidPosition ? ghostMaterial : ghostMaterialError);
 
         // click to build
         GamePadState state = GamePad.GetState((PlayerIndex)parentController.playerIndex);
         if ((Input.GetMouseButtonDown(0) || (state.Buttons.A == ButtonState.Pressed && lastAState != ButtonState.Pressed)) && isValidPosition)
         {
             // make our new building
-            GameObject newBuilding = Instantiate(buildingPrefab);
-            BuildingComponent cmp = newBuilding.GetComponent<BuildingComponent>();
+            GameObject newBuilding = Instantiate(selectedPreset);//Instantiate(boxPrefab);
+            //BuildingComponent cmp = newBuilding.GetComponent<BuildingComponent>();
             // place where the ghost cube is
             newBuilding.transform.position = newPos;
             // set the flag which stops us from bulding while box is falling
-            waitingForBox = true;
+            //waitingForBox = true;
+
+            PlacedPreset(newBuilding.transform);
 
             // add destroy event to detect when we lose
-            cmp.onDestroy += BuildingDestroyed;
-            cmp.onFinishedPlacing += x => waitingForBox = false;
+            //cmp.onDestroy += BuildingDestroyed;
+            //cmp.onFinishedPlacing += x => waitingForBox = false;
             // add to the buildingObjects list to detect when we lose
             buildingObjects.Add(newBuilding);
         }
 
         lastAState = state.Buttons.A;
+    }
+
+    private void PlacedPreset(Transform obj)
+    {
+        BuildingComponent cmp = obj.GetComponent<BuildingComponent>();
+        if (cmp != null)
+        {
+            boxesToWait++;
+            cmp.onDestroy += BuildingDestroyed;
+            cmp.onFinishedPlacing += x => boxesToWait--;
+        }
+
+        foreach (Transform child in obj)
+            PlacedPreset(child);
     }
 
     // callback function for when a box is destroyed
@@ -205,9 +228,134 @@ public class BuildPlayerMode : PlayerModeBase
         enabled = b;
     }
 
+    public void SelectBuildPreset(int index)
+    {
+        Assert.IsTrue(index >= 0 && index < buildingPresets.Count,
+            "Build Preset Index should be between 0 and " + (buildingPresets.Count - 1).ToString());
+        selectedPreset = buildingPresets[index];
+
+        if (ghostBuilding != null)
+            Destroy(ghostBuilding);
+        ghostBuilding = MakePresetGhost(selectedPreset);
+    }
+
+    private GameObject MakePresetGhost(GameObject toGhost)
+    {
+        GameObject preset = Instantiate(toGhost);
+
+        Vector3 minPoint = GetFuncPoint(preset.transform, Vector3.Min);
+        Vector3 maxPoint = GetFuncPoint(preset.transform, Vector3.Max, false);
+
+        Debug.Log("Min Point: " + minPoint.ToString());
+
+        Vector3 size = (maxPoint - minPoint);
+        Vector3 center = minPoint + (size / 2.0f);
+
+        MakeGhostObject(preset.transform);
+
+        //BoxCollider newCollider = preset.AddComponent<BoxCollider>();
+        //newCollider.size = size;
+        //newCollider.center = center;
+        //newCollider.isTrigger = true;
+
+        return preset;
+    }
+
+    private void SetGhostMaterial(Transform obj, Material newMaterial)
+    {
+        MeshRenderer rnd = obj.GetComponent<MeshRenderer>();
+        if (rnd != null)
+            rnd.material = newMaterial;
+
+        foreach(Transform t in obj)
+            SetGhostMaterial(t, newMaterial);
+    }
+
+    // recursively makes objects ready to be a ghost object
+    private void MakeGhostObject(Transform obj)
+    {
+        MeshRenderer rnd = obj.GetComponent<MeshRenderer>();
+        if (rnd != null)
+            rnd.material = ghostMaterial;
+
+        // remove rigidbody and boxcollider from ghost building so placing 
+        // boxes with rigidbodies doesn't throw them away instantly
+        Rigidbody rb = obj.GetComponent<Rigidbody>();
+        if (rb != null)
+            rb.isKinematic = true;
+        BoxCollider box = obj.GetComponent<BoxCollider>();
+        if (box != null)
+            box.isTrigger = true;
+
+        ObjectDropper dropper = obj.GetComponent<ObjectDropper>();
+        if (dropper != null)
+        {
+            Destroy(dropper);
+            GhostBox newGhost = obj.gameObject.AddComponent<GhostBox>();
+        }
+
+        foreach (Transform child in obj)
+            MakeGhostObject(child);
+    }
+
+    private bool IntersectingRecursive(Transform t)
+    {
+        GhostBox gb = t.GetComponent<GhostBox>();
+        if (gb != null)
+            if (gb.IsIntersecting())
+                return true;
+
+        foreach (Transform child in t)
+        {
+            if (IntersectingRecursive(child))
+                return true;
+        }
+
+        return false;
+    }
+
+    private bool EncapsulatesRecursive(Bounds a, Transform obj)
+    {
+        BoxCollider box = obj.GetComponent<BoxCollider>();
+        if (box != null)
+            if (!Encapsulates(a, box.bounds))
+                return false;
+
+        foreach (Transform t in obj)
+            if (!EncapsulatesRecursive(a, t))
+                return false;
+
+        return true;
+    }
+
+    private Vector3 GetFuncPoint(Transform t, System.Func<Vector3, Vector3, Vector3> compareFunc, bool findMin = true)
+    {
+        Vector3 min = Vector3.zero;
+
+        BoxCollider col = t.GetComponent<BoxCollider>();
+        if (col != null)
+        {
+            Vector3 point = col.center;// col.bounds.min;
+            if (!findMin)
+                point += col.size;
+            else
+                point -= col.size;
+
+            min = compareFunc(min, point);
+        }
+
+        foreach (Transform child in t)
+        {
+            Vector3 childMin = GetFuncPoint(child, compareFunc, findMin);
+            min = compareFunc(childMin, min);
+        }
+
+        return min;
+    }
+
     private void MakeGhostBuilding()
     {
-        ghostBuilding = Instantiate(buildingPrefab);
+        ghostBuilding = Instantiate(buildingPresets[0]);//Instantiate(boxPrefab);
 
         ghostBuilding.GetComponent<MeshRenderer>().material = ghostMaterial;
         ghostBuilding.SetActive(false);
@@ -226,4 +374,6 @@ public class BuildPlayerMode : PlayerModeBase
 
         ghostBuilding.AddComponent<GhostBox>();
     }
+
+
 }

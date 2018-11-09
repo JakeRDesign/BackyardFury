@@ -32,11 +32,11 @@ public class BuildingComponent : MonoBehaviour
     // variables used to know whether or not the building is broken
     private Vector3 placedPosition;
     private List<SpringJoint> connectedSprings;
-/*
-    // timer used to lerp it to the ground
-    private float dropTimer;
-    // stuff used for stretching/squashing
-    private Vector3 startScale;*/
+    /*
+        // timer used to lerp it to the ground
+        private float dropTimer;
+        // stuff used for stretching/squashing
+        private Vector3 startScale;*/
 
     // delegate event things
     public delegate void BuildingCallback(GameObject obj);
@@ -50,7 +50,8 @@ public class BuildingComponent : MonoBehaviour
     private void Start()
     {
         dropper = GetComponent<ObjectDropper>();
-        dropper.onLanded += DropperFinished;
+        if (dropper != null)
+            dropper.onLanded += DropperFinished;
         placedPosition = transform.position;
     }
 
@@ -58,7 +59,8 @@ public class BuildingComponent : MonoBehaviour
     {
         finishedPlacing = true;
         CreateSpringConnections();
-        onFinishedPlacing(obj);
+        if (onFinishedPlacing != null)
+            onFinishedPlacing(obj);
     }
 
     // Update is called once per frame
@@ -110,7 +112,8 @@ public class BuildingComponent : MonoBehaviour
         }
 
         // call onDestroy before Destroy so we can still access this object
-        onDestroy(this.gameObject);
+        if (onDestroy != null)
+            onDestroy(this.gameObject);
         Destroy(this.gameObject);
     }
 

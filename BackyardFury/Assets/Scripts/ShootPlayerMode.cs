@@ -10,7 +10,6 @@ public class ShootPlayerMode : PlayerModeBase
     public ChildController childObject;
 
     [Header("Projectile Settings")]
-    public List<GameObject> projectilePrefabs;
     public float shootStrength = 11.0f;
     public Vector3 startingAngle;
     private Vector3 shootRotation;

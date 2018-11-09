@@ -27,8 +27,10 @@ public class PlayerController : MonoBehaviour
     public Bounds buildZone;
 
     // mode components
-    BuildPlayerMode buildMode;
-    ShootPlayerMode shootMode;
+    [HideInInspector]
+    public BuildPlayerMode buildMode;
+    [HideInInspector]
+    public ShootPlayerMode shootMode;
 
     private UIController uiController;
     private GameController gameController;

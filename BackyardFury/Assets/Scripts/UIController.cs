@@ -164,6 +164,11 @@ public class UIController : MonoBehaviour
         buildPresetsGroup.anchoredPosition = Vector2.zero;
     }
 
+    public void SelectPreset(int index)
+    {
+        gameController.GetCurrentPlayer().buildMode.SelectBuildPreset(index);
+    }
+
     #endregion
 
     #region Pause Menu
