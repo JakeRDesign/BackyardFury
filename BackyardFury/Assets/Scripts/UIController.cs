@@ -131,6 +131,14 @@ public class UIController : MonoBehaviour
 
     public void UpdateNextBuildTurn(int turnCount, int interval)
     {
+        // disable the text if the interval is super high, meaning we're 
+        // probably testing the idea of only having one initial build phase
+        if(interval > 50)
+        {
+            nextBuildText.gameObject.SetActive(false);
+            return;
+        }
+
         int next = turnCount % interval;
         nextBuildText.gameObject.SetActive(next > 0);
 

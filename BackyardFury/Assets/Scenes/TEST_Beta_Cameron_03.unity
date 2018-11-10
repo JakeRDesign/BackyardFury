@@ -24769,6 +24769,10 @@ MonoBehaviour:
   otherBuildTurnLength: 20
   shootTurnLength: 20
   buildInterval: 4
+  noOtherBuildPhases: 0
+  decreaseEachBuildTime: 0
+  decreaseBy: 5
+  minimumBuildTime: 0
 --- !u!4 &2080667397
 Transform:
   m_ObjectHideFlags: 0

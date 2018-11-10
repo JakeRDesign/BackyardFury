@@ -23,7 +23,15 @@ public class GameController : MonoBehaviour
     private float turnTimer = 0.0f;
     [Header("Allow building every X turns:")]
     public int buildInterval = 3;
+    public bool noOtherBuildPhases = false;
     private int turnCount = 0;
+
+    [Header("(TEST) Decreasing Build Time")]
+    public bool decreaseEachBuildTime = false;
+    [Tooltip("How many seconds each build phase should decrease by")]
+    public float decreaseBy = 5.0f;
+    [Tooltip("Set this to 0 to stop having build phases once the decreased time reaches 0")]
+    public float minimumBuildTime = 5.0f;
 
     private Camera mainCamera;
     private UIController uiController;
@@ -40,6 +48,9 @@ public class GameController : MonoBehaviour
         // grab the UI controller for things like showing winner text
         GameObject uiObject = GameObject.FindGameObjectWithTag("UIController");
         uiController = uiObject.GetComponent<UIController>();
+
+        if (noOtherBuildPhases)
+            buildInterval = 9999;
 
         // disable all playercontrollers so the turn management can handle it
         int butts = 0;
@@ -159,11 +170,35 @@ public class GameController : MonoBehaviour
 
         // set turn timer AFTER changing turns so we know if it's build phase
         if (turnCount <= 0)
+        {
             turnTimer = initialBuildPhaseLength;
+        }
         else if (CanBuildThisTurn())
+        {
             turnTimer = otherBuildTurnLength;
+
+            if (decreaseEachBuildTime)
+            {
+                // only want to decrease the build time before player 1's turn
+                // (so decrease it when the current player is player 2, since
+                //  this is happening after we set the turn timer)
+                if (currentTurn == 1)
+                    otherBuildTurnLength -= decreaseBy;
+
+                if (otherBuildTurnLength < minimumBuildTime)
+                    otherBuildTurnLength = minimumBuildTime;
+
+                // when/if the turn length reaches 0 (meaning no more build phases),
+                // set the interval to something huge so the UI knows not to
+                // show the "next build phase in X turns"
+                if(otherBuildTurnLength <= 0.0f)
+                    buildInterval = 9999;
+            }
+        }
         else
+        {
             turnTimer = shootTurnLength;
+        }
 
         uiController.SetPresetPosition(currentTurn < 1);
         uiController.UpdateNextBuildTurn(turnCount, buildInterval);
@@ -243,6 +278,10 @@ public class GameController : MonoBehaviour
 
     public bool CanBuildThisTurn()
     {
+        // once build time gets to 0, we never want to build again
+        if (otherBuildTurnLength <= 0.0f)
+            return false;
+
         return (turnCount % buildInterval) == 0;
     }
 
