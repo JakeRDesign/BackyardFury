@@ -24,8 +24,8 @@ GameObject:
   - component: {fileID: 95912093105158266}
   - component: {fileID: 54187347291837440}
   - component: {fileID: 114935863028891738}
-  - component: {fileID: 65320011429767740}
   - component: {fileID: 114269936714893982}
+  - component: {fileID: 65978238171864732}
   m_Layer: 0
   m_Name: Box
   m_TagString: BuildingBox
@@ -40,8 +40,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1508892945706150}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.205429, y: 0.06470442, z: -22.083626}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_LocalPosition: {x: 5.633446, y: 21.362568, z: -9.52983}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -86,7 +86,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1508892945706150}
-  m_Mesh: {fileID: 4300000, guid: 2cad866c2cf01124a80c497a4f8afe8f, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 9f1fcb83970180545996e279de9085d3, type: 3}
 --- !u!54 &54187347291837440
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -102,18 +102,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &65320011429767740
+--- !u!65 &65978238171864732
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1508892945706150}
-  m_Material: {fileID: 13400000, guid: 9a165eea8cdc3f043aa42e36d7db9764, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 100.781586, y: 100, z: 100.781586}
-  m_Center: {x: 0, y: 43.529556, z: 0}
+  m_Size: {x: 0.99360955, y: 0.99999994, z: 0.99360955}
+  m_Center: {x: 0, y: 0.43529555, z: 0}
 --- !u!95 &95912093105158266
 Animator:
   serializedVersion: 3
@@ -164,4 +164,6 @@ MonoBehaviour:
   connectUnder: 0
   connectAdjacent: 0
   connectDistance: 0.6
+  springTolerance: 0.025
+  springMaxDistance: 0.5
   isAlive: 1

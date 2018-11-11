@@ -77,4 +77,4 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 0.241}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _HighlightColor: {r: 0, g: 0.7931032, b: 1, a: 1}
-    - _HighlightPos: {r: 9.0442095, g: -10.145464, b: -33.390053, a: 0}
+    - _HighlightPos: {r: 8.948256, g: -12.76499, b: -21.735882, a: 0}

@@ -87,7 +87,7 @@ MonoBehaviour:
   arcLineMaterial: {fileID: 2100000, guid: 92298df8fcba44c4a83b33b19e93ced9, type: 2}
   arcLineWidth: 0.1
   arcPreviewLength: 5
-  aimSensitivity: 1
+  aimSensitivity: 0.5
   wobbleVertical: 1
   wobbleHorizontal: 1
 --- !u!114 &114552367763446480
