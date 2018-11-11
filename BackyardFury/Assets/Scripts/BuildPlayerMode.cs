@@ -243,13 +243,7 @@ public class BuildPlayerMode : PlayerModeBase
     {
         GameObject preset = Instantiate(toGhost);
 
-        Vector3 minPoint = GetFuncPoint(preset.transform, Vector3.Min);
-        Vector3 maxPoint = GetFuncPoint(preset.transform, Vector3.Max, false);
 
-        Debug.Log("Min Point: " + minPoint.ToString());
-
-        Vector3 size = (maxPoint - minPoint);
-        Vector3 center = minPoint + (size / 2.0f);
 
         MakeGhostObject(preset.transform);
 

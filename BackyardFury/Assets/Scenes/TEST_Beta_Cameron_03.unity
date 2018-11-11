@@ -6788,6 +6788,36 @@ Prefab:
       value: 
       objectReference: {fileID: 1098284558247686, guid: 52f78293853675545b27b368c7eb9576,
         type: 2}
+    - target: {fileID: 114592074983938660, guid: a36bbc5bb1b805b41a0bd92c22082543,
+        type: 2}
+      propertyPath: aimSensitivity
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114592074983938660, guid: a36bbc5bb1b805b41a0bd92c22082543,
+        type: 2}
+      propertyPath: startingAngle.x
+      value: -70
+      objectReference: {fileID: 0}
+    - target: {fileID: 114592074983938660, guid: a36bbc5bb1b805b41a0bd92c22082543,
+        type: 2}
+      propertyPath: wobbleVertical
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114592074983938660, guid: a36bbc5bb1b805b41a0bd92c22082543,
+        type: 2}
+      propertyPath: wobbleHorizontal
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114592074983938660, guid: a36bbc5bb1b805b41a0bd92c22082543,
+        type: 2}
+      propertyPath: shotDestination.x
+      value: 9.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 114592074983938660, guid: a36bbc5bb1b805b41a0bd92c22082543,
+        type: 2}
+      propertyPath: shotDestination.z
+      value: -7.03
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a36bbc5bb1b805b41a0bd92c22082543, type: 2}
   m_IsPrefabParent: 0
@@ -12023,6 +12053,36 @@ Prefab:
       value: 
       objectReference: {fileID: 1098284558247686, guid: 52f78293853675545b27b368c7eb9576,
         type: 2}
+    - target: {fileID: 114424755884995098, guid: a1506eb55ba10d84ea5108962e7ef8f2,
+        type: 2}
+      propertyPath: aimSensitivity
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114424755884995098, guid: a1506eb55ba10d84ea5108962e7ef8f2,
+        type: 2}
+      propertyPath: startingAngle.x
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 114424755884995098, guid: a1506eb55ba10d84ea5108962e7ef8f2,
+        type: 2}
+      propertyPath: wobbleVertical
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114424755884995098, guid: a1506eb55ba10d84ea5108962e7ef8f2,
+        type: 2}
+      propertyPath: wobbleHorizontal
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114424755884995098, guid: a1506eb55ba10d84ea5108962e7ef8f2,
+        type: 2}
+      propertyPath: shotDestination.x
+      value: 10.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 114424755884995098, guid: a1506eb55ba10d84ea5108962e7ef8f2,
+        type: 2}
+      propertyPath: shotDestination.z
+      value: -12.89
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a1506eb55ba10d84ea5108962e7ef8f2, type: 2}
   m_IsPrefabParent: 0

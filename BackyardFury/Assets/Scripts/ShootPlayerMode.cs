@@ -12,6 +12,8 @@ public class ShootPlayerMode : PlayerModeBase
     [Header("Projectile Settings")]
     public float shootStrength = 11.0f;
     public Vector3 startingAngle;
+    public Vector3 shotDestination;
+    public float shotHeight = 3.0f;
     private Vector3 shootRotation;
     private GameObject storedProjectile;
 
@@ -75,7 +77,15 @@ public class ShootPlayerMode : PlayerModeBase
         if (Mathf.Abs(Input.GetAxis("Vertical")) > 0)
             xRawInput = Input.GetAxis("Vertical");
 
-        float xRot_P1 = xRawInput * -front * 200;
+        Vector3 camForward = mainCamera.transform.forward;
+        Vector3 camRight = mainCamera.transform.right;
+        camForward.y = 0.0f;
+        camRight.y = 0.0f;
+
+        shotDestination += xRawInput * camForward * aimSensitivity * Time.deltaTime;
+        shotDestination += yRawInput * camRight * aimSensitivity * Time.deltaTime;
+
+        float xRot_P1 = xRawInput * front * 200;
         float yRot_P1 = yRawInput * right * 200;
 
         shootRotation.x += xRot_P1 * aimSensitivity * Time.deltaTime;
@@ -118,7 +128,11 @@ public class ShootPlayerMode : PlayerModeBase
         dir.y += Mathf.Cos(Time.timeSinceLevelLoad * 24.0f) * randFactor * wobbleHorizontal;
         dir.z += Mathf.Cos(Time.timeSinceLevelLoad * 26.0f) * randFactor;
 
-        Vector3 shootForce = dir * shootStrength;
+        Vector3 shootForce = GetInitialVelocity(launcherObject.transform.position,
+            shotDestination, shotHeight + (0.5f * shootPowerAbs));//dir * shootStrength;
+
+        //if (shootPowerAbs > 0.0f)
+        //    shootForce.y *= shootPowerAbs;
 
         // each point in the arc is 16ms of movement from the last one
         const float arcDelta = 0.016f;
@@ -222,4 +236,18 @@ public class ShootPlayerMode : PlayerModeBase
 
         arcLineRenderer.enabled = true;
     }
+
+    Vector3 GetInitialVelocity(Vector3 startPos, Vector3 endPos, 
+        float flightTime)
+    {
+        float highTime = flightTime / 2.0f;
+        // initial vertical velocity = 9.8 * max height time
+        float verticalVel = -Physics.gravity.y * highTime;
+
+        Vector3 dif = endPos - startPos;
+        dif /= flightTime;
+
+        return new Vector3(dif.x, verticalVel, dif.z);
+    }
+
 }

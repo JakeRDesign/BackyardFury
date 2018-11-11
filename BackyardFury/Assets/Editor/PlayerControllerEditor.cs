@@ -11,10 +11,12 @@ public class PlayerControllerEditor : Editor
 {
 
     PlayerController controller;
+    ShootPlayerMode shootMode;
 
     void OnEnable()
     {
         controller = (PlayerController)target;
+        shootMode = controller.GetComponent<ShootPlayerMode>();
     }
 
     void OnSceneGUI()
@@ -30,5 +32,10 @@ public class PlayerControllerEditor : Editor
             Handles.ScaleHandle(controller.buildZone.extents, 
             controller.buildZone.center - Vector3.up * 1.3f, 
             Quaternion.identity, 1.0f);
+
+        if (shootMode == null)
+            return;
+        shootMode.shotDestination = Handles.PositionHandle(shootMode.shotDestination, Quaternion.identity);
+        Handles.Label(shootMode.shotDestination, "Shot Destination Start");
     }
 }
