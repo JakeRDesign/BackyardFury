@@ -143,6 +143,16 @@ public class GameController : MonoBehaviour
         if (gameOver)
             return;
 
+        if (GetCurrentPlayer() != null && GetCurrentPlayer().shootMode.CanShoot())
+        {
+            // set turn timer a little over 0 so we're not continuously calling
+            // this function
+            turnTimer = 0.1f;
+            // and shoot!
+            GetCurrentPlayer().shootMode.Shoot();
+            return;
+        }
+
         // make sure we're not following a projectile
         followingProjectile = null;
 

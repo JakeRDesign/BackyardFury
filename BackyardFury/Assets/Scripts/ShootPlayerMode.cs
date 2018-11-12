@@ -157,7 +157,7 @@ public class ShootPlayerMode : PlayerModeBase
 
             lastPos += tempForce * arcDelta;
 
-            if(lastY > 0.0f && lastPos.y <= 0.0f)
+            if (lastY > 0.0f && lastPos.y <= 0.0f)
                 collidePoint = lastPos;
 
             // set shader highlight position
@@ -187,20 +187,35 @@ public class ShootPlayerMode : PlayerModeBase
         }
         else
         {
-            // shot must be charged a little bit before firing so a
-            // single click doesn't shoot it
-            if (shootPowerAbs > 0.05f)
-                ShootProjectile(shootForce);
-            shootPowerAbs = 0.0f;
+            Shoot();
         }
 
         // update the shot meter on the UI
         uiController.SetShotMeter(Elastic(shootPowerAbs));
     }
 
+    public void Shoot()
+    {
+        if (CanShoot())
+        {
+            Vector3 shootForce = GetInitialVelocity(launcherObject.transform.position,
+                shotDestination, shotHeight + (0.5f * shootPowerAbs));//dir * shootStrength;
+            ShootProjectile(shootForce);
+        }
+        shootPowerAbs = 0.0f;
+
+        uiController.SetShotMeter(Elastic(shootPowerAbs));
+    }
+
+    public bool CanShoot()
+    {
+        return (isActiveAndEnabled && shootPowerAbs > 0.05f);
+    }
+
     // shoots a random projectile with a specified velocity
     private void ShootProjectile(Vector3 shootForce)
     {
+        shootPowerAbs = 0.0f;
         // projectile is disabled when stored in launcher, so re-enable it
         storedProjectile.SetActive(true);
         // and make sure it's no longer parented to the child
