@@ -146,16 +146,34 @@ public class ShootPlayerMode : PlayerModeBase
         Vector3 lastPos = launcherObject.transform.position;
         // temporary force which will be changed due to simulated gravity
         Vector3 tempForce = shootForce;
+        Vector3 collidePoint = Vector3.zero;
         for (int i = 0; i < arcRes; ++i)
         {
             arcLineRenderer.SetPosition(i, lastPos);
 
             tempForce += Physics.gravity * arcDelta;
+
+            float lastY = lastPos.y;
+
             lastPos += tempForce * arcDelta;
+
+            if(lastY > 0.0f && lastPos.y <= 0.0f)
+                collidePoint = lastPos;
 
             // set shader highlight position
             if (i * arcDelta < previewTimeMod)
+            {
                 arcLineMaterial.SetVector("_HighlightPos", lastPos);
+                arcLineMaterial.SetFloat("_HighlightDist", 1.0f);
+            }
+        }
+
+        if (shootPowerAbs > 0.0f)
+        {
+            float dist = Vector3.Distance(launcherObject.transform.position, collidePoint);
+
+            arcLineMaterial.SetFloat("_HighlightDist", shootPowerAbs * dist * 2.0f);
+            arcLineMaterial.SetVector("_HighlightPos", launcherObject.transform.position);
         }
 
         const float increaseSpeed = 0.2f;
@@ -237,7 +255,7 @@ public class ShootPlayerMode : PlayerModeBase
         arcLineRenderer.enabled = true;
     }
 
-    Vector3 GetInitialVelocity(Vector3 startPos, Vector3 endPos, 
+    Vector3 GetInitialVelocity(Vector3 startPos, Vector3 endPos,
         float flightTime)
     {
         float highTime = flightTime / 2.0f;
