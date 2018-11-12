@@ -26,6 +26,9 @@ public class PlayerController : MonoBehaviour
     [Header("Build Settings")]
     public Bounds buildZone;
 
+    [Header("Play Settings")]
+    public Bounds playZone;
+
     // mode components
     [HideInInspector]
     public BuildPlayerMode buildMode;

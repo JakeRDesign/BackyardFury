@@ -12,18 +12,46 @@ public class ObstaclePlacer : MonoBehaviour
     public List<GameObject> obstacles;
 
     [Header("Projectiles")]
-    public Transform spawnPointContainer;
+    public List<Transform> team1SpawnPoints;
+    public List<Transform> team2SpawnPoints;
     public List<GameObject> projectileList;
 
     public void PlaceProjectiles()
     {
-        foreach(Transform t in spawnPointContainer)
-        {
-            GameObject newProj = Instantiate(projectileList[Random.Range(0, projectileList.Count)]);
-            newProj.transform.position = t.position;
-        }
+        foreach (Transform t in team1SpawnPoints)
+            SpawnAt(t);
+        foreach (Transform t in team2SpawnPoints)
+            SpawnAt(t);
+    }
 
-        Destroy(spawnPointContainer.gameObject);
+    int lastIndex = -1;
+    public void GiveTeamProjectile(int teamIndex)
+    {
+        List<Transform> points = team1SpawnPoints;
+        if (teamIndex >= 1)
+            points = team2SpawnPoints;
+
+        // make sure we never place projectiles at the same point twice in
+        // a row
+        int newIndex = -1;
+        do
+        {
+            newIndex = Random.Range(0, points.Count);
+        } while (newIndex == lastIndex);
+
+        lastIndex = newIndex;
+
+        Transform t = points[newIndex];
+        SpawnAt(t);
+    }
+
+    private void SpawnAt(Transform t)
+    {
+        GameObject newProj = Instantiate(projectileList[Random.Range(0, projectileList.Count)]);
+        newProj.transform.position = t.position;
+
+        GameController gc = GetComponent<GameController>();
+        gc.ProjectileAdded(newProj);
     }
 
     public IEnumerator PlaceObstacles(Bounds inBounds)

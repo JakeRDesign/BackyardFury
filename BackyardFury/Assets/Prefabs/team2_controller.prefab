@@ -36,7 +36,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1589686670888520}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.63, y: -0.92, z: -20.8}
+  m_LocalPosition: {x: 9.94, y: -0.92, z: -20.38}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -58,6 +58,11 @@ MonoBehaviour:
   buildZone:
     m_Center: {x: 10, y: 3.9, z: -20}
     m_Extent: {x: 5, y: 4, z: 4}
+  playZone:
+    m_Center: {x: 8, y: 7, z: -20}
+    m_Extent: {x: 12, y: 10, z: 10}
+  buildMode: {fileID: 0}
+  shootMode: {fileID: 0}
 --- !u!114 &114592074983938660
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -71,22 +76,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   launcherObject: {fileID: 0}
   childObject: {fileID: 0}
-  projectilePrefabs:
-  - {fileID: 1277171597288872, guid: 118b0aa8627a1b3408caa2fb56cb4ada, type: 2}
-  - {fileID: 1333993351103676, guid: 4cc50fdccbefd634489f322b28d35e97, type: 2}
-  - {fileID: 1372521080022112, guid: 06d06dd6681500c47a2b4a013a59fc24, type: 2}
-  - {fileID: 1251786390414738, guid: 8c057cf8cdffc1b4397dfbec420f465a, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   shootStrength: 18
-  startingAngle: {x: -35, y: -90, z: 0}
+  startingAngle: {x: -70, y: -90, z: 0}
+  shotDestination: {x: 9.8, y: 0, z: -7.03}
+  shotHeight: 3
   arcLineMaterial: {fileID: 2100000, guid: 92298df8fcba44c4a83b33b19e93ced9, type: 2}
   arcLineWidth: 0.1
   arcPreviewLength: 5
-  aimSensitivity: 0.5
-  wobbleVertical: 1
-  wobbleHorizontal: 1
+  aimSensitivity: 5
+  wobbleVertical: 0.2
+  wobbleHorizontal: 0.2
 --- !u!114 &114896829903059074
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -98,11 +97,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c92eb9ae0eb29549b422c1f4a454569, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cursorSensitivity: 500
-  buildingObjects: []
   buildSnap: {x: 1, y: 0.5, z: 1}
-  buildingPrefab: {fileID: 1508892945706150, guid: 4dfe996d89f60d0458cf3f385f864e74,
-    type: 2}
+  buildingPresets:
+  - {fileID: 1508892945706150, guid: 4dfe996d89f60d0458cf3f385f864e74, type: 2}
+  - {fileID: 1997188910836518, guid: ca49bb5cbcfd1e04b9586115e5cdd249, type: 2}
+  - {fileID: 1098284558247686, guid: 52f78293853675545b27b368c7eb9576, type: 2}
   gridPrefab: {fileID: 1214957971526560, guid: 6c2ea87397e6eaa4bbca2acd8dcf14a1, type: 2}
   ghostMaterial: {fileID: 2100000, guid: 698fc149eebb7814fb393a1ab6f36996, type: 2}
   ghostMaterialError: {fileID: 2100000, guid: 33c1c475639db9f488b72b757f00f863, type: 2}

@@ -17,6 +17,7 @@ public class GameController : MonoBehaviour
     public float cameraFollowStrength = 10.0f;
 
     public int currentTurn = 0;
+    public int minimumProjectilesOnSide = 2;
     public float initialBuildPhaseLength = 30.0f;
     public float otherBuildTurnLength = 30.0f;
     public float shootTurnLength = 15.0f;
@@ -36,6 +37,7 @@ public class GameController : MonoBehaviour
     private Camera mainCamera;
     private UIController uiController;
     private GameObject followingProjectile;
+    private List<GameObject> activeProjectiles = new List<GameObject>();
     private Vector3 followingOffset;
 
     private bool gameOver = false;
@@ -200,8 +202,32 @@ public class GameController : MonoBehaviour
             turnTimer = shootTurnLength;
         }
 
+        CheckProjectileCount();
+
         uiController.SetPresetPosition(currentTurn < 1);
         uiController.UpdateNextBuildTurn(turnCount, buildInterval);
+    }
+
+    void CheckProjectileCount()
+    {
+        PlayerController plr = GetCurrentPlayer();
+
+        // loop through all projectiles and check if they're inside the zone
+        int insideZone = 0;
+        foreach(GameObject p in activeProjectiles)
+        {
+            if (p == null)
+                continue;
+            if (plr.playZone.Contains(p.transform.position))
+                insideZone++;
+            if (insideZone >= minimumProjectilesOnSide)
+                return;
+        }
+
+        // spawn new projectiles if there's not enough
+        ObstaclePlacer placer = GetComponent<ObstaclePlacer>();
+        for(int i = 0; i < (minimumProjectilesOnSide - insideZone); ++i)
+            placer.GiveTeamProjectile(currentTurn);
     }
 
     void PlayerShot(GameObject projectile)
@@ -269,6 +295,11 @@ public class GameController : MonoBehaviour
         foreach (PlayerController p in players)
             p.Disable();
         gameOver = true;
+    }
+
+    public void ProjectileAdded(GameObject newProjectile)
+    {
+        activeProjectiles.Add(newProjectile);
     }
 
     public bool IsBuildPhase()
