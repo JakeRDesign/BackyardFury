@@ -6,8 +6,8 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: LineMaterial
-  m_Shader: {fileID: 4800000, guid: 9a53dbe1121c67e4a82c84398deeb4ed, type: 3}
+  m_Name: Placeholder
+  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -60,10 +60,8 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _GlossMapScale: 1
-    - _Glossiness: 0
+    - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _HighlightDist: 2.85
-    - _HighlightEdge: 1
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
@@ -74,7 +72,5 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 0.241}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _HighlightColor: {r: 0, g: 0.7931032, b: 1, a: 1}
-    - _HighlightPos: {r: 7.821212, g: 13.322695, b: -8.537384, a: 0}
