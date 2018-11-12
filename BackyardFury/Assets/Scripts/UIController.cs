@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using XInputDotNetPure;
@@ -36,6 +37,9 @@ public class UIController : MonoBehaviour
     [Tooltip("Percentage of the screen that the menu will be from its side!\n" + 
         "e.g. 0.2 means the buttons will be 20% of the screen width away from the side of the screen")]
     public float distanceFromSide = 0.2f;
+
+    [Header("Audio")]
+    public AudioMixer mixer;
 
     private RectTransform cursorImage;
     private GameController gameController;
@@ -247,6 +251,11 @@ public class UIController : MonoBehaviour
     public bool IsInPauseMenu()
     {
         return pauseGroup.activeSelf;
+    }
+
+    public void VolumeChanged(float newVol)
+    {
+        mixer.SetFloat("MasterVolume", newVol);
     }
 
     #endregion
