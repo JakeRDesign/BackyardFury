@@ -7692,16 +7692,6 @@ Prefab:
       propertyPath: childObject
       value: 
       objectReference: {fileID: 655059542}
-    - target: {fileID: 114592074983938660, guid: a36bbc5bb1b805b41a0bd92c22082543,
-        type: 2}
-      propertyPath: wobbleHorizontal
-      value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 114592074983938660, guid: a36bbc5bb1b805b41a0bd92c22082543,
-        type: 2}
-      propertyPath: wobbleSpeed
-      value: 50
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a36bbc5bb1b805b41a0bd92c22082543, type: 2}
   m_IsPrefabParent: 0
@@ -13424,16 +13414,6 @@ Prefab:
       propertyPath: childObject
       value: 
       objectReference: {fileID: 1017400109}
-    - target: {fileID: 114424755884995098, guid: a1506eb55ba10d84ea5108962e7ef8f2,
-        type: 2}
-      propertyPath: wobbleHorizontal
-      value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 114424755884995098, guid: a1506eb55ba10d84ea5108962e7ef8f2,
-        type: 2}
-      propertyPath: wobbleSpeed
-      value: 50
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a1506eb55ba10d84ea5108962e7ef8f2, type: 2}
   m_IsPrefabParent: 0
