@@ -47,11 +47,11 @@ public class Projectile : MonoBehaviour
         body.mass = 0.0000001f;
     }
 
-    public void Shot()
+    public void Shot(float power = 0.0f)
     {
         wasShot = true;
         isRemoving = false;
 
-        body.mass = originalMass;
+        body.mass = originalMass + (originalMass * power);
     }
 }

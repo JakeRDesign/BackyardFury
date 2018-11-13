@@ -28,6 +28,8 @@ public class ShootPlayerMode : PlayerModeBase
     // wobble amounts
     public float wobbleVertical = 1.0f;
     public float wobbleHorizontal = 2.0f;
+    public float wobbleSpeed = 10.0f;
+    private float wobbleTimer = 0.0f;
     private LineRenderer arcLineRenderer;
 
     private float shootPowerAbs = 0.0f;
@@ -128,8 +130,11 @@ public class ShootPlayerMode : PlayerModeBase
         dir.y += Mathf.Cos(Time.timeSinceLevelLoad * 24.0f) * randFactor * wobbleHorizontal;
         dir.z += Mathf.Cos(Time.timeSinceLevelLoad * 26.0f) * randFactor;
 
+        wobbleTimer += Time.deltaTime * shootPowerAbs;
+
         Vector3 shootForce = GetInitialVelocity(launcherObject.transform.position,
             shotDestination, shotHeight + (0.5f * shootPowerAbs));//dir * shootStrength;
+
 
         //if (shootPowerAbs > 0.0f)
         //    shootForce.y *= shootPowerAbs;
@@ -215,7 +220,6 @@ public class ShootPlayerMode : PlayerModeBase
     // shoots a random projectile with a specified velocity
     private void ShootProjectile(Vector3 shootForce)
     {
-        shootPowerAbs = 0.0f;
         // projectile is disabled when stored in launcher, so re-enable it
         storedProjectile.SetActive(true);
         // and make sure it's no longer parented to the child
@@ -225,7 +229,7 @@ public class ShootPlayerMode : PlayerModeBase
             launcherObject.transform.position;
         storedProjectile.GetComponent<Rigidbody>().isKinematic = false;
         storedProjectile.GetComponent<Rigidbody>().velocity = shootForce;
-        storedProjectile.GetComponent<Projectile>().Shot();
+        storedProjectile.GetComponent<Projectile>().Shot(shootPowerAbs);
 
         // call any attached functions
         if (parentController.onShoot != null)
@@ -279,6 +283,8 @@ public class ShootPlayerMode : PlayerModeBase
 
         Vector3 dif = endPos - startPos;
         dif /= flightTime;
+
+        dif.x += Mathf.Sin(wobbleTimer * wobbleSpeed) * shootPowerAbs * wobbleHorizontal;
 
         return new Vector3(dif.x, verticalVel, dif.z);
     }
