@@ -204,7 +204,7 @@ public class ShootPlayerMode : PlayerModeBase
         if (CanShoot())
         {
             Vector3 shootForce = GetInitialVelocity(launcherObject.transform.position,
-                shotDestination, shotHeight + (0.5f * shootPowerAbs));//dir * shootStrength;
+                shotDestination, shotHeight + (0.0f * shootPowerAbs));//dir * shootStrength;
             ShootProjectile(shootForce);
         }
         shootPowerAbs = 0.0f;
@@ -227,8 +227,14 @@ public class ShootPlayerMode : PlayerModeBase
 
         storedProjectile.transform.position =
             launcherObject.transform.position;
-        storedProjectile.GetComponent<Rigidbody>().isKinematic = false;
-        storedProjectile.GetComponent<Rigidbody>().velocity = shootForce;
+        Rigidbody projBody = storedProjectile.GetComponent<Rigidbody>();
+        projBody.isKinematic = false;
+        projBody.velocity = shootForce;
+
+        // make random angular velocity so it tumbles in the air
+        Vector3 angular = Random.onUnitSphere * 30.0f;
+        projBody.angularVelocity = angular;
+
         storedProjectile.GetComponent<Projectile>().Shot(shootPowerAbs);
 
         // call any attached functions
