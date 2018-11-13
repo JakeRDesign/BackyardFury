@@ -214,6 +214,9 @@ public class GameController : MonoBehaviour
 
         CheckProjectileCount();
 
+        // reset preset used flag
+        GetCurrentPlayer().buildMode.hasUsedPreset = false;
+
         uiController.SetPresetPosition(currentTurn < 1);
         uiController.UpdateNextBuildTurn(turnCount, buildInterval);
     }

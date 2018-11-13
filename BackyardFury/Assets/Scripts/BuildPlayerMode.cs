@@ -13,6 +13,7 @@ public class BuildPlayerMode : PlayerModeBase
     public Vector3 buildSnap = new Vector3(1.0f, 0.5f, 1.0f);
     // prefab used to build
     public List<GameObject> buildingPresets;
+    public bool hasUsedPreset = false;
     private GameObject selectedPreset;
 
     public GameObject gridPrefab;
@@ -169,6 +170,14 @@ public class BuildPlayerMode : PlayerModeBase
             //cmp.onFinishedPlacing += x => waitingForBox = false;
             // add to the buildingObjects list to detect when we lose
             buildingObjects.Add(newBuilding);
+
+            if (selectedIndex > 0)
+            {
+                // mark preset as used
+                hasUsedPreset = true;
+                // select single box
+                SelectBuildPreset(0);
+            }
         }
 
         lastAState = state.Buttons.A;
@@ -228,11 +237,18 @@ public class BuildPlayerMode : PlayerModeBase
         enabled = b;
     }
 
+    int selectedIndex = -1;
     public void SelectBuildPreset(int index)
     {
+        // don't let player select a preset if it's already been used
+        if (index > 0 && hasUsedPreset)
+            return;
+        selectedIndex = index;
+
         Assert.IsTrue(index >= 0 && index < buildingPresets.Count,
             "Build Preset Index should be between 0 and " + (buildingPresets.Count - 1).ToString());
         selectedPreset = buildingPresets[index];
+
 
         if (ghostBuilding != null)
             Destroy(ghostBuilding);
@@ -242,15 +258,7 @@ public class BuildPlayerMode : PlayerModeBase
     private GameObject MakePresetGhost(GameObject toGhost)
     {
         GameObject preset = Instantiate(toGhost);
-
-
-
         MakeGhostObject(preset.transform);
-
-        //BoxCollider newCollider = preset.AddComponent<BoxCollider>();
-        //newCollider.size = size;
-        //newCollider.center = center;
-        //newCollider.isTrigger = true;
 
         return preset;
     }
