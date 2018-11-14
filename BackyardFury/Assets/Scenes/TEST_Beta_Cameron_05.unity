@@ -3817,36 +3817,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4c7e5667fc3c0a54f9ba86960851b3c8, type: 3}
   m_IsPrefabParent: 0
---- !u!1 &253121361
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 1840171645}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 253121362}
-  m_Layer: 0
-  m_Name: Missing Prefab
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &253121362
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 1840171645}
-  m_GameObject: {fileID: 253121361}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1840171649}
-  - {fileID: 1478002567}
-  m_Father: {fileID: 774610376}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &258530053 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: 4c7e5667fc3c0a54f9ba86960851b3c8, type: 3}
@@ -7994,21 +7964,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4c7e5667fc3c0a54f9ba86960851b3c8, type: 3}
   m_IsPrefabParent: 0
---- !u!1 &573088991
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 1840171645}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1478002567}
-  m_Layer: 0
-  m_Name: Missing Prefab (Dummy)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1001 &579433741
 Prefab:
   m_ObjectHideFlags: 0
@@ -10707,7 +10662,7 @@ Transform:
   - {fileID: 902644770}
   - {fileID: 1177223287}
   - {fileID: 626357921}
-  - {fileID: 253121362}
+  - {fileID: 1478002567}
   - {fileID: 798724572}
   - {fileID: 1747023764}
   - {fileID: 1243632235}
@@ -20784,19 +20739,10 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4c7e5667fc3c0a54f9ba86960851b3c8, type: 3}
   m_IsPrefabParent: 0
---- !u!4 &1478002567
+--- !u!4 &1478002567 stripped
 Transform:
-  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 400000, guid: 7ea8a6d5bd49f6a4688bbe83ee6ce1b6, type: 3}
   m_PrefabInternal: {fileID: 1840171645}
-  m_GameObject: {fileID: 573088991}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 253121362}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1478574335
 Prefab:
   m_ObjectHideFlags: 0
@@ -25556,22 +25502,10 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7ea8a6d5bd49f6a4688bbe83ee6ce1b6, type: 3}
   m_IsPrefabParent: 0
---- !u!1 &1840171647
+--- !u!1 &1840171647 stripped
 GameObject:
-  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 100000, guid: 7ea8a6d5bd49f6a4688bbe83ee6ce1b6, type: 3}
   m_PrefabInternal: {fileID: 1840171645}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1840171649}
-  - component: {fileID: 1840171648}
-  m_Layer: 0
-  m_Name: Missing Prefab (Dummy)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
 --- !u!65 &1840171648
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -25584,19 +25518,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1072.3065, y: 444.0538, z: 295.9442}
   m_Center: {x: 0.00012207031, y: 0, z: -0.000076293945}
---- !u!4 &1840171649
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 1840171645}
-  m_GameObject: {fileID: 1840171647}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 253121362}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1843226102 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: 4c7e5667fc3c0a54f9ba86960851b3c8, type: 3}
@@ -28416,7 +28337,7 @@ MonoBehaviour:
   decreaseBy: 5
   minimumBuildTime: 0
   defendingBoxes: 1
-  boxesToDefend: 1
+  boxesToDefend: 3
 --- !u!4 &2080667397
 Transform:
   m_ObjectHideFlags: 0

@@ -43,6 +43,9 @@ public class UIController : MonoBehaviour
         "e.g. 0.2 means the buttons will be 20% of the screen width away from the side of the screen")]
     public float distanceFromSide = 0.2f;
 
+    [Header("COOLCRATES")]
+    public GameObject coolCrateText;
+
     [Header("Audio")]
     public AudioMixer mixer;
 
@@ -124,6 +127,12 @@ public class UIController : MonoBehaviour
     public void BuildPhaseOver()
     {
         buildBaseText.gameObject.SetActive(false);
+    }
+
+    public void SetCoolCrateText(int count)
+    {
+        coolCrateText.SetActive(count > 0);
+        coolCrateText.GetComponent<Text>().text = string.Format("Place {0} more coolcrates\nDefend them with your life!", count);
     }
 
     #endregion

@@ -74,7 +74,7 @@ public class BuildPlayerMode : PlayerModeBase
         GamePadState state = GamePad.GetState((PlayerIndex)parentController.playerIndex);
 
         // TEMP STUFF to check if a UI button was pressed with controller
-        if(state.Buttons.A == ButtonState.Pressed)
+        if (state.Buttons.A == ButtonState.Pressed)
         {
             // make pointer data to pass into raycasting event
             PointerEventData pointerData = new PointerEventData(EventSystem.current);
@@ -84,7 +84,7 @@ public class BuildPlayerMode : PlayerModeBase
             List<RaycastResult> results = new List<RaycastResult>();
             EventSystem.current.RaycastAll(pointerData, results);
 
-            foreach(var cast in results)
+            foreach (var cast in results)
             {
                 Button b = cast.gameObject.GetComponent<Button>();
                 if (b)
@@ -192,7 +192,7 @@ public class BuildPlayerMode : PlayerModeBase
             //waitingForBox = true;
 
             // check if this is a special building
-            if(!placedSpecialBoxes && gameController.defendingBoxes)
+            if (!placedSpecialBoxes && gameController.defendingBoxes)
             {
                 specialBuildings.Add(newBuilding);
                 Debug.Log("Special buildings: " + specialBuildings.Count);
@@ -200,6 +200,8 @@ public class BuildPlayerMode : PlayerModeBase
                 MeshRenderer mr = newBuilding.GetComponent<MeshRenderer>();
                 if (mr != null)
                     mr.material = specialBoxMaterial;
+
+                uiController.SetCoolCrateText(gameController.boxesToDefend - specialBuildings.Count);
 
                 if (specialBuildings.Count >= gameController.boxesToDefend)
                     placedSpecialBoxes = true;
@@ -273,7 +275,14 @@ public class BuildPlayerMode : PlayerModeBase
         return buildingObjects.Count;
     }
 
-    public void EnableMode() { SetEnabled(true); }
+    public void EnableMode()
+    {
+        SetEnabled(true);
+        if (placedSpecialBoxes)
+            uiController.SetCoolCrateText(-1);
+        else
+            uiController.SetCoolCrateText(gameController.boxesToDefend - specialBuildings.Count);
+    }
     public void DisableMode() { SetEnabled(false); }
 
     // function just called by EnableMode and DisableMode to reduce redundant code
@@ -328,7 +337,7 @@ public class BuildPlayerMode : PlayerModeBase
         if (rnd != null)
             rnd.material = newMaterial;
 
-        foreach(Transform t in obj)
+        foreach (Transform t in obj)
             SetGhostMaterial(t, newMaterial);
     }
 
