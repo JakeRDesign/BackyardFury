@@ -30,8 +30,8 @@ public class GhostBox : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // ignore other ghost boxes
-        if (other.isTrigger)
-            return;
+        //if (other.isTrigger)
+        //    return;
 
         if (!colliding.Contains(other) && !ignoredTags.Contains(other.gameObject.tag)) 
             colliding.Add(other);
