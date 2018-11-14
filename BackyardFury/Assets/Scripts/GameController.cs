@@ -70,7 +70,6 @@ public class GameController : MonoBehaviour
 
     void Start() { }
 
-    ButtonState previousYState = ButtonState.Released;
     void Update()
     {
         if (uiController.IsInPauseMenu())
@@ -95,8 +94,6 @@ public class GameController : MonoBehaviour
         // TODO: make a proper binding for skipping turn
         if (turnTimer <= 0.0f || (Input.GetKeyDown(KeyCode.P) || state.Buttons.Y == ButtonState.Pressed))
             StartNextTeam();
-
-        previousYState = state.Buttons.Y;
 
         if (followingProjectile != null)
         {

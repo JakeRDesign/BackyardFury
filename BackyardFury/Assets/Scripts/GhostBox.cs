@@ -13,24 +13,26 @@ public class GhostBox : MonoBehaviour
 {
 
     List<string> ignoredTags = new List<string>();
-
     List<Collider> colliding = new List<Collider>();
 
     // Use this for initialization
     void Start()
     {
-        ignoredTags.Add("BuildingBox");
+        // shrink collider a little so we don't collide with already placed boxes
+        BoxCollider col = GetComponent<BoxCollider>();
+        if (col != null)
+            col.size *= 0.9f;
+
+        //ignoredTags.Add("BuildingBox");
         ignoredTags.Add("Ground");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        // ignore other ghost boxes
+        if (other.isTrigger)
+            return;
+
         if (!colliding.Contains(other) && !ignoredTags.Contains(other.gameObject.tag)) 
             colliding.Add(other);
     }
@@ -43,6 +45,8 @@ public class GhostBox : MonoBehaviour
 
     public bool IsIntersecting()
     {
+        //foreach (Collider c in colliding)
+        //    Debug.Log(c.gameObject.tag + ":" + c.gameObject.name);
         return colliding.Count > 0;
     }
 

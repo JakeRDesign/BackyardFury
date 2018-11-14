@@ -17,6 +17,11 @@ public class UIController : MonoBehaviour
     public RectTransform meterTransform;
     public RectTransform buildPresetsGroup;
 
+    [Header("Game Overs")]
+    public GameObject gameOver;
+    public GameObject player1Won;
+    public GameObject player2Won;
+
     [Header("Pause Menu")]
     public GameObject pauseGroup;
     public RectTransform pauseWindow;
@@ -104,8 +109,16 @@ public class UIController : MonoBehaviour
 
     public void ShowWinnerText(int player)
     {
-        winnerText.text = "Player " + player + " won";
-        winnerText.gameObject.SetActive(true);
+        gameOver.SetActive(true);
+        switch(player)
+        {
+            case 1:
+                player1Won.SetActive(true);
+                break;
+            case 2:
+                player2Won.SetActive(true);
+                break;
+        }
     }
 
     public void BuildPhaseOver()

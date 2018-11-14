@@ -80,6 +80,8 @@ public class BuildPlayerMode : PlayerModeBase
             // don't detect itself
             if (h.collider.gameObject == ghostBuilding)
                 continue;
+            if (h.collider.gameObject.GetComponent<GhostBox>() != null)
+                continue;
             // don't detect triggers - only physical colliders
             if (h.collider.isTrigger)
                 continue;
@@ -293,7 +295,7 @@ public class BuildPlayerMode : PlayerModeBase
         if (dropper != null)
         {
             Destroy(dropper);
-            GhostBox newGhost = obj.gameObject.AddComponent<GhostBox>();
+            obj.gameObject.AddComponent<GhostBox>();
         }
 
         foreach (Transform child in obj)

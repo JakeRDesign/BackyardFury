@@ -12,6 +12,8 @@ public class ObjectDropper : MonoBehaviour
     public float squashAmount = 0.6f;
     public float inflateSpeed = 20.0f;
 
+    public GameObject dustParticles;
+
     // timer used to lerp it to the ground
     private float dropTimer;
     // timer used to wait for the object to finish squashing
@@ -63,7 +65,11 @@ public class ObjectDropper : MonoBehaviour
 
             // check if the fall finished this frame
             if (dropTimer >= fallTime)
+            {
                 transform.position = startPosition;
+                if (dustParticles != null)
+                    Instantiate(dustParticles, transform.position, Quaternion.identity);
+            }
             return;
         }
 
