@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using UnityEngine.Assertions;
 using XInputDotNetPure;
 
@@ -9,6 +11,7 @@ public class BuildPlayerMode : PlayerModeBase
 
     // list of placed buildings to check if we lost
     private List<GameObject> buildingObjects = new List<GameObject>();
+    private List<GameObject> specialBuildings = new List<GameObject>();
     // grid size to snap buildings to
     public Vector3 buildSnap = new Vector3(1.0f, 0.5f, 1.0f);
     // prefab used to build
@@ -28,6 +31,8 @@ public class BuildPlayerMode : PlayerModeBase
     public Material ghostMaterial;
     // material to show when transparent block can't be placed
     public Material ghostMaterialError;
+    // material to apply to special boxes which must be defended
+    public Material specialBoxMaterial;
 
     // last known position of the mouse so we can detect if mouse is being
     // moved, used for disabling mouse input for controller
@@ -38,6 +43,7 @@ public class BuildPlayerMode : PlayerModeBase
     Material gridMaterial;
     GameObject gridObject;
     Vector3 buildingPos = Vector3.zero;
+    bool placedSpecialBoxes = false;
 
     // keep track of the last known state of the A button so we know which
     // frame it was pressed
@@ -64,6 +70,27 @@ public class BuildPlayerMode : PlayerModeBase
     {
         if (gameController.IsPaused())
             return;
+
+        GamePadState state = GamePad.GetState((PlayerIndex)parentController.playerIndex);
+
+        // TEMP STUFF to check if a UI button was pressed with controller
+        if(state.Buttons.A == ButtonState.Pressed)
+        {
+            // make pointer data to pass into raycasting event
+            PointerEventData pointerData = new PointerEventData(EventSystem.current);
+            pointerData.pointerId = -1;
+            pointerData.position = uiController.GetCursorPos();
+
+            List<RaycastResult> results = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(pointerData, results);
+
+            foreach(var cast in results)
+            {
+                Button b = cast.gameObject.GetComponent<Button>();
+                if (b)
+                    b.OnPointerClick(pointerData);
+            }
+        }
 
         // cast ray from mouse position to choose where to build
         Ray r = mainCamera.ScreenPointToRay(uiController.GetCursorPos());
@@ -154,7 +181,6 @@ public class BuildPlayerMode : PlayerModeBase
         SetGhostMaterial(ghostBuilding.transform, isValidPosition ? ghostMaterial : ghostMaterialError);
 
         // click to build
-        GamePadState state = GamePad.GetState((PlayerIndex)parentController.playerIndex);
         if ((Input.GetMouseButtonDown(0) || (state.Buttons.A == ButtonState.Pressed && lastAState != ButtonState.Pressed)) && isValidPosition)
         {
             // make our new building
@@ -164,6 +190,20 @@ public class BuildPlayerMode : PlayerModeBase
             newBuilding.transform.position = newPos;
             // set the flag which stops us from bulding while box is falling
             //waitingForBox = true;
+
+            // check if this is a special building
+            if(!placedSpecialBoxes && gameController.defendingBoxes)
+            {
+                specialBuildings.Add(newBuilding);
+                Debug.Log("Special buildings: " + specialBuildings.Count);
+
+                MeshRenderer mr = newBuilding.GetComponent<MeshRenderer>();
+                if (mr != null)
+                    mr.material = specialBoxMaterial;
+
+                if (specialBuildings.Count >= gameController.boxesToDefend)
+                    placedSpecialBoxes = true;
+            }
 
             PlacedPreset(newBuilding.transform);
 
@@ -205,13 +245,19 @@ public class BuildPlayerMode : PlayerModeBase
         // remove from the list that keeps track of all boxes
         // just so we can know when there's 0 left for ending the game
         buildingObjects.Remove(destroyed);
+        // remove it if it's a special box
+        specialBuildings.Remove(destroyed);
+
         // don't make people lose if all of their boxes get destroyed in the 
         // build phase
-        if (gameController.IsBuildPhase())
+        if (gameController.IsBuildPhase() && !gameController.defendingBoxes)
             return;
 
         // loser haha
         if (buildingObjects.Count == 0)
+            gameController.PlayerLost(parentController);
+        // lose condition for special box defending
+        if (gameController.defendingBoxes && specialBuildings.Count == 0)
             gameController.PlayerLost(parentController);
     }
 
@@ -250,6 +296,12 @@ public class BuildPlayerMode : PlayerModeBase
         // don't let player select a preset if it's already been used
         if (index > 0 && hasUsedPreset)
             return;
+
+        // make sure the player places a singular box first if we're
+        // defending boxes
+        if (index > 0 && gameController.defendingBoxes && !placedSpecialBoxes)
+            return;
+
         selectedIndex = index;
 
         Assert.IsTrue(index >= 0 && index < buildingPresets.Count,

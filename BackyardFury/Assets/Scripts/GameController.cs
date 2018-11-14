@@ -34,6 +34,10 @@ public class GameController : MonoBehaviour
     [Tooltip("Set this to 0 to stop having build phases once the decreased time reaches 0")]
     public float minimumBuildTime = 5.0f;
 
+    [Header("(TEST) Defend Special Boxes")]
+    public bool defendingBoxes = false;
+    public int boxesToDefend = 1;
+
     private Camera mainCamera;
     private UIController uiController;
     private GameObject followingProjectile;
