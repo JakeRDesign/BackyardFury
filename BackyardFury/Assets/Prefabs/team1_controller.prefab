@@ -58,9 +58,11 @@ MonoBehaviour:
   - {fileID: 1508892945706150, guid: 4dfe996d89f60d0458cf3f385f864e74, type: 2}
   - {fileID: 1997188910836518, guid: ca49bb5cbcfd1e04b9586115e5cdd249, type: 2}
   - {fileID: 1098284558247686, guid: 52f78293853675545b27b368c7eb9576, type: 2}
+  hasUsedPreset: 0
   gridPrefab: {fileID: 1214957971526560, guid: 6c2ea87397e6eaa4bbca2acd8dcf14a1, type: 2}
   ghostMaterial: {fileID: 2100000, guid: 698fc149eebb7814fb393a1ab6f36996, type: 2}
   ghostMaterialError: {fileID: 2100000, guid: 33c1c475639db9f488b72b757f00f863, type: 2}
+  specialBoxMaterial: {fileID: 2100000, guid: c38548995fbd428448ac74316ea03c61, type: 2}
 --- !u!114 &114424755884995098
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -278,7 +278,7 @@ public class BuildPlayerMode : PlayerModeBase
     public void EnableMode()
     {
         SetEnabled(true);
-        if (placedSpecialBoxes)
+        if (placedSpecialBoxes || !gameController.defendingBoxes)
             uiController.SetCoolCrateText(-1);
         else
             uiController.SetCoolCrateText(gameController.boxesToDefend - specialBuildings.Count);
