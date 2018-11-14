@@ -1,20 +1,17 @@
 fileFormatVersion: 2
-guid: d7c867777d598de4d98203e6a72212a5
-timeCreated: 1540960654
+guid: 21cd29e469c81c248a364b19cf1326b3
+timeCreated: 1542234067
 licenseType: Pro
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
-    100002: ball1
     400000: //RootNode
-    400002: ball1
-    2100000: lambert1
+    2100000: lambert3
+    2100002: lambert2
     2300000: //RootNode
-    2300002: ball1
     3300000: //RootNode
-    3300002: ball1
-    4300000: ball1
+    4300000: tree_variant_02_v1
     9500000: //RootNode
   externalObjects: {}
   materials:

@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 65475275411626122}
   - component: {fileID: 114584913767735620}
   - component: {fileID: 54549850155757230}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Obstacle_Shrub
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -146,3 +146,4 @@ MonoBehaviour:
   stretchAmount: 5
   squashAmount: 0.6
   inflateSpeed: 20
+  dustParticles: {fileID: 0}
