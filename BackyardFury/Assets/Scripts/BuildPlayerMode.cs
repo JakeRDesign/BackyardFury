@@ -283,7 +283,11 @@ public class BuildPlayerMode : PlayerModeBase
         else
             uiController.SetCoolCrateText(gameController.boxesToDefend - specialBuildings.Count);
     }
-    public void DisableMode() { SetEnabled(false); }
+    public void DisableMode()
+    {
+        SetEnabled(false);
+        uiController.SetCoolCrateText(-1);
+    }
 
     // function just called by EnableMode and DisableMode to reduce redundant code
     private void SetEnabled(bool b)
