@@ -150,6 +150,12 @@ public class GameController : MonoBehaviour
             return;
         }
 
+        if (GetCurrentPlayer() != null && GetCurrentPlayer().buildMode.GetBuildingCount() == 0)
+        {
+            PlayerLost(null);
+            return;
+        }
+
         // make sure we're not following a projectile
         followingProjectile = null;
 
@@ -200,7 +206,7 @@ public class GameController : MonoBehaviour
                 // when/if the turn length reaches 0 (meaning no more build phases),
                 // set the interval to something huge so the UI knows not to
                 // show the "next build phase in X turns"
-                if(otherBuildTurnLength <= 0.0f)
+                if (otherBuildTurnLength <= 0.0f)
                     buildInterval = 9999;
             }
         }
@@ -224,7 +230,7 @@ public class GameController : MonoBehaviour
 
         // loop through all projectiles and check if they're inside the zone
         int insideZone = 0;
-        foreach(GameObject p in activeProjectiles)
+        foreach (GameObject p in activeProjectiles)
         {
             if (p == null)
                 continue;
@@ -236,7 +242,7 @@ public class GameController : MonoBehaviour
 
         // spawn new projectiles if there's not enough
         ObstaclePlacer placer = GetComponent<ObstaclePlacer>();
-        for(int i = 0; i < (minimumProjectilesOnSide - insideZone); ++i)
+        for (int i = 0; i < (minimumProjectilesOnSide - insideZone); ++i)
             placer.GiveTeamProjectile(currentTurn);
     }
 
@@ -298,8 +304,10 @@ public class GameController : MonoBehaviour
             }
         }
 
-        Assert.AreNotEqual(-1, index, "Winning player couldn't be found in players list!!");
-        uiController.ShowWinnerText(index + 1);
+        if (loser == null)
+            uiController.ShowWinnerText(-1);
+        else
+            uiController.ShowWinnerText(index + 1);
 
         // disable all player controllers :)
         foreach (PlayerController p in players)

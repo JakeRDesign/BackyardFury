@@ -222,6 +222,11 @@ public class BuildPlayerMode : PlayerModeBase
         return a.Contains(b.min) && a.Contains(b.max);
     }
 
+    public int GetBuildingCount()
+    {
+        return buildingObjects.Count;
+    }
+
     public void EnableMode() { SetEnabled(true); }
     public void DisableMode() { SetEnabled(false); }
 

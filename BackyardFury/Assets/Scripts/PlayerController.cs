@@ -44,7 +44,6 @@ public class PlayerController : MonoBehaviour
 
     void Awake()
     {
-
         // grab references to objects
         GameObject controller = GameObject.FindGameObjectWithTag("GameController");
         gameController = controller.GetComponent<GameController>();
