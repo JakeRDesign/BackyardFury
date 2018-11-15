@@ -98,7 +98,7 @@ public class BuildPlayerMode : PlayerModeBase
             }
         }
 
-        if(Input.GetMouseButtonDown(1) && (state.Buttons.B == ButtonState.Pressed && lastB != ButtonState.Pressed))
+        if(Input.GetMouseButtonDown(1) || (state.Buttons.B == ButtonState.Pressed && lastB != ButtonState.Pressed))
             ghostBuilding.transform.Rotate(new Vector3(0.0f, 90.0f, 0.0f));
         lastB = state.Buttons.B;
 
