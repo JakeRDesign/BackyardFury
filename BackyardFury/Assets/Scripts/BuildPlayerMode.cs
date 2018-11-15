@@ -181,8 +181,15 @@ public class BuildPlayerMode : PlayerModeBase
         SetGhostMaterial(ghostBuilding.transform, isValidPosition ? ghostMaterial : ghostMaterialError);
 
         // click to build
-        if ((Input.GetMouseButtonDown(0) || (state.Buttons.A == ButtonState.Pressed && lastAState != ButtonState.Pressed)) && isValidPosition)
+        if ((Input.GetMouseButtonDown(0) || (state.Buttons.A == ButtonState.Pressed && lastAState != ButtonState.Pressed))) 
         {
+            lastAState = state.Buttons.A;
+
+            if(!isValidPosition)
+            {
+                gameController.audioSource.PlayOneShot(gameController.cantPlaceSound);
+                return;
+            }
             // make our new building
             GameObject newBuilding = Instantiate(selectedPreset);//Instantiate(boxPrefab);
             //BuildingComponent cmp = newBuilding.GetComponent<BuildingComponent>();

@@ -29,9 +29,13 @@ public class ObjectDropper : MonoBehaviour
 
     private bool _hasLanded = false;
 
+    [Header("Sounds")]
+    public List<AudioClip> landSounds;
+
     // reference to this object's rigidbody if it has one
     // so we can disable physics while we're dropping
     private Rigidbody body = null;
+    private GameController gameController;
 
     // Use this for initialization
     void Start()
@@ -44,6 +48,9 @@ public class ObjectDropper : MonoBehaviour
         squashTimer = 0.0f;
         startScale = transform.localScale;
         startPosition = transform.position;
+
+        GameObject controllerObject = GameObject.FindGameObjectWithTag("GameController");
+        gameController = controllerObject.GetComponent<GameController>();
     }
 
     // Update is called once per frame
@@ -67,8 +74,14 @@ public class ObjectDropper : MonoBehaviour
             if (dropTimer >= fallTime)
             {
                 transform.position = startPosition;
+
+                // make dust particles
                 if (dustParticles != null)
                     Instantiate(dustParticles, transform.position, Quaternion.identity);
+
+                // make sounds
+                if (landSounds.Count > 0)
+                    gameController.audioSource.PlayOneShot(landSounds[Random.Range(0, landSounds.Count)]);
             }
             return;
         }

@@ -27,6 +27,10 @@ public class GameController : MonoBehaviour
     public bool noOtherBuildPhases = false;
     private int turnCount = 0;
 
+    [Header("Sounds")]
+    public AudioSource audioSource;
+    public AudioClip cantPlaceSound;
+
     [Header("(TEST) Decreasing Build Time")]
     public bool decreaseEachBuildTime = false;
     [Tooltip("How many seconds each build phase should decrease by")]

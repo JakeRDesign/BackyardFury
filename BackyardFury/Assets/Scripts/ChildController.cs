@@ -17,9 +17,12 @@ public class ChildController : MonoBehaviour
     private GameObject holding = null;
     private Rigidbody body;
     private Camera cam;
+    private Vector3 homePosition;
 
     private void Awake()
     {
+        homePosition = transform.position;
+
         body = GetComponent<Rigidbody>();
         cam = Camera.main;
     }
@@ -96,6 +99,7 @@ public class ChildController : MonoBehaviour
                 holding.transform.parent = null;
                 holding.gameObject.SetActive(false);
                 parentMode.StoreProjectile(holding);
+                transform.position = homePosition;
                 holding = null;
             }
         }

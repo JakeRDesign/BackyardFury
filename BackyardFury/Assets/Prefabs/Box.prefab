@@ -147,6 +147,10 @@ MonoBehaviour:
   stretchAmount: 5
   squashAmount: 0.6
   inflateSpeed: 20
+  dustParticles: {fileID: 0}
+  landSounds:
+  - {fileID: 8300000, guid: 7de947f0453181847a7adc81e6425b86, type: 3}
+  - {fileID: 8300000, guid: 46b6a8a4aa6ac8446b1ec36ca41ffb67, type: 3}
 --- !u!114 &114935863028891738
 MonoBehaviour:
   m_ObjectHideFlags: 1
