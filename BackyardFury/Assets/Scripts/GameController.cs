@@ -94,6 +94,9 @@ public class GameController : MonoBehaviour
 
         GamePadState state = GamePad.GetState((PlayerIndex)GetCurrentPlayer().playerIndex);
 
+        if (Input.GetKeyDown(KeyCode.Tab) || state.Buttons.Back == ButtonState.Pressed)
+            uiController.ShowHelpMenu();
+
         if (GetCurrentPlayer().enabled)
             turnTimer -= Time.deltaTime;
         // debug key to add time to a turn

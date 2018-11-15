@@ -43,6 +43,9 @@ public class UIController : MonoBehaviour
         "e.g. 0.2 means the buttons will be 20% of the screen width away from the side of the screen")]
     public float distanceFromSide = 0.2f;
 
+    [Header("Help Menu")]
+    public GameObject helpGroup;
+
     [Header("COOLCRATES")]
     public GameObject coolCrateText;
 
@@ -122,6 +125,16 @@ public class UIController : MonoBehaviour
                 player2Won.SetActive(true);
                 break;
         }
+    }
+
+    public void ShowHelpMenu()
+    {
+        helpGroup.SetActive(true);
+    }
+
+    public void HideHelpMenu()
+    {
+        helpGroup.SetActive(false);
     }
 
     public void BuildPhaseOver()
