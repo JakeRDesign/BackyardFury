@@ -11550,11 +11550,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4787992061569560, guid: 49e8e95cfd739b94f9af772394f4abe7, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -0.84057236
+      value: -0.813
       objectReference: {fileID: 0}
     - target: {fileID: 4787992061569560, guid: 49e8e95cfd739b94f9af772394f4abe7, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -3.0685816
+      value: -2.85
       objectReference: {fileID: 0}
     - target: {fileID: 4787992061569560, guid: 49e8e95cfd739b94f9af772394f4abe7, type: 2}
       propertyPath: m_LocalPosition.z
@@ -11583,7 +11583,7 @@ Prefab:
     - target: {fileID: 198508002549156972, guid: 49e8e95cfd739b94f9af772394f4abe7,
         type: 2}
       propertyPath: looping
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 198508002549156972, guid: 49e8e95cfd739b94f9af772394f4abe7,
         type: 2}
@@ -11620,7 +11620,7 @@ Prefab:
     - target: {fileID: 198508002549156972, guid: 49e8e95cfd739b94f9af772394f4abe7,
         type: 2}
       propertyPath: InitialModule.startSpeed.scalar
-      value: 2.6
+      value: 4.55
       objectReference: {fileID: 0}
     - target: {fileID: 198508002549156972, guid: 49e8e95cfd739b94f9af772394f4abe7,
         type: 2}
@@ -11665,7 +11665,7 @@ Prefab:
     - target: {fileID: 198508002549156972, guid: 49e8e95cfd739b94f9af772394f4abe7,
         type: 2}
       propertyPath: InitialModule.gravityModifier.scalar
-      value: 1.29
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: 198508002549156972, guid: 49e8e95cfd739b94f9af772394f4abe7,
         type: 2}
@@ -28612,6 +28612,14 @@ MonoBehaviour:
   shootTurnLength: 20
   buildInterval: 3
   noOtherBuildPhases: 0
+  tetrisPieces:
+  - {fileID: 1850139920462270, guid: 8c4ecacaa75ade64fbf70da6eae8c8ad, type: 2}
+  - {fileID: 1414912462735026, guid: 9d01ba713d004494291a2507c27b8856, type: 2}
+  - {fileID: 1217061413289694, guid: 130525ad5afaa5a44b33f76d447b7a86, type: 2}
+  - {fileID: 1815326834354010, guid: f52729780b8da4044a53e7f872deadef, type: 2}
+  - {fileID: 1340084196174180, guid: c49492999f2fc0b4186e18dcb864015f, type: 2}
+  - {fileID: 1289421325689718, guid: f19a2da69b8519f4abe002215e76be8a, type: 2}
+  - {fileID: 1523651775291884, guid: 51b2430ab4e36ea4380cd37c97982092, type: 2}
   audioSource: {fileID: 2080667399}
   cantPlaceSound: {fileID: 8300000, guid: 765359b8221dab24f98492b2ecab2cd4, type: 3}
   decreaseEachBuildTime: 0

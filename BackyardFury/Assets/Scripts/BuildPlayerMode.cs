@@ -16,8 +16,12 @@ public class BuildPlayerMode : PlayerModeBase
     public Vector3 buildSnap = new Vector3(1.0f, 0.5f, 1.0f);
     // prefab used to build
     public List<GameObject> buildingPresets;
+
+    private Queue<GameObject> tetrisQueue = new Queue<GameObject>();
+
     public bool hasUsedPreset = false;
     private GameObject selectedPreset;
+    private bool singleBoxSelected = true;
 
     public GameObject gridPrefab;
 
@@ -33,6 +37,7 @@ public class BuildPlayerMode : PlayerModeBase
     public Material ghostMaterialError;
     // material to apply to special boxes which must be defended
     public Material specialBoxMaterial;
+    bool placedSpecialBoxes = false;
 
     // last known position of the mouse so we can detect if mouse is being
     // moved, used for disabling mouse input for controller
@@ -43,7 +48,6 @@ public class BuildPlayerMode : PlayerModeBase
     Material gridMaterial;
     GameObject gridObject;
     Vector3 buildingPos = Vector3.zero;
-    bool placedSpecialBoxes = false;
 
     // keep track of the last known state of the A button so we know which
     // frame it was pressed
@@ -53,8 +57,9 @@ public class BuildPlayerMode : PlayerModeBase
     {
         base.Awake();
         // create the translucent box
-        //MakeGhostBuilding();
         SelectBuildPreset(0);
+
+        UpdateQueue();
 
         // create our grid
         gridObject = Instantiate(gridPrefab);
@@ -66,6 +71,7 @@ public class BuildPlayerMode : PlayerModeBase
         gridMaterial = gridObject.GetComponent<MeshRenderer>().material;
     }
 
+    ButtonState lastB = ButtonState.Released;
     void Update()
     {
         if (gameController.IsPaused())
@@ -91,6 +97,10 @@ public class BuildPlayerMode : PlayerModeBase
                     b.OnPointerClick(pointerData);
             }
         }
+
+        if(Input.GetMouseButtonDown(1) && (state.Buttons.B == ButtonState.Pressed && lastB != ButtonState.Pressed))
+            ghostBuilding.transform.Rotate(new Vector3(0.0f, 90.0f, 0.0f));
+        lastB = state.Buttons.B;
 
         // cast ray from mouse position to choose where to build
         Ray r = mainCamera.ScreenPointToRay(uiController.GetCursorPos());
@@ -181,11 +191,11 @@ public class BuildPlayerMode : PlayerModeBase
         SetGhostMaterial(ghostBuilding.transform, isValidPosition ? ghostMaterial : ghostMaterialError);
 
         // click to build
-        if ((Input.GetMouseButtonDown(0) || (state.Buttons.A == ButtonState.Pressed && lastAState != ButtonState.Pressed))) 
+        if ((Input.GetMouseButtonDown(0) || (state.Buttons.A == ButtonState.Pressed && lastAState != ButtonState.Pressed)))
         {
             lastAState = state.Buttons.A;
 
-            if(!isValidPosition)
+            if (!isValidPosition)
             {
                 gameController.audioSource.PlayOneShot(gameController.cantPlaceSound);
                 return;
@@ -195,6 +205,8 @@ public class BuildPlayerMode : PlayerModeBase
             //BuildingComponent cmp = newBuilding.GetComponent<BuildingComponent>();
             // place where the ghost cube is
             newBuilding.transform.position = newPos;
+            // make the rotation the same as the ghost
+            newBuilding.transform.rotation = ghostBuilding.transform.rotation;
             // set the flag which stops us from bulding while box is falling
             //waitingForBox = true;
 
@@ -227,8 +239,11 @@ public class BuildPlayerMode : PlayerModeBase
                 // mark preset as used
                 hasUsedPreset = true;
                 // select single box
-                SelectBuildPreset(0);
             }
+            if (!singleBoxSelected)
+                tetrisQueue.Dequeue();
+            UpdateQueue();
+            SelectBuildPreset(singleBoxSelected ? 0 : 1);
         }
 
         lastAState = state.Buttons.A;
@@ -270,16 +285,19 @@ public class BuildPlayerMode : PlayerModeBase
             gameController.PlayerLost(parentController);
     }
 
-    // little helper function to check if one bounds encapsulates another
-    // returns true if 'a' encapsulates all of 'b'
-    private bool Encapsulates(Bounds a, Bounds b)
-    {
-        return a.Contains(b.min) && a.Contains(b.max);
-    }
-
     public int GetBuildingCount()
     {
         return buildingObjects.Count;
+    }
+
+    // fills the tetris queue with random pieces
+    private void UpdateQueue()
+    {
+        while (tetrisQueue.Count < 5)
+        {
+            GameObject thisTetris = gameController.tetrisPieces[Random.Range(0, gameController.tetrisPieces.Count)];
+            tetrisQueue.Enqueue(thisTetris);
+        }
     }
 
     public void EnableMode()
@@ -313,20 +331,27 @@ public class BuildPlayerMode : PlayerModeBase
     int selectedIndex = -1;
     public void SelectBuildPreset(int index)
     {
-        // don't let player select a preset if it's already been used
-        if (index > 0 && hasUsedPreset)
-            return;
-
         // make sure the player places a singular box first if we're
         // defending boxes
         if (index > 0 && gameController.defendingBoxes && !placedSpecialBoxes)
             return;
 
-        selectedIndex = index;
+        singleBoxSelected = (index == 0);
 
-        Assert.IsTrue(index >= 0 && index < buildingPresets.Count,
-            "Build Preset Index should be between 0 and " + (buildingPresets.Count - 1).ToString());
-        selectedPreset = buildingPresets[index];
+        //// don't let player select a preset if it's already been used
+        //if (index > 0 && hasUsedPreset)
+        //    return;
+
+
+        //selectedIndex = index;
+
+        //Assert.IsTrue(index >= 0 && index < buildingPresets.Count,
+        //    "Build Preset Index should be between 0 and " + (buildingPresets.Count - 1).ToString());
+
+        if (singleBoxSelected)
+            selectedPreset = buildingPresets[0];
+        else
+            selectedPreset = tetrisQueue.Peek();
 
 
         if (ghostBuilding != null)
@@ -342,6 +367,7 @@ public class BuildPlayerMode : PlayerModeBase
         return preset;
     }
 
+    // recursively sets materials on all children
     private void SetGhostMaterial(Transform obj, Material newMaterial)
     {
         MeshRenderer rnd = obj.GetComponent<MeshRenderer>();
@@ -379,6 +405,9 @@ public class BuildPlayerMode : PlayerModeBase
             MakeGhostObject(child);
     }
 
+    // recursively checks if any child ghost box is intersecting an object
+    // this is needed for presets - since presets are just a container for 
+    // individual boxes
     private bool IntersectingRecursive(Transform t)
     {
         GhostBox gb = t.GetComponent<GhostBox>();
@@ -387,74 +416,37 @@ public class BuildPlayerMode : PlayerModeBase
                 return true;
 
         foreach (Transform child in t)
-        {
             if (IntersectingRecursive(child))
                 return true;
-        }
 
         return false;
     }
 
+    // little helper function to check if one bounds encapsulates another
+    // returns true if 'a' encapsulates all of 'b'
+    private bool Encapsulates(Bounds a, Bounds b)
+    {
+        return a.Contains(b.min) && a.Contains(b.max);
+    }
+
+    // Recursively checks if an object is entirely encapsulated by a bounds
+    // Returns true if it is encapsulated, otherwise false
     private bool EncapsulatesRecursive(Bounds a, Transform obj)
     {
+        // only check this object if it has a box collider
         BoxCollider box = obj.GetComponent<BoxCollider>();
         if (box != null)
             if (!Encapsulates(a, box.bounds))
                 return false;
 
+        // run this on each of the children
+        // if at any point a child is not encapsulated, then
+        // this object isn't entirely inside the bounds
         foreach (Transform t in obj)
             if (!EncapsulatesRecursive(a, t))
                 return false;
 
         return true;
     }
-
-    private Vector3 GetFuncPoint(Transform t, System.Func<Vector3, Vector3, Vector3> compareFunc, bool findMin = true)
-    {
-        Vector3 min = Vector3.zero;
-
-        BoxCollider col = t.GetComponent<BoxCollider>();
-        if (col != null)
-        {
-            Vector3 point = col.center;// col.bounds.min;
-            if (!findMin)
-                point += col.size;
-            else
-                point -= col.size;
-
-            min = compareFunc(min, point);
-        }
-
-        foreach (Transform child in t)
-        {
-            Vector3 childMin = GetFuncPoint(child, compareFunc, findMin);
-            min = compareFunc(childMin, min);
-        }
-
-        return min;
-    }
-
-    private void MakeGhostBuilding()
-    {
-        ghostBuilding = Instantiate(buildingPresets[0]);//Instantiate(boxPrefab);
-
-        ghostBuilding.GetComponent<MeshRenderer>().material = ghostMaterial;
-        ghostBuilding.SetActive(false);
-
-        // remove buildingcomponent before rigidbody because 
-        // buildingcomponent depends on it!
-        Destroy(ghostBuilding.GetComponent<BuildingComponent>());
-        // remove rigidbody and boxcollider from ghost building so placing 
-        // boxes with rigidbodies doesn't throw them away instantly
-        ghostBuilding.GetComponent<Rigidbody>().isKinematic = true;
-        // make collider a trigger so it doesn't collide but we can still
-        // use it to get its extents
-        ghostBuilding.GetComponent<BoxCollider>().isTrigger = true;
-        // and remove object dropper so it doesn't weirdly drop from the sky
-        Destroy(ghostBuilding.GetComponent<ObjectDropper>());
-
-        ghostBuilding.AddComponent<GhostBox>();
-    }
-
 
 }

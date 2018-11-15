@@ -27,6 +27,9 @@ public class GameController : MonoBehaviour
     public bool noOtherBuildPhases = false;
     private int turnCount = 0;
 
+    [Header("Tetris Stuff")]
+    public List<GameObject> tetrisPieces;
+
     [Header("Sounds")]
     public AudioSource audioSource;
     public AudioClip cantPlaceSound;
