@@ -364,7 +364,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1607099415742310
 GameObject:
   m_ObjectHideFlags: 1
@@ -871,7 +871,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 61
+    m_FontSize: 39
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 0
@@ -882,9 +882,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Place your coolcrates
+  m_Text: 'Place your special crates,
 
-    Defend them with your life!'
+    defend them with your life!'
 --- !u!114 &114268529227546462
 MonoBehaviour:
   m_ObjectHideFlags: 1
