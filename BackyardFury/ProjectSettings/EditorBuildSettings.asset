@@ -9,11 +9,17 @@ EditorBuildSettings:
     path: Assets/Scenes/MAINMENU_Beta_Bronwyn_1.unity
     guid: 3dbc2ab2e291c4d4cb1794c9291e1311
   - enabled: 1
-    path: Assets/Scenes/MAIN_Beta_05.unity
-    guid: 10baecdd2a9713b458d2ac8e991506a0
+    path: Assets/Scenes/GAMEMODES_Beta_Adam_01.unity
+    guid: 4b2e48a13c88b314490d57b33fbd4e0e
   - enabled: 1
     path: Assets/Scenes/SETTINGS_Beta_Bronwyn_1.unity
     guid: 31543d1c11350014b93f3edc2662f86e
   - enabled: 1
     path: Assets/Scenes/CREDITS_Beta_Bronwyn_1.unity
     guid: 4530d0edf0ec3a54285eb95b7f83e5ce
+  - enabled: 1
+    path: Assets/Scenes/Gold/MAIN_LastBoxStanding_01.unity
+    guid: bba27a123ce4d8b48aee05a71e463992
+  - enabled: 1
+    path: Assets/Scenes/Gold/MAIN_BoxingMatch_01.unity
+    guid: e363a551de536dd49857d73820a42af2
