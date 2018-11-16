@@ -17,6 +17,9 @@ public class MainMenuController : MonoBehaviour
         // does in game
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+
+        // make sure settings show what the current controls are
+        UpdateControlTexts();
     }
 
     // Loads game
@@ -68,28 +71,15 @@ public class MainMenuController : MonoBehaviour
     public void TogglePlayer1Controls()
     {
         GlobalSettings settings = GlobalSettings.Instance();
-
-        //ControlTypes newType = settings.player1Control + 1;
-        //if (newType >= ControlTypes.Count || !IsControllerConnected(newType))
-        //    newType = 0;
-
-        //settings.player1Control = newType;
         TogglePlayerControl(ref settings.player1Control);
-        player1Text.text = settings.player1Control.ToString();
+        UpdateControlTexts();
     }
 
     public void TogglePlayer2Controls()
     {
         GlobalSettings settings = GlobalSettings.Instance();
-
-        //ControlTypes newType = settings.player2Control + 1;
-        //if (newType >= ControlTypes.Count || !IsControllerConnected(newType))
-        //    newType = 0;
-
-        //settings.player2Control = newType;
         TogglePlayerControl(ref settings.player2Control);
-
-        player2Text.text = settings.player2Control.ToString();
+        UpdateControlTexts();
     }
 
     void TogglePlayerControl(ref ControlTypes butts)
@@ -124,4 +114,13 @@ public class MainMenuController : MonoBehaviour
 
         return GamePad.GetState(controllerIndex).IsConnected;
     }
+
+    void UpdateControlTexts()
+    {
+        GlobalSettings settings = GlobalSettings.Instance();
+
+        player1Text.text = settings.player1Control.ToString();
+        player2Text.text = settings.player2Control.ToString();
+    }
+
 }
