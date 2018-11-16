@@ -49,10 +49,6 @@ public class BuildPlayerMode : PlayerModeBase
     GameObject gridObject;
     Vector3 buildingPos = Vector3.zero;
 
-    // keep track of the last known state of the A button so we know which
-    // frame it was pressed
-    private ButtonState lastAState = ButtonState.Released;
-
     public override void Awake()
     {
         base.Awake();
@@ -71,7 +67,6 @@ public class BuildPlayerMode : PlayerModeBase
         gridMaterial = gridObject.GetComponent<MeshRenderer>().material;
     }
 
-    ButtonState lastB = ButtonState.Released;
     void Update()
     {
         if (gameController.IsPaused())
@@ -152,7 +147,6 @@ public class BuildPlayerMode : PlayerModeBase
         bool intersecting = IntersectingRecursive(ghostBuilding.transform);
 
         // check if the place is buildable
-        BoxCollider ghostCollider = ghostBuilding.GetComponent<BoxCollider>();
         // condition for being buildable:
         //      - entire box is within the build zone
         //      - box isn't intersecting with anything (obstacles)
@@ -204,12 +198,6 @@ public class BuildPlayerMode : PlayerModeBase
 
             PlacedPreset(newBuilding.transform);
 
-            // add destroy event to detect when we lose
-            //cmp.onDestroy += BuildingDestroyed;
-            //cmp.onFinishedPlacing += x => waitingForBox = false;
-            // add to the buildingObjects list to detect when we lose
-            buildingObjects.Add(newBuilding);
-
             if (selectedIndex > 0)
             {
                 // mark preset as used
@@ -228,9 +216,12 @@ public class BuildPlayerMode : PlayerModeBase
         BuildingComponent cmp = obj.GetComponent<BuildingComponent>();
         if (cmp != null)
         {
+            Debug.Log("Building component!");
             boxesToWait++;
             cmp.onDestroy += BuildingDestroyed;
             cmp.onFinishedPlacing += x => boxesToWait--;
+
+            buildingObjects.Add(obj.gameObject);
         }
 
         foreach (Transform child in obj)
@@ -250,7 +241,7 @@ public class BuildPlayerMode : PlayerModeBase
 
         // don't make people lose if all of their boxes get destroyed in the 
         // build phase
-        if (gameController.IsBuildPhase() && !gameController.defendingBoxes)
+        if (gameController.IsBuildPhase())
             return;
 
         // loser haha
