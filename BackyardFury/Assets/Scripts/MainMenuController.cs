@@ -1,10 +1,15 @@
-﻿    using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using XInputDotNetPure;
 
-public class MainMenuController : MonoBehaviour {
+public class MainMenuController : MonoBehaviour
+{
+
+    public Text player1Text;
+    public Text player2Text;
 
     private void Start()
     {
@@ -29,7 +34,7 @@ public class MainMenuController : MonoBehaviour {
     // Volume control Slider
     public Slider Volume;
     public AudioSource Sound;
-    public void SoundSlider ()
+    public void SoundSlider()
     {
         Sound.volume = Volume.value;
     }
@@ -56,5 +61,67 @@ public class MainMenuController : MonoBehaviour {
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    // Control togglies
+
+    public void TogglePlayer1Controls()
+    {
+        GlobalSettings settings = GlobalSettings.Instance();
+
+        //ControlTypes newType = settings.player1Control + 1;
+        //if (newType >= ControlTypes.Count || !IsControllerConnected(newType))
+        //    newType = 0;
+
+        //settings.player1Control = newType;
+        TogglePlayerControl(ref settings.player1Control);
+        player1Text.text = settings.player1Control.ToString();
+    }
+
+    public void TogglePlayer2Controls()
+    {
+        GlobalSettings settings = GlobalSettings.Instance();
+
+        //ControlTypes newType = settings.player2Control + 1;
+        //if (newType >= ControlTypes.Count || !IsControllerConnected(newType))
+        //    newType = 0;
+
+        //settings.player2Control = newType;
+        TogglePlayerControl(ref settings.player2Control);
+
+        player2Text.text = settings.player2Control.ToString();
+    }
+
+    void TogglePlayerControl(ref ControlTypes butts)
+    {
+        ControlTypes newType = butts + 1;
+        if (newType >= ControlTypes.Count || !IsControllerConnected(newType))
+            newType = 0;
+
+        butts = newType;
+    }
+
+    bool IsControllerConnected(ControlTypes type)
+    {
+        PlayerIndex controllerIndex = PlayerIndex.One;
+        switch (type)
+        {
+            case ControlTypes.Controller1:
+                controllerIndex = PlayerIndex.One;
+                break;
+            case ControlTypes.Controller2:
+                controllerIndex = PlayerIndex.Two;
+                break;
+            case ControlTypes.Controller3:
+                controllerIndex = PlayerIndex.Three;
+                break;
+            case ControlTypes.Controller4:
+                controllerIndex = PlayerIndex.Four;
+                break;
+            default:
+                return true;
+        }
+
+        return GamePad.GetState(controllerIndex).IsConnected;
     }
 }

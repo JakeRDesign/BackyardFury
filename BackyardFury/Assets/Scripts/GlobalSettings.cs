@@ -16,7 +16,9 @@ public enum ControlTypes
     Controller1,
     Controller2,
     Controller3,
-    Controller4
+    Controller4,
+
+    Count
 }
 
 // enum for game modes
