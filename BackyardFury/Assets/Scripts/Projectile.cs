@@ -16,6 +16,7 @@ public class Projectile : MonoBehaviour
 
     private Rigidbody body;
     private float originalMass;
+    private float shootTime = 0.0f;
 
     void Awake()
     {
@@ -27,11 +28,17 @@ public class Projectile : MonoBehaviour
     {
         if (collision.collider.isTrigger)
             return;
+        if (collision.collider.gameObject.tag == "Launcher")
+            return;
+        if ((Time.timeSinceLevelLoad - shootTime) < 0.1f)
+            return;
 
         if (!wasShot)
             return;
         if (isRemoving)
             return;
+
+        Debug.Log("Colliding with " + collision.gameObject.name);
 
         onLand();
         StartCoroutine(IncreaseDrag());
@@ -49,6 +56,7 @@ public class Projectile : MonoBehaviour
 
     public void Shot(float power = 0.0f)
     {
+        shootTime = Time.timeSinceLevelLoad;
         wasShot = true;
         isRemoving = false;
 

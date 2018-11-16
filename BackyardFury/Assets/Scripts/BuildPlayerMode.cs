@@ -77,30 +77,8 @@ public class BuildPlayerMode : PlayerModeBase
         if (gameController.IsPaused())
             return;
 
-        GamePadState state = GamePad.GetState((PlayerIndex)parentController.playerIndex);
-
-        // TEMP STUFF to check if a UI button was pressed with controller
-        if (state.Buttons.A == ButtonState.Pressed)
-        {
-            // make pointer data to pass into raycasting event
-            PointerEventData pointerData = new PointerEventData(EventSystem.current);
-            pointerData.pointerId = -1;
-            pointerData.position = uiController.GetCursorPos();
-
-            List<RaycastResult> results = new List<RaycastResult>();
-            EventSystem.current.RaycastAll(pointerData, results);
-
-            foreach (var cast in results)
-            {
-                Button b = cast.gameObject.GetComponent<Button>();
-                if (b)
-                    b.OnPointerClick(pointerData);
-            }
-        }
-
-        if(Input.GetMouseButtonDown(1) || (state.Buttons.B == ButtonState.Pressed && lastB != ButtonState.Pressed))
+        if (parentController.ourInput.AltPressed())
             ghostBuilding.transform.Rotate(new Vector3(0.0f, 90.0f, 0.0f));
-        lastB = state.Buttons.B;
 
         // cast ray from mouse position to choose where to build
         Ray r = mainCamera.ScreenPointToRay(uiController.GetCursorPos());
@@ -191,10 +169,8 @@ public class BuildPlayerMode : PlayerModeBase
         SetGhostMaterial(ghostBuilding.transform, isValidPosition ? ghostMaterial : ghostMaterialError);
 
         // click to build
-        if ((Input.GetMouseButtonDown(0) || (state.Buttons.A == ButtonState.Pressed && lastAState != ButtonState.Pressed)))
+        if (parentController.ourInput.FirePressed())
         {
-            lastAState = state.Buttons.A;
-
             if (!isValidPosition)
             {
                 gameController.audioSource.PlayOneShot(gameController.cantPlaceSound);
@@ -245,8 +221,6 @@ public class BuildPlayerMode : PlayerModeBase
             UpdateQueue();
             SelectBuildPreset(singleBoxSelected ? 0 : 1);
         }
-
-        lastAState = state.Buttons.A;
     }
 
     private void PlacedPreset(Transform obj)
@@ -271,6 +245,8 @@ public class BuildPlayerMode : PlayerModeBase
         buildingObjects.Remove(destroyed);
         // remove it if it's a special box
         specialBuildings.Remove(destroyed);
+
+        Debug.Log("Buildings: " + buildingObjects.Count);
 
         // don't make people lose if all of their boxes get destroyed in the 
         // build phase

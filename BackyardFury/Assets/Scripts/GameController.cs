@@ -55,6 +55,10 @@ public class GameController : MonoBehaviour
 
     void Awake()
     {
+        GlobalSettings settings = GlobalSettings.Instance();
+        MakeInput(players[0], settings.player1Control);
+        MakeInput(players[1], settings.player2Control);
+
         // grab the camera so we can control it like moving between positions and stuff
         GameObject camObject = GameObject.FindGameObjectWithTag("MainCamera");
         mainCamera = camObject.GetComponent<Camera>();
@@ -86,16 +90,19 @@ public class GameController : MonoBehaviour
         if (uiController.IsInPauseMenu())
             return;
 
-        if (IsStartDown())
-            uiController.OpenPauseMenu();
-
         if (currentTurn < 0 || gameOver)
             return;
 
-        GamePadState state = GamePad.GetState((PlayerIndex)GetCurrentPlayer().playerIndex);
+        BaseInput currentInput = GetCurrentPlayer().GetComponent<BaseInput>();
+        // give currentInput a dummy value when there's no input attached
+        if (currentInput == null)
+            currentInput = new KeyboardInputController();
 
-        if (Input.GetKeyDown(KeyCode.Tab) || state.Buttons.Back == ButtonState.Pressed)
+        if (currentInput.HelpPressed())
             uiController.ShowHelpMenu();
+
+        if (currentInput.PausePressed())
+            uiController.OpenPauseMenu(currentInput);
 
         if (GetCurrentPlayer().enabled)
             turnTimer -= Time.deltaTime;
@@ -106,7 +113,7 @@ public class GameController : MonoBehaviour
         uiController.SetTimer(turnTimer);
 
         // TODO: make a proper binding for skipping turn
-        if (turnTimer <= 0.0f || (Input.GetKeyDown(KeyCode.P) || state.Buttons.Y == ButtonState.Pressed))
+        if (turnTimer <= 0.0f || Input.GetKeyDown(KeyCode.P))
             StartNextTeam();
 
         if (followingProjectile != null)
@@ -348,18 +355,37 @@ public class GameController : MonoBehaviour
         return (turnCount % buildInterval) == 0;
     }
 
-    public static bool IsStartDown()
-    {
-        for (int i = 0; i < 4; ++i)
-            if (GamePad.GetState((PlayerIndex)i).Buttons.Start == ButtonState.Pressed)
-                return true;
-        if (Input.GetKey(KeyCode.Escape))
-            return true;
-        return false;
-    }
     public bool IsPaused()
     {
         return uiController.IsInPauseMenu();
+    }
+
+    public void MakeInput(PlayerController plr, ControlTypes control)
+    {
+        if (control == ControlTypes.KeyboardMouse)
+        {
+            var inp = plr.gameObject.AddComponent<KeyboardInputController>();
+            plr.ourInput = inp;
+            return;
+        }
+
+        ControllerInputController cnt = plr.gameObject.AddComponent<ControllerInputController>();
+        plr.ourInput = cnt;
+        switch(control)
+        {
+            case ControlTypes.Controller1:
+                cnt.player = PlayerIndex.One;
+                break;
+            case ControlTypes.Controller2:
+                cnt.player = PlayerIndex.Two;
+                break;
+            case ControlTypes.Controller3:
+                cnt.player = PlayerIndex.Three;
+                break;
+            case ControlTypes.Controller4:
+                cnt.player = PlayerIndex.Four;
+                break;
+        }
     }
 
 }

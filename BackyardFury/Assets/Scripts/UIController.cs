@@ -54,6 +54,7 @@ public class UIController : MonoBehaviour
 
     private RectTransform cursorImage;
     private GameController gameController;
+    private BaseInput pauseOwner;
 
     private void Awake()
     {
@@ -69,11 +70,8 @@ public class UIController : MonoBehaviour
 
     private void Update()
     {
-        if (GameController.IsStartDown() && !windowLeaving && IsInPauseMenu())
+        if (pauseOwner != null && pauseOwner.PausePressed() && !windowLeaving && IsInPauseMenu())
             ClosePauseMenu();
-
-        if (cursorImage.gameObject.activeSelf)
-            UpdateCursorPosition();
     }
 
     #region Displayed Cursor
@@ -100,6 +98,11 @@ public class UIController : MonoBehaviour
     public Vector3 GetCursorPos()
     {
         return cursorImage.position;
+    }
+
+    public void SetCursorPos(Vector3 newPos)
+    {
+        cursorImage.position = newPos;
     }
 
     public void SetCursorVisible(bool e)
@@ -222,8 +225,9 @@ public class UIController : MonoBehaviour
 
     // starts opening the pause menu
     // happens when start is pressed
-    public void OpenPauseMenu()
+    public void OpenPauseMenu(BaseInput opener)
     {
+        pauseOwner = opener;
         // save current status of ui elements to assign when pause is closed
         wasMouseVisible = cursorImage.gameObject.activeSelf;
         wasBuildBaseVisible = buildBaseText.gameObject.activeSelf;

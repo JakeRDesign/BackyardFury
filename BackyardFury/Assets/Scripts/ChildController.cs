@@ -29,8 +29,6 @@ public class ChildController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        GamePadState state = GamePad.GetState((PlayerIndex)parentMode.GetParentController().playerIndex);
-
         // get camera's forward and right directions so we move in the proper
         // direction :)
         Vector3 right = cam.transform.right;
@@ -42,14 +40,9 @@ public class ChildController : MonoBehaviour
         right.Normalize();
         forward.Normalize();
 
-        float yRawInput = state.ThumbSticks.Left.Y;
-        float xRawInput = state.ThumbSticks.Left.X;
-
-        // get keyboard input if available
-        if (Mathf.Abs(Input.GetAxis("Horizontal")) > 0)
-            xRawInput = Input.GetAxis("Horizontal");
-        if (Mathf.Abs(Input.GetAxis("Vertical")) > 0)
-            yRawInput = Input.GetAxis("Vertical");
+        BaseInput ourInput = parentMode.GetComponent<BaseInput>();
+        float yRawInput = ourInput.VerticalAxis();
+        float xRawInput = ourInput.HorizontalAxis();
 
         // get movement vectors based on camera directions
         Vector3 rightMovement = xRawInput * right;

@@ -56,7 +56,6 @@ public class ShootPlayerMode : PlayerModeBase
         if (uiController.IsInPauseMenu())
             return;
 
-
         // get the sign of the camera's forward/right vectors so we can move
         // the arc in the same direction that the camera is facing
         float front = Mathf.Sign(mainCamera.transform.forward.z);
@@ -68,16 +67,8 @@ public class ShootPlayerMode : PlayerModeBase
         if (storedProjectile == null)
             return;
 
-        GamePadState state = GamePad.GetState((PlayerIndex)parentController.playerIndex);
-
-        float xRawInput = state.ThumbSticks.Left.Y;
-        float yRawInput = state.ThumbSticks.Left.X;
-
-        // get keyboard input if available
-        if (Mathf.Abs(Input.GetAxis("Horizontal")) > 0)
-            yRawInput = Input.GetAxis("Horizontal");
-        if (Mathf.Abs(Input.GetAxis("Vertical")) > 0)
-            xRawInput = Input.GetAxis("Vertical");
+        float yRawInput = parentController.ourInput.HorizontalAxis();
+        float xRawInput = parentController.ourInput.VerticalAxis();
 
         Vector3 camForward = mainCamera.transform.forward;
         Vector3 camRight = mainCamera.transform.right;
@@ -183,7 +174,7 @@ public class ShootPlayerMode : PlayerModeBase
 
         const float increaseSpeed = 0.2f;
         // chargy charge!
-        if (Input.GetMouseButton(0) || state.Buttons.A == ButtonState.Pressed)
+        if (parentController.ourInput.FireHeld())
         {
             shootPowerAbs += Time.deltaTime * increaseSpeed;
             // limit shoot power to 1

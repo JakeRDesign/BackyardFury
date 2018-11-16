@@ -34,6 +34,8 @@ public class PlayerController : MonoBehaviour
     public BuildPlayerMode buildMode;
     [HideInInspector]
     public ShootPlayerMode shootMode;
+    [HideInInspector]
+    public BaseInput ourInput;
 
     private UIController uiController;
     private GameController gameController;
@@ -51,19 +53,16 @@ public class PlayerController : MonoBehaviour
         GameObject uiControllerObject = GameObject.FindGameObjectWithTag("UIController");
         uiController = uiControllerObject.GetComponent<UIController>();
 
+        //ourInput = GetComponent<BaseInput>();
         buildMode = GetComponent<BuildPlayerMode>();
         shootMode = GetComponent<ShootPlayerMode>();
 
         StartBuildMode();
-        Disable();
     }
 
-    ButtonState previousXState = ButtonState.Released;
     void Update()
     {
-        GamePadState state = GamePad.GetState((PlayerIndex)playerIndex);
-
-        if ((Input.GetMouseButtonDown(1) || (state.Buttons.X == ButtonState.Pressed && state.Buttons.X != previousXState)) )
+        if (ourInput.AltPressed())
         {
             // don't allow switching modes if we're in the build phase
             if (gameController.IsBuildPhase())
@@ -74,7 +73,6 @@ public class PlayerController : MonoBehaviour
             else
                 StartBuildMode();
         }
-        previousXState = state.Buttons.X;
     }
 
     void StartBuildMode()
@@ -101,6 +99,7 @@ public class PlayerController : MonoBehaviour
     public void Enable()
     {
         this.enabled = true;
+        ourInput.SetInputEnabled(true);
         // start the last mode we were in 
         if (!gameController.CanBuildThisTurn())
             StartShootMode();
@@ -111,6 +110,8 @@ public class PlayerController : MonoBehaviour
     public void Disable()
     {
         uiController.ShowBuildPresets(false);
+        if (ourInput != null)
+            ourInput.SetInputEnabled(false);
         buildMode.DisableMode();
         shootMode.DisableMode();
 
