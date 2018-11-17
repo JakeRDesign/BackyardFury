@@ -184,7 +184,6 @@ public class BuildPlayerMode : PlayerModeBase
             if (!placedSpecialBoxes && gameController.defendingBoxes)
             {
                 specialBuildings.Add(newBuilding);
-                Debug.Log("Special buildings: " + specialBuildings.Count);
 
                 MeshRenderer mr = newBuilding.GetComponent<MeshRenderer>();
                 if (mr != null)
@@ -216,7 +215,6 @@ public class BuildPlayerMode : PlayerModeBase
         BuildingComponent cmp = obj.GetComponent<BuildingComponent>();
         if (cmp != null)
         {
-            Debug.Log("Building component!");
             boxesToWait++;
             cmp.onDestroy += BuildingDestroyed;
             cmp.onFinishedPlacing += x => boxesToWait--;
@@ -236,8 +234,6 @@ public class BuildPlayerMode : PlayerModeBase
         buildingObjects.Remove(destroyed);
         // remove it if it's a special box
         specialBuildings.Remove(destroyed);
-
-        Debug.Log("Buildings: " + buildingObjects.Count);
 
         // don't make people lose if all of their boxes get destroyed in the 
         // build phase

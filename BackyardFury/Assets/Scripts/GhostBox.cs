@@ -23,16 +23,11 @@ public class GhostBox : MonoBehaviour
         if (col != null)
             col.size *= 0.9f;
 
-        //ignoredTags.Add("BuildingBox");
         ignoredTags.Add("Ground");
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        // ignore other ghost boxes
-        //if (other.isTrigger)
-        //    return;
-
         if (!colliding.Contains(other) && !ignoredTags.Contains(other.gameObject.tag)) 
             colliding.Add(other);
     }
@@ -45,8 +40,6 @@ public class GhostBox : MonoBehaviour
 
     public bool IsIntersecting()
     {
-        //foreach (Collider c in colliding)
-        //    Debug.Log(c.gameObject.tag + ":" + c.gameObject.name);
         return colliding.Count > 0;
     }
 

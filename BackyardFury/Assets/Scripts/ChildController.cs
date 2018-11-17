@@ -83,6 +83,10 @@ public class ChildController : MonoBehaviour
                 Rigidbody holdingBody = holding.GetComponent<Rigidbody>();
                 if (holdingBody != null)
                     holdingBody.isKinematic = true;
+
+                Projectile holdingCmp = holding.GetComponent<Projectile>();
+                if (holdingCmp != null)
+                    holdingCmp.PickedUp();
             }
         }
         else

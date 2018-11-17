@@ -10,11 +10,13 @@ public class Projectile : MonoBehaviour
 
     public string instantDestroyTag = "Collider";
 
+    public GameObject sparklePrefab;
     public float timeBeforeDestroying = 2.0f;
     public bool isRemoving = false;
     public bool wasShot = false;
 
     private Rigidbody body;
+    private GameObject ourSparkle;
     private float originalMass;
     private float shootTime = 0.0f;
 
@@ -22,6 +24,17 @@ public class Projectile : MonoBehaviour
     {
         body = GetComponent<Rigidbody>();
         originalMass = body.mass;
+
+        // we make the sparkle in code instead of having it in the prefab by
+        // default because nested prefabs aren't a thing yet so it would be
+        // super difficult to change the particle if we wanted to
+        if (sparklePrefab != null)
+        {
+            // keep a note of our particles so we can hide/show them whenever
+            ourSparkle = Instantiate(sparklePrefab, transform);
+            // make sure the root of the particle is in the center of projectile
+            ourSparkle.transform.localPosition = Vector3.zero;
+        }
     }
 
     void OnCollisionEnter(Collision collision)
@@ -38,8 +51,6 @@ public class Projectile : MonoBehaviour
         if (isRemoving)
             return;
 
-        Debug.Log("Colliding with " + collision.gameObject.name);
-
         onLand();
         StartCoroutine(IncreaseDrag());
         if (collision.gameObject.tag == instantDestroyTag)
@@ -52,6 +63,9 @@ public class Projectile : MonoBehaviour
     {
         yield return new WaitForSeconds(3.0f);
         body.mass = 0.0000001f;
+
+        if (ourSparkle != null)
+            ourSparkle.SetActive(true);
     }
 
     public void Shot(float power = 0.0f)
@@ -61,5 +75,11 @@ public class Projectile : MonoBehaviour
         isRemoving = false;
 
         body.mass = originalMass + (originalMass * power);
+    }
+
+    public void PickedUp()
+    {
+        if (ourSparkle != null)
+            ourSparkle.SetActive(false);
     }
 }
