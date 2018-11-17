@@ -45,12 +45,40 @@ public class GlobalSettings : MonoBehaviour
             instance = FindObjectOfType(typeof(GlobalSettings)) as GlobalSettings;
         }
 
-        // If it is still null, create a new instance
+        // if it's still null, create a new instance
         if (instance == null)
         {
             Debug.Log("Making new settings manager");
             GameObject newObj = new GameObject("SettingsManager");
             instance = newObj.AddComponent<GlobalSettings>();
+
+            // set default controls based on connected controllers
+            List<ControlTypes> connectedControls = new List<ControlTypes>();
+            for (int i = 0; i <= (int)PlayerIndex.Four; ++i)
+            {
+                PlayerIndex index = (PlayerIndex)i;
+                if (GamePad.GetState(index).IsConnected)
+                    connectedControls.Add((ControlTypes)(i + 1));
+            }
+
+            // no controllers connected - both players use keyboard
+            if (connectedControls.Count == 0)
+            {
+                instance.player1Control = ControlTypes.KeyboardMouse;
+                instance.player2Control = ControlTypes.KeyboardMouse;
+            }
+            // one controller connected - pass it back and forth
+            else if (connectedControls.Count == 1)
+            {
+                instance.player1Control = connectedControls[0];
+                instance.player2Control = connectedControls[0];
+            }
+            // more than 1 connected - one controller each
+            else
+            {
+                instance.player1Control = connectedControls[0];
+                instance.player2Control = connectedControls[1];
+            }
         }
 
         DontDestroyOnLoad(instance.gameObject);
