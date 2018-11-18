@@ -32,11 +32,6 @@ public class BuildingComponent : MonoBehaviour
     // variables used to know whether or not the building is broken
     private Vector3 placedPosition;
     private List<SpringJoint> connectedSprings;
-    /*
-        // timer used to lerp it to the ground
-        private float dropTimer;
-        // stuff used for stretching/squashing
-        private Vector3 startScale;*/
 
     // delegate event things
     public delegate void BuildingCallback(GameObject obj);

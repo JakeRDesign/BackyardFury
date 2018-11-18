@@ -38,6 +38,7 @@ public class BuildPlayerMode : PlayerModeBase
     // material to apply to special boxes which must be defended
     public Material specialBoxMaterial;
     bool placedSpecialBoxes = false;
+    private int placedThisTurn = 0;
 
     // last known position of the mouse so we can detect if mouse is being
     // moved, used for disabling mouse input for controller
@@ -47,6 +48,7 @@ public class BuildPlayerMode : PlayerModeBase
     // position to be the position of the building
     Material gridMaterial;
     GameObject gridObject;
+    TetrisPreview tetrisPreview;
     Vector3 buildingPos = Vector3.zero;
 
     public override void Awake()
@@ -54,6 +56,8 @@ public class BuildPlayerMode : PlayerModeBase
         base.Awake();
         // create the translucent box
         SelectBuildPreset(0);
+
+        tetrisPreview = FindObjectOfType(typeof(TetrisPreview)) as TetrisPreview;
 
         UpdateQueue();
 
@@ -167,9 +171,11 @@ public class BuildPlayerMode : PlayerModeBase
         {
             if (!isValidPosition)
             {
-                gameController.audioSource.PlayOneShot(gameController.cantPlaceSound);
+                //gameController.audioSource.PlayOneShot(gameController.cantPlaceSound);
+                SoundManager.instance.Play("BoxError");
                 return;
             }
+            placedThisTurn = 0;
             // make our new building
             GameObject newBuilding = Instantiate(selectedPreset);//Instantiate(boxPrefab);
             //BuildingComponent cmp = newBuilding.GetComponent<BuildingComponent>();
@@ -222,6 +228,13 @@ public class BuildPlayerMode : PlayerModeBase
             buildingObjects.Add(obj.gameObject);
         }
 
+        ObjectDropper drp = obj.GetComponent<ObjectDropper>();
+        if(drp != null)
+        {
+            drp.AddDelay(placedThisTurn * 0.08f);
+            placedThisTurn++;
+        }
+
         foreach (Transform child in obj)
             PlacedPreset(child);
     }
@@ -261,6 +274,8 @@ public class BuildPlayerMode : PlayerModeBase
             GameObject thisTetris = gameController.tetrisPieces[Random.Range(0, gameController.tetrisPieces.Count)];
             tetrisQueue.Enqueue(thisTetris);
         }
+        if(tetrisPreview != null)
+            tetrisPreview.UpdatePreviews(tetrisQueue);
     }
 
     public void EnableMode()
@@ -286,6 +301,9 @@ public class BuildPlayerMode : PlayerModeBase
         uiController.SetCursorVisible(b);
         // hide/show translucent building
         ghostBuilding.gameObject.SetActive(b);
+
+        if (b && tetrisPreview != null)
+            tetrisPreview.UpdatePreviews(tetrisQueue);
 
         // enable/disable this component
         enabled = b;

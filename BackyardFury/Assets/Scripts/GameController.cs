@@ -30,10 +30,6 @@ public class GameController : MonoBehaviour
     [Header("Tetris Stuff")]
     public List<GameObject> tetrisPieces;
 
-    [Header("Sounds")]
-    public AudioSource audioSource;
-    public AudioClip cantPlaceSound;
-
     [Header("(TEST) Decreasing Build Time")]
     public bool decreaseEachBuildTime = false;
     [Tooltip("How many seconds each build phase should decrease by")]

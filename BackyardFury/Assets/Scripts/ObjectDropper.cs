@@ -35,7 +35,6 @@ public class ObjectDropper : MonoBehaviour
     // reference to this object's rigidbody if it has one
     // so we can disable physics while we're dropping
     private Rigidbody body = null;
-    private GameController gameController;
 
     // Use this for initialization
     void Start()
@@ -48,9 +47,12 @@ public class ObjectDropper : MonoBehaviour
         squashTimer = 0.0f;
         startScale = transform.localScale;
         startPosition = transform.position;
+    }
 
-        GameObject controllerObject = GameObject.FindGameObjectWithTag("GameController");
-        gameController = controllerObject.GetComponent<GameController>();
+    public void AddDelay(float t)
+    {
+        fallHeight += (t / fallTime) * fallHeight;
+        fallTime += t;
     }
 
     // Update is called once per frame
@@ -80,8 +82,7 @@ public class ObjectDropper : MonoBehaviour
                     Instantiate(dustParticles, transform.position, Quaternion.identity);
 
                 // make sounds
-                if (landSounds.Count > 0)
-                    gameController.audioSource.PlayOneShot(landSounds[Random.Range(0, landSounds.Count)]);
+                SoundManager.instance.Play("BoxLand");
             }
             return;
         }
