@@ -25,6 +25,7 @@ public class ShootPlayerMode : PlayerModeBase
     // 3 seconds :)
     public float arcPreviewLength = 3.0f;
     public float aimSensitivity = 1.0f;
+    public float heightChange = 1.0f;
     // wobble amounts
     public float wobbleVertical = 1.0f;
     public float wobbleHorizontal = 2.0f;
@@ -124,7 +125,7 @@ public class ShootPlayerMode : PlayerModeBase
         wobbleTimer += Time.deltaTime * shootPowerAbs;
 
         Vector3 shootForce = GetInitialVelocity(launcherObject.transform.position,
-            shotDestination, shotHeight + (0.5f * shootPowerAbs));//dir * shootStrength;
+            shotDestination, shotHeight + (heightChange * shootPowerAbs));//dir * shootStrength;
 
 
         //if (shootPowerAbs > 0.0f)
@@ -195,7 +196,7 @@ public class ShootPlayerMode : PlayerModeBase
         if (CanShoot())
         {
             Vector3 shootForce = GetInitialVelocity(launcherObject.transform.position,
-                shotDestination, shotHeight + (0.0f * shootPowerAbs));//dir * shootStrength;
+                shotDestination, shotHeight + (heightChange * shootPowerAbs));//dir * shootStrength;
             ShootProjectile(shootForce);
         }
         shootPowerAbs = 0.0f;

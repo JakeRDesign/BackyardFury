@@ -51,9 +51,28 @@ public class GameController : MonoBehaviour
 
     void Awake()
     {
+        // set controller stuff from settings
         GlobalSettings settings = GlobalSettings.Instance();
         MakeInput(players[0], settings.player1Control);
         MakeInput(players[1], settings.player2Control);
+
+        // also set gamemode stuff from settings
+        switch (settings.selectedMode)
+        {
+            case GameModes.BoxingMatch:
+                defendingBoxes = false;
+                noOtherBuildPhases = true;
+                break;
+            case GameModes.SpecialBoxes:
+                defendingBoxes = true;
+                noOtherBuildPhases = false;
+                break;
+            default:
+                throw new System.NotImplementedException(
+                    "haven't implemented game mode " +
+                    settings.selectedMode.ToString()
+                    );
+        }
 
         // grab the camera so we can control it like moving between positions and stuff
         GameObject camObject = GameObject.FindGameObjectWithTag("MainCamera");
@@ -367,7 +386,7 @@ public class GameController : MonoBehaviour
 
         ControllerInputController cnt = plr.gameObject.AddComponent<ControllerInputController>();
         plr.ourInput = cnt;
-        switch(control)
+        switch (control)
         {
             case ControlTypes.Controller1:
                 cnt.player = PlayerIndex.One;
