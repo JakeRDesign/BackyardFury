@@ -199,4 +199,14 @@ public class BuildingComponent : MonoBehaviour
         connectedSprings.Add(downJoint);
     }
 
+    void OnCollisionEnter(Collision collision)
+    {
+        float impact = collision.relativeVelocity.magnitude / 15.0f;
+        if (collision.gameObject.tag == "Projectile")
+            SoundManager.instance.Play("BoxImpact1", impact);
+        if(collision.gameObject.tag == "Ground")
+            SoundManager.instance.Play("BoxImpact2", impact);
+
+    }
+
 }

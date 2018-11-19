@@ -71,3 +71,30 @@ MonoBehaviour:
     randomPitch: 1
     minPitch: 0.8
     maxPitch: 2.27
+  - clip: {fileID: 8300000, guid: 5abc6ad73321a0740840e7dbe617139f, type: 3}
+    source: {fileID: 0}
+    name: GrassImpact
+    volume: 0.613
+    pitch: 1
+    loop: 0
+    randomPitch: 1
+    minPitch: 0.8
+    maxPitch: 2.27
+  - clip: {fileID: 8300000, guid: b6fe57d0dedc9cf419dd7f839ca845a7, type: 3}
+    source: {fileID: 0}
+    name: BoxImpact1
+    volume: 0.613
+    pitch: 1
+    loop: 0
+    randomPitch: 1
+    minPitch: 0.8
+    maxPitch: 2.27
+  - clip: {fileID: 8300000, guid: 5b654e3ed7d87e0428d1a7ed4b0af967, type: 3}
+    source: {fileID: 0}
+    name: BoxImpact2
+    volume: 0.613
+    pitch: 1
+    loop: 0
+    randomPitch: 1
+    minPitch: 0.8
+    maxPitch: 2.27

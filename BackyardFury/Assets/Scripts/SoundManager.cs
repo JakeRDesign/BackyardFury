@@ -39,13 +39,15 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public void Play(string name)
+    public void Play(string name, float vol = 1.0f)
     {
         Sound s = GetSound(name);
         if (s != null)
         {
             if(s.randomPitch)
                 s.source.pitch = Random.Range(s.minPitch, s.maxPitch);
+
+            s.source.volume = s.volume * vol;
 
             s.source.Play();
         }
