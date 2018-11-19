@@ -147,7 +147,8 @@ MonoBehaviour:
   stretchAmount: 5
   squashAmount: 0.6
   inflateSpeed: 20
-  dustParticles: {fileID: 0}
+  dustParticles: {fileID: 1943637873910088, guid: 7cf8b4a37d444614f820257b013de6fd,
+    type: 2}
   landSounds:
   - {fileID: 8300000, guid: 7de947f0453181847a7adc81e6425b86, type: 3}
   - {fileID: 8300000, guid: 46b6a8a4aa6ac8446b1ec36ca41ffb67, type: 3}

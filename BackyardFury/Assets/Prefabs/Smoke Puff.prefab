@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4783556948431798}
   - component: {fileID: 198129515220847520}
   - component: {fileID: 199240507607096490}
+  - component: {fileID: 114745739537938764}
   m_Layer: 0
   m_Name: Smoke Puff
   m_TagString: Untagged
@@ -41,6 +42,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114745739537938764
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1943637873910088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37935813d9df7ae43b4b7afad1313feb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deleteAfter: 2
 --- !u!198 &198129515220847520
 ParticleSystem:
   m_ObjectHideFlags: 1

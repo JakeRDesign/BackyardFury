@@ -15,6 +15,7 @@ public class BuildPlayerMode : PlayerModeBase
     // grid size to snap buildings to
     public Vector3 buildSnap = new Vector3(1.0f, 0.5f, 1.0f);
     // prefab used to build
+    public GameObject regularBox;
     public List<GameObject> buildingPresets;
 
     private Queue<GameObject> tetrisQueue = new Queue<GameObject>();
@@ -233,6 +234,9 @@ public class BuildPlayerMode : PlayerModeBase
         {
             drp.AddDelay(placedThisTurn * 0.08f);
             placedThisTurn++;
+
+            if (regularBox != null)
+                drp.dustParticles = regularBox.GetComponent<ObjectDropper>().dustParticles;
         }
 
         foreach (Transform child in obj)

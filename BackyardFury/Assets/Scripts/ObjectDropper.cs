@@ -79,7 +79,7 @@ public class ObjectDropper : MonoBehaviour
 
                 // make dust particles
                 if (dustParticles != null)
-                    Instantiate(dustParticles, transform.position, Quaternion.identity);
+                    Instantiate(dustParticles, transform.position, dustParticles.transform.rotation);
 
                 // make sounds
                 SoundManager.instance.Play("BoxLand");
