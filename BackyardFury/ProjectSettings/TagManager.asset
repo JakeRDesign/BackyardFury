@@ -11,6 +11,8 @@ TagManager:
   - Collider
   - Launcher
   - Out
+  - Projectile
+  - Fence
   layers:
   - Default
   - TransparentFX

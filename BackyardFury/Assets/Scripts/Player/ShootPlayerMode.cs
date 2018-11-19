@@ -212,6 +212,10 @@ public class ShootPlayerMode : PlayerModeBase
     // shoots a random projectile with a specified velocity
     private void ShootProjectile(Vector3 shootForce)
     {
+        // sound effects can be "Fire1" or "Fire2" - choose
+        string soundName = "Fire" + (Random.Range(1, 3));
+        SoundManager.instance.Play(soundName);
+
         // projectile is disabled when stored in launcher, so re-enable it
         storedProjectile.SetActive(true);
         // and make sure it's no longer parented to the child

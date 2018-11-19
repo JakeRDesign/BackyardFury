@@ -39,14 +39,11 @@ public class Projectile : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
+        float impact = collision.relativeVelocity.magnitude/15.0f;
         if (collision.gameObject.tag == "Ground")
-        {
-            float impact = collision.relativeVelocity.magnitude/15.0f;
-
-            Debug.Log("Ground collision: " + impact);
-
             SoundManager.instance.Play("GrassImpact", impact);
-        }
+        if(collision.gameObject.tag == "Fence")
+            SoundManager.instance.Play("FenceHit", impact);
 
         if (collision.collider.isTrigger)
             return;

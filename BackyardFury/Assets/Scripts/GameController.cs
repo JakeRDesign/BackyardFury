@@ -188,6 +188,7 @@ public class GameController : MonoBehaviour
 
         if (GetCurrentPlayer() != null && GetCurrentPlayer().buildMode.GetBuildingCount() == 0)
         {
+            SoundManager.instance.Play("Idiot");
             PlayerLost(null);
             return;
         }
@@ -199,6 +200,7 @@ public class GameController : MonoBehaviour
             players[currentTurn].Disable();
 
         currentTurn++;
+        SoundManager.instance.Play("CameraChange");
         if (currentTurn >= players.Count)
         {
             currentTurn = 0;

@@ -98,3 +98,48 @@ MonoBehaviour:
     randomPitch: 1
     minPitch: 0.8
     maxPitch: 2.27
+  - clip: {fileID: 8300000, guid: 57d22aabf217c2848936ce721afabccd, type: 3}
+    source: {fileID: 0}
+    name: Idiot
+    volume: 0.613
+    pitch: 1
+    loop: 0
+    randomPitch: 0
+    minPitch: 0.8
+    maxPitch: 2.27
+  - clip: {fileID: 8300000, guid: 4a421474e29ab1345bb3df03495ff61d, type: 3}
+    source: {fileID: 0}
+    name: Fire1
+    volume: 0.464
+    pitch: 1
+    loop: 0
+    randomPitch: 1
+    minPitch: 0.8
+    maxPitch: 2.27
+  - clip: {fileID: 8300000, guid: 9097f108068b40d4dbd6467addd9e5b1, type: 3}
+    source: {fileID: 0}
+    name: Fire2
+    volume: 0.644
+    pitch: 1
+    loop: 0
+    randomPitch: 1
+    minPitch: 0.8
+    maxPitch: 2.27
+  - clip: {fileID: 8300000, guid: 53befd062b9d9ea4ea6250c7ef0745f7, type: 3}
+    source: {fileID: 0}
+    name: FenceHit
+    volume: 0.644
+    pitch: 1
+    loop: 0
+    randomPitch: 1
+    minPitch: 0.8
+    maxPitch: 2.27
+  - clip: {fileID: 8300000, guid: aad2694240dc1c247b8e8eece564858d, type: 3}
+    source: {fileID: 0}
+    name: CameraChange
+    volume: 0.644
+    pitch: 1
+    loop: 0
+    randomPitch: 0
+    minPitch: 0.8
+    maxPitch: 2.27
