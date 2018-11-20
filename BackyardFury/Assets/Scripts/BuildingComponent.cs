@@ -88,7 +88,7 @@ public class BuildingComponent : MonoBehaviour
         }
     }
 
-    private IEnumerator StartRemoving()
+    public IEnumerator StartRemoving()
     {
         if (!isAlive)
             yield break;
@@ -203,8 +203,16 @@ public class BuildingComponent : MonoBehaviour
     {
         float impact = collision.relativeVelocity.magnitude / 15.0f;
         if (collision.gameObject.tag == "Projectile")
+        {
             SoundManager.instance.Play("BoxImpact1", impact);
-        if(collision.gameObject.tag == "Ground")
+
+            if (impact > 0.5f)
+            {
+                Debug.Log("breaking box from impact");
+                StartCoroutine(StartRemoving());
+            }
+        }
+        if (collision.gameObject.tag == "Ground")
             SoundManager.instance.Play("BoxImpact2", impact);
 
     }

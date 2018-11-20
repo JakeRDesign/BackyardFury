@@ -192,9 +192,7 @@ public class BuildPlayerMode : PlayerModeBase
             {
                 specialBuildings.Add(newBuilding);
 
-                MeshRenderer mr = newBuilding.GetComponent<MeshRenderer>();
-                if (mr != null)
-                    mr.material = specialBoxMaterial;
+                MakeSpecialBox(newBuilding);
 
                 uiController.SetCoolCrateText(gameController.boxesToDefend - specialBuildings.Count);
 
@@ -217,6 +215,17 @@ public class BuildPlayerMode : PlayerModeBase
         }
     }
 
+    private void MakeSpecialBox(GameObject obj)
+    {
+        MeshRenderer mr = obj.GetComponent<MeshRenderer>();
+        if (mr != null)
+            mr.material = specialBoxMaterial;
+        
+        Rigidbody rb = obj.GetComponent<Rigidbody>();
+        if(rb != null)
+            rb.isKinematic = true;
+    }
+
     private void PlacedPreset(Transform obj)
     {
         BuildingComponent cmp = obj.GetComponent<BuildingComponent>();
@@ -230,7 +239,7 @@ public class BuildPlayerMode : PlayerModeBase
         }
 
         ObjectDropper drp = obj.GetComponent<ObjectDropper>();
-        if(drp != null)
+        if (drp != null)
         {
             drp.AddDelay(placedThisTurn * 0.08f);
             placedThisTurn++;
@@ -278,7 +287,7 @@ public class BuildPlayerMode : PlayerModeBase
             GameObject thisTetris = gameController.tetrisPieces[Random.Range(0, gameController.tetrisPieces.Count)];
             tetrisQueue.Enqueue(thisTetris);
         }
-        if(tetrisPreview != null)
+        if (tetrisPreview != null)
             tetrisPreview.UpdatePreviews(tetrisQueue);
     }
 
