@@ -9,6 +9,7 @@ public class ProjectileReturner : MonoBehaviour
     public float returnStrength = 20.0f;
     public float returnVerticalVelocity = 4.0f;
     public List<GameObject> prefabList;
+    public bool throwBack = true;
 
     private GameController gameController;
 
@@ -20,6 +21,9 @@ public class ProjectileReturner : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (!throwBack)
+            return;
+
         if (other.tag != "Projectile")
             return;
 
