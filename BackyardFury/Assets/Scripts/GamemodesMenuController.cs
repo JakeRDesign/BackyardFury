@@ -13,11 +13,13 @@ public class GamemodesMenuController : MonoBehaviour {
 
     public void LastBoxMode()
     {
+        GlobalSettings.Instance().selectedMode = GameModes.SpecialBoxes;
         SceneManager.LoadScene(4);
     }
 
     public void BoxingMatchMode()
     {
-        SceneManager.LoadScene(5);
+        GlobalSettings.Instance().selectedMode = GameModes.BoxingMatch;
+        SceneManager.LoadScene(4);
     }
 }
