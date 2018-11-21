@@ -172,3 +172,5 @@ MonoBehaviour:
   springTolerance: 0.025
   springMaxDistance: 0.5
   isAlive: 1
+  specialBox: 0
+  massScale: 2

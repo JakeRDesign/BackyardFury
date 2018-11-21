@@ -220,10 +220,14 @@ public class BuildPlayerMode : PlayerModeBase
         MeshRenderer mr = obj.GetComponent<MeshRenderer>();
         if (mr != null)
             mr.material = specialBoxMaterial;
-        
+
         Rigidbody rb = obj.GetComponent<Rigidbody>();
-        if(rb != null)
+        if (rb != null)
             rb.isKinematic = true;
+
+        BuildingComponent cmp = obj.GetComponent<BuildingComponent>();
+        if (cmp != null)
+            cmp.specialBox = true;
     }
 
     private void PlacedPreset(Transform obj)
@@ -234,6 +238,8 @@ public class BuildPlayerMode : PlayerModeBase
             boxesToWait++;
             cmp.onDestroy += BuildingDestroyed;
             cmp.onFinishedPlacing += x => boxesToWait--;
+            if (regularBox != null)
+                cmp.massScale = regularBox.GetComponent<BuildingComponent>().massScale;
 
             buildingObjects.Add(obj.gameObject);
         }
@@ -303,6 +309,9 @@ public class BuildPlayerMode : PlayerModeBase
     {
         SetEnabled(false);
         uiController.SetCoolCrateText(-1);
+
+        foreach (GameObject b in buildingObjects)
+            b.GetComponent<BuildingComponent>().CalculateMass();
     }
 
     // function just called by EnableMode and DisableMode to reduce redundant code

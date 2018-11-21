@@ -42,6 +42,9 @@ public class BuildingComponentEditor : Editor
 
     public override void OnInspectorGUI()
     {
+        DrawDefaultInspector();
+        return;
+
         serializedObject.Update();
 
         BuildingComponent cmp = (BuildingComponent)target;

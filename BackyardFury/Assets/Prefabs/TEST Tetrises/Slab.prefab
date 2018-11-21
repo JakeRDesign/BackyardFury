@@ -231,7 +231,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1499368885829682}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4556144315352100}
@@ -244,7 +244,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1964963153435598}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4556144315352100}
@@ -257,7 +257,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1014655366730664}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1, y: 0, z: 1}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4556144315352100}
@@ -270,7 +270,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1299923420183770}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4556144315352100}
@@ -283,7 +283,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1827160011100934}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1, y: 0, z: 1}
+  m_LocalPosition: {x: 0, y: 2, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4556144315352100}
@@ -309,7 +309,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1815326834354010}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9.93509, y: -0.007257402, z: -17.484667}
+  m_LocalPosition: {x: 7.7271104, y: -0.007257402, z: -4.4888563}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4123200828622352}
@@ -331,7 +331,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1075068762324054}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1, y: 0, z: -1}
+  m_LocalPosition: {x: 0, y: 1, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4556144315352100}
@@ -344,7 +344,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1180165537364964}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4556144315352100}
@@ -357,7 +357,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1759906073580952}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1, y: 0, z: -1}
+  m_LocalPosition: {x: 0, y: 2, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4556144315352100}
@@ -1184,6 +1184,8 @@ MonoBehaviour:
   springTolerance: 0.025
   springMaxDistance: 0.5
   isAlive: 1
+  specialBox: 0
+  massScale: 2
 --- !u!114 &114028710427338784
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1204,6 +1206,8 @@ MonoBehaviour:
   springTolerance: 0.025
   springMaxDistance: 0.5
   isAlive: 1
+  specialBox: 0
+  massScale: 2
 --- !u!114 &114050936706762058
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1260,6 +1264,8 @@ MonoBehaviour:
   springTolerance: 0.025
   springMaxDistance: 0.5
   isAlive: 1
+  specialBox: 0
+  massScale: 2
 --- !u!114 &114340929036464404
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1298,6 +1304,8 @@ MonoBehaviour:
   springTolerance: 0.025
   springMaxDistance: 0.5
   isAlive: 1
+  specialBox: 0
+  massScale: 2
 --- !u!114 &114509307162192796
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1372,6 +1380,8 @@ MonoBehaviour:
   springTolerance: 0.025
   springMaxDistance: 0.5
   isAlive: 1
+  specialBox: 0
+  massScale: 2
 --- !u!114 &114768550428385112
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1392,6 +1402,8 @@ MonoBehaviour:
   springTolerance: 0.025
   springMaxDistance: 0.5
   isAlive: 1
+  specialBox: 0
+  massScale: 2
 --- !u!114 &114786193612626114
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1430,6 +1442,8 @@ MonoBehaviour:
   springTolerance: 0.025
   springMaxDistance: 0.5
   isAlive: 1
+  specialBox: 0
+  massScale: 2
 --- !u!114 &114902329673209024
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1450,6 +1464,8 @@ MonoBehaviour:
   springTolerance: 0.025
   springMaxDistance: 0.5
   isAlive: 1
+  specialBox: 0
+  massScale: 2
 --- !u!114 &114938491217602996
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1470,3 +1486,5 @@ MonoBehaviour:
   springTolerance: 0.025
   springMaxDistance: 0.5
   isAlive: 1
+  specialBox: 0
+  massScale: 2

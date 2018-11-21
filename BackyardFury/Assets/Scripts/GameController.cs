@@ -85,13 +85,13 @@ public class GameController : MonoBehaviour
             buildInterval = 9999;
 
         // disable all playercontrollers so the turn management can handle it
-        int butts = 0;
+        int index = 0;
         foreach (PlayerController p in players)
         {
             p.onShoot += PlayerShot;
             p.Disable();
-            p.playerIndex = butts;
-            butts++;
+            p.playerIndex = index;
+            index++;
         }
 
         currentTurn = -1;
@@ -176,22 +176,26 @@ public class GameController : MonoBehaviour
         if (gameOver)
             return;
 
-        if (GetCurrentPlayer() != null && GetCurrentPlayer().shootMode.CanShoot())
+        if (GetCurrentPlayer() != null)
         {
-            // set turn timer a little over 0 so we're not continuously calling
-            // this function
-            turnTimer = 0.1f;
-            // and shoot!
-            GetCurrentPlayer().shootMode.Shoot();
-            return;
+            if (GetCurrentPlayer().shootMode.CanShoot())
+            {
+                // set turn timer a little over 0 so we're not continuously calling
+                // this function
+                turnTimer = 0.1f;
+                // and shoot!
+                GetCurrentPlayer().shootMode.Shoot();
+                return;
+            }
+
+            if (GetCurrentPlayer().buildMode.GetBuildingCount() == 0)
+            {
+                SoundManager.instance.Play("Idiot");
+                PlayerLost(null);
+                return;
+            }
         }
 
-        if (GetCurrentPlayer() != null && GetCurrentPlayer().buildMode.GetBuildingCount() == 0)
-        {
-            SoundManager.instance.Play("Idiot");
-            PlayerLost(null);
-            return;
-        }
 
         // make sure we're not following a projectile
         followingProjectile = null;

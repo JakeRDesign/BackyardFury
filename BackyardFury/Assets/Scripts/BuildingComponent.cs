@@ -28,6 +28,13 @@ public class BuildingComponent : MonoBehaviour
     // this gets set to false as soon as the box starts disappearing, so we
     // can count it as "dead" before it's fully animated out
     public bool isAlive = true;
+    public bool specialBox = false;
+
+    [Header("Mass Calculation")]
+    // mass testing thing
+    [Tooltip("Factor to multiply by for each box on top of this one")]
+    public float massScale = 1.0f;
+    private float baseMass = 0.0f;
 
     // variables used to know whether or not the building is broken
     private Vector3 placedPosition;
@@ -44,6 +51,7 @@ public class BuildingComponent : MonoBehaviour
     // Called when building is placed
     private void Start()
     {
+        baseMass = GetComponent<Rigidbody>().mass;
         dropper = GetComponent<ObjectDropper>();
         if (dropper != null)
             dropper.onLanded += DropperFinished;
@@ -206,15 +214,28 @@ public class BuildingComponent : MonoBehaviour
         {
             SoundManager.instance.Play("BoxImpact1", impact);
 
-            if (impact > 0.5f)
-            {
-                Debug.Log("breaking box from impact");
+            if (specialBox)
                 StartCoroutine(StartRemoving());
-            }
         }
         if (collision.gameObject.tag == "Ground")
             SoundManager.instance.Play("BoxImpact2", impact);
+    }
 
+    // Sets mass based on how many boxes are on top of it
+    public void CalculateMass()
+    {
+        Ray downRay = new Ray(transform.position, Vector3.up);
+        RaycastHit[] hits = Physics.RaycastAll(downRay);
+
+        float massMultiplier = 0.0f;
+        foreach (RaycastHit hit in hits)
+        {
+            if (hit.collider.tag == "BuildingBox")
+                massMultiplier += massScale;
+        }
+
+        float newMass = baseMass + (baseMass * massMultiplier);
+        GetComponent<Rigidbody>().mass = newMass;
     }
 
 }
