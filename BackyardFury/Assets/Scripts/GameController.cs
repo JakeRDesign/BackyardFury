@@ -61,11 +61,11 @@ public class GameController : MonoBehaviour
         {
             case GameModes.BoxingMatch:
                 defendingBoxes = false;
-                noOtherBuildPhases = true;
+                //noOtherBuildPhases = true;
                 break;
             case GameModes.SpecialBoxes:
                 defendingBoxes = true;
-                noOtherBuildPhases = false;
+                //noOtherBuildPhases = false;
                 break;
             default:
                 throw new System.NotImplementedException(
