@@ -340,6 +340,7 @@ GameObject:
   - component: {fileID: 476523777}
   - component: {fileID: 476523779}
   - component: {fileID: 476523778}
+  - component: {fileID: 476523780}
   m_Layer: 5
   m_Name: Credits
   m_TagString: Untagged
@@ -404,6 +405,17 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 476523776}
+--- !u!114 &476523780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 476523776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d6d20b843114a14084516e954f2b79b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &596762367
 GameObject:
   m_ObjectHideFlags: 0
@@ -683,6 +695,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3957f8eb233a5949820969fbc3dcfe6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player1Text: {fileID: 0}
+  player2Text: {fileID: 0}
   Volume: {fileID: 0}
   Sound: {fileID: 0}
 --- !u!114 &1814080248
