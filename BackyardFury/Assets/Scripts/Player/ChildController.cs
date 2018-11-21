@@ -62,7 +62,15 @@ public class ChildController : MonoBehaviour
         }
 
         if (holding != null)
+        {
             holding.transform.localPosition = Vector3.zero;
+
+            if (parentMode.GetComponent<BaseInput>().AltPressed())
+            {
+                holding.GetComponent<Projectile>().Dropped();
+                holding = null;
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -80,17 +88,12 @@ public class ChildController : MonoBehaviour
                 holding.transform.parent = holdPoint.transform;
                 holding.transform.localPosition = Vector3.zero;
 
-                Rigidbody holdingBody = holding.GetComponent<Rigidbody>();
-                if (holdingBody != null)
-                    holdingBody.isKinematic = true;
-
-                Collider holdingCollider = holding.GetComponent<Collider>();
-                if (holdingCollider != null)
-                    holdingCollider.isTrigger = true;
-
                 Projectile holdingCmp = holding.GetComponent<Projectile>();
                 if (holdingCmp != null)
+                {
                     holdingCmp.PickedUp();
+                    holdingCmp.DisablePhysics();
+                }
             }
         }
         else

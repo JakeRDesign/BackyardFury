@@ -88,4 +88,27 @@ public class Projectile : MonoBehaviour
         if (ourSparkle != null)
             ourSparkle.SetActive(false);
     }
+
+    public void Dropped()
+    {
+        if (ourSparkle != null)
+            ourSparkle.SetActive(true);
+        EnablePhysics();
+
+        Vector3 pos = transform.position;
+        transform.parent = null;
+        transform.position = pos;
+    }
+
+    public void DisablePhysics()
+    {
+        GetComponent<Rigidbody>().isKinematic = true;
+        GetComponent<Collider>().isTrigger = true;
+    }
+
+    public void EnablePhysics()
+    {
+        GetComponent<Rigidbody>().isKinematic = false;
+        GetComponent<Collider>().isTrigger = false;
+    }
 }

@@ -224,18 +224,16 @@ public class ShootPlayerMode : PlayerModeBase
         storedProjectile.transform.position =
             launcherObject.transform.position;
 
-        Collider projCol = storedProjectile.GetComponent<Collider>();
-        projCol.isTrigger = false;
-
         Rigidbody projBody = storedProjectile.GetComponent<Rigidbody>();
-        projBody.isKinematic = false;
         projBody.velocity = shootForce;
 
         // make random angular velocity so it tumbles in the air
         Vector3 angular = Random.onUnitSphere * 30.0f;
         projBody.angularVelocity = angular;
 
-        storedProjectile.GetComponent<Projectile>().Shot(shootPowerAbs);
+        Projectile projCmp = storedProjectile.GetComponent<Projectile>();
+        projCmp.EnablePhysics();
+        projCmp.Shot(shootPowerAbs);
 
         // call any attached functions
         if (parentController.onShoot != null)
