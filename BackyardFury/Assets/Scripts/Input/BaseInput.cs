@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,12 +10,16 @@ using UnityEngine;
 
 public abstract class BaseInput : MonoBehaviour {
 
-    protected UIController uiController;
+    //protected UIController uiController;
+
+    public Func<Vector3> CursorPosFunc;
+    public Action<Vector3> SetCursorPosFunc;
 
     private void Awake()
     {
-        GameObject uiControllerObject = GameObject.FindGameObjectWithTag("UIController");
-        uiController = uiControllerObject.GetComponent<UIController>();
+        //GameObject uiControllerObject = GameObject.FindGameObjectWithTag("UIController");
+        //if()
+        //uiController = uiControllerObject.GetComponent<UIController>();
     }
 
     public abstract bool AltPressed();

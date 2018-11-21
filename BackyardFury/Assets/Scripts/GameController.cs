@@ -53,8 +53,6 @@ public class GameController : MonoBehaviour
     {
         // set controller stuff from settings
         GlobalSettings settings = GlobalSettings.Instance();
-        MakeInput(players[0], settings.player1Control);
-        MakeInput(players[1], settings.player2Control);
 
         // also set gamemode stuff from settings
         switch (settings.selectedMode)
@@ -80,6 +78,10 @@ public class GameController : MonoBehaviour
         // grab the UI controller for things like showing winner text
         GameObject uiObject = GameObject.FindGameObjectWithTag("UIController");
         uiController = uiObject.GetComponent<UIController>();
+
+        // make input after UI controller is found because we link its functions to the input classes
+        MakeInput(players[0], settings.player1Control);
+        MakeInput(players[1], settings.player2Control);
 
         if (noOtherBuildPhases)
             buildInterval = 9999;
@@ -383,30 +385,36 @@ public class GameController : MonoBehaviour
 
     public void MakeInput(PlayerController plr, ControlTypes control)
     {
+        BaseInput newInput = null;
         if (control == ControlTypes.KeyboardMouse)
         {
-            var inp = plr.gameObject.AddComponent<KeyboardInputController>();
-            plr.ourInput = inp;
-            return;
+            newInput = plr.gameObject.AddComponent<KeyboardInputController>();
+        }
+        else
+        {
+            ControllerInputController cnt = plr.gameObject.AddComponent<ControllerInputController>();
+            switch (control)
+            {
+                case ControlTypes.Controller1:
+                    cnt.player = PlayerIndex.One;
+                    break;
+                case ControlTypes.Controller2:
+                    cnt.player = PlayerIndex.Two;
+                    break;
+                case ControlTypes.Controller3:
+                    cnt.player = PlayerIndex.Three;
+                    break;
+                case ControlTypes.Controller4:
+                    cnt.player = PlayerIndex.Four;
+                    break;
+            }
+            newInput = cnt;
         }
 
-        ControllerInputController cnt = plr.gameObject.AddComponent<ControllerInputController>();
-        plr.ourInput = cnt;
-        switch (control)
-        {
-            case ControlTypes.Controller1:
-                cnt.player = PlayerIndex.One;
-                break;
-            case ControlTypes.Controller2:
-                cnt.player = PlayerIndex.Two;
-                break;
-            case ControlTypes.Controller3:
-                cnt.player = PlayerIndex.Three;
-                break;
-            case ControlTypes.Controller4:
-                cnt.player = PlayerIndex.Four;
-                break;
-        }
+        newInput.CursorPosFunc = uiController.GetCursorPos;
+        newInput.SetCursorPosFunc = uiController.SetCursorPos;
+
+        plr.ourInput = newInput;
     }
 
 }

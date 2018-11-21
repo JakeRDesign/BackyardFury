@@ -119,8 +119,11 @@ public class MainMenuController : MonoBehaviour
     {
         GlobalSettings settings = GlobalSettings.Instance();
 
-        player1Text.text = settings.player1Control.ToString();
-        player2Text.text = settings.player2Control.ToString();
+        if (player1Text != null)
+        {
+            player1Text.text = settings.player1Control.ToString();
+            player2Text.text = settings.player2Control.ToString();
+        }
     }
 
 }

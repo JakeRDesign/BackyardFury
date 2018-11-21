@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -48,10 +49,12 @@ public class ControllerInputController : BaseInput
         lastPause = thisPause;
 
         // update cursor position
-        Vector3 cursorPos = uiController.GetCursorPos();
+        //Vector3 cursorPos = uiController.GetCursorPos();
+        Vector3 cursorPos = CursorPosFunc();//uiController.GetCursorPos();
         cursorPos.x += state.ThumbSticks.Left.X * Time.deltaTime * cursorSensitivity;
         cursorPos.y += state.ThumbSticks.Left.Y * Time.deltaTime * cursorSensitivity;
-        uiController.SetCursorPos(cursorPos);
+        SetCursorPosFunc(cursorPos);
+        //uiController.SetCursorPos(cursorPos);
 
         // check for UI clicks
         // check if a UI button was pressed with controller

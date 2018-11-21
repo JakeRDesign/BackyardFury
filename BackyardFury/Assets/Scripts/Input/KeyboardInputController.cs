@@ -9,9 +9,16 @@ public class KeyboardInputController : BaseInput
     public KeyCode helpButton = KeyCode.Tab;
     public KeyCode pauseButton = KeyCode.Escape;
 
+    Vector3 lastMousePos = Vector3.zero;
+
     private void Update()
     {
-        uiController.SetCursorPos(Input.mousePosition);
+        Vector3 mPos = Input.mousePosition;
+        if (Vector3.Distance(mPos, lastMousePos) >= 1.0f)
+        {
+            SetCursorPosFunc(mPos);
+            lastMousePos = mPos;
+        }
     }
 
     public override bool AltPressed() { return Input.GetMouseButtonDown(1); }
