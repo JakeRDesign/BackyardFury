@@ -84,6 +84,10 @@ public class ChildController : MonoBehaviour
                 if (holdingBody != null)
                     holdingBody.isKinematic = true;
 
+                Collider holdingCollider = holding.GetComponent<Collider>();
+                if (holdingCollider != null)
+                    holdingCollider.isTrigger = true;
+
                 Projectile holdingCmp = holding.GetComponent<Projectile>();
                 if (holdingCmp != null)
                     holdingCmp.PickedUp();

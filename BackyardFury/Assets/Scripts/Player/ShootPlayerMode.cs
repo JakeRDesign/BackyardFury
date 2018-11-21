@@ -223,6 +223,10 @@ public class ShootPlayerMode : PlayerModeBase
 
         storedProjectile.transform.position =
             launcherObject.transform.position;
+
+        Collider projCol = storedProjectile.GetComponent<Collider>();
+        projCol.isTrigger = false;
+
         Rigidbody projBody = storedProjectile.GetComponent<Rigidbody>();
         projBody.isKinematic = false;
         projBody.velocity = shootForce;
