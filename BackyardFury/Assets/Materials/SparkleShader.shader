@@ -15,7 +15,7 @@ Category {
     SubShader {
         Pass {
 
-			ZTest Always
+			ZTest Greater
 
             CGPROGRAM
             #pragma vertex vert
@@ -71,7 +71,7 @@ Category {
                 float sceneZ = LinearEyeDepth (SAMPLE_DEPTH_TEXTURE_PROJ(_CameraDepthTexture, UNITY_PROJ_COORD(i.projPos)));
                 float partZ = i.projPos.z;
                 float fade = saturate (_InvFade * (sceneZ-partZ));
-                i.color.a *= fade;
+                //i.color.a *= fade;
                 #endif
 
                 return i.color * tex2D(_MainTex, i.texcoord) * i.color.a;

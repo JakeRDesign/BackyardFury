@@ -34,6 +34,10 @@ public class Projectile : MonoBehaviour
             ourSparkle = Instantiate(sparklePrefab, transform);
             // make sure the root of the particle is in the center of projectile
             ourSparkle.transform.localPosition = Vector3.zero;
+
+            var shape = ourSparkle.GetComponent<ParticleSystem>().shape;
+            shape.shapeType = ParticleSystemShapeType.MeshRenderer;
+            shape.meshRenderer = GetComponent<MeshRenderer>();
         }
     }
 
