@@ -47,6 +47,8 @@ public class BuildingComponent : MonoBehaviour
 
     private ObjectDropper dropper;
     private bool finishedPlacing = false;
+    private bool finalPosition = false;
+    public float timeToActivate = 2.0f;
 
     // Called when building is placed
     private void Start()
@@ -56,6 +58,8 @@ public class BuildingComponent : MonoBehaviour
         if (dropper != null)
             dropper.onLanded += DropperFinished;
         placedPosition = transform.position;
+        finalPosition = false;
+        StartCoroutine(MakeActiveAfter(timeToActivate));
     }
 
     private void DropperFinished(GameObject obj)
@@ -70,6 +74,8 @@ public class BuildingComponent : MonoBehaviour
     void Update()
     {
         if (!finishedPlacing)
+            return;
+        if (!finalPosition)
             return;
         if (connectedSprings.Count == 0 || !removeOnSpringBreak)
         {
@@ -236,6 +242,13 @@ public class BuildingComponent : MonoBehaviour
 
         float newMass = baseMass + (baseMass * massMultiplier);
         GetComponent<Rigidbody>().mass = newMass;
+    }
+
+    IEnumerator MakeActiveAfter(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        finalPosition = true;
+        placedPosition = transform.position;
     }
 
 }
