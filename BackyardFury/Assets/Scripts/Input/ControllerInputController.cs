@@ -42,41 +42,57 @@ public class ControllerInputController : BaseInput
         helpPressed = thisHelp == ButtonState.Pressed && lastHelp == ButtonState.Released;
         pausePressed = thisPause == ButtonState.Pressed && lastPause == ButtonState.Released;
 
+
+        // update cursor position
+        Vector3 cursorPos = CursorPosFunc();
+        cursorPos.x += state.ThumbSticks.Left.X * Time.deltaTime * cursorSensitivity;
+        cursorPos.y += state.ThumbSticks.Left.Y * Time.deltaTime * cursorSensitivity;
+
+        // limit cursor position to stay on screen
+        Resolution res = Screen.currentResolution;
+        Vector3 screenSize = new Vector3(res.width, res.height, 0.0f);
+        cursorPos = Vector3.Min(screenSize, cursorPos);
+        cursorPos = Vector3.Max(Vector3.zero, cursorPos);
+        SetCursorPosFunc(cursorPos);
+
+        List<RaycastResult> results = new List<RaycastResult>();
+        PointerEventData pointerData = new PointerEventData(EventSystem.current)
+        {
+            pointerId = -1,
+            position = cursorPos
+        };
+
+        EventSystem.current.RaycastAll(pointerData, results);
+
+        foreach (var cast in results)
+        {
+            Button b = cast.gameObject.GetComponent<Button>();
+            if (b)
+            {
+                b.OnPointerEnter(pointerData);
+                b.OnPointerExit(pointerData);
+
+                if (state.Buttons.A == ButtonState.Pressed)
+                {
+
+                    b.OnPointerDown(pointerData);
+                }
+                else
+                {
+                    if (lastFire == ButtonState.Pressed)
+                        b.OnPointerClick(pointerData);
+                    else
+                        b.OnPointerUp(pointerData);
+                }
+
+            }
+        }
+
         // update last values
         lastAlt = thisAlt;
         lastFire = thisFire;
         lastHelp = thisHelp;
         lastPause = thisPause;
-
-        // update cursor position
-        //Vector3 cursorPos = uiController.GetCursorPos();
-        Vector3 cursorPos = CursorPosFunc();//uiController.GetCursorPos();
-        cursorPos.x += state.ThumbSticks.Left.X * Time.deltaTime * cursorSensitivity;
-        cursorPos.y += state.ThumbSticks.Left.Y * Time.deltaTime * cursorSensitivity;
-        SetCursorPosFunc(cursorPos);
-        //uiController.SetCursorPos(cursorPos);
-
-        // check for UI clicks
-        // check if a UI button was pressed with controller
-        if (state.Buttons.A == ButtonState.Pressed)
-        {
-            // make pointer data to pass into raycasting event
-            PointerEventData pointerData = new PointerEventData(EventSystem.current)
-            {
-                pointerId = -1,
-                position = cursorPos
-            };
-
-            List<RaycastResult> results = new List<RaycastResult>();
-            EventSystem.current.RaycastAll(pointerData, results);
-
-            foreach (var cast in results)
-            {
-                Button b = cast.gameObject.GetComponent<Button>();
-                if (b)
-                    b.OnPointerClick(pointerData);
-            }
-        }
     }
 
     public override bool AltPressed() { return altPressed; }

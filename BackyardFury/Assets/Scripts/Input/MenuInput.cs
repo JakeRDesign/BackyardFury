@@ -6,6 +6,7 @@ public class MenuInput : MonoBehaviour
 {
 
     public RectTransform cursorImage;
+    static Vector3 lastPos = Vector3.zero;
 
     void Awake()
     {
@@ -16,6 +17,11 @@ public class MenuInput : MonoBehaviour
         ctrInput.CursorPosFunc = GetCursorPos;
         keyInput.SetCursorPosFunc = SetCursorPos;
         ctrInput.SetCursorPosFunc = SetCursorPos;
+
+        if (lastPos == Vector3.zero)
+            lastPos = new Vector2(Screen.currentResolution.width, Screen.currentResolution.height) / 2.0f;
+
+        SetCursorPos(lastPos);
     }
 
     public Vector3 GetCursorPos()
@@ -25,6 +31,7 @@ public class MenuInput : MonoBehaviour
 
     public void SetCursorPos(Vector3 newPos)
     {
+        lastPos = newPos;
         cursorImage.position = newPos;
     }
 

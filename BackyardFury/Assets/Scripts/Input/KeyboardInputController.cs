@@ -9,7 +9,12 @@ public class KeyboardInputController : BaseInput
     public KeyCode helpButton = KeyCode.Tab;
     public KeyCode pauseButton = KeyCode.Escape;
 
-    Vector3 lastMousePos = Vector3.zero;
+    Vector3 lastMousePos = -Vector3.one;
+
+    private void Awake()
+    {
+        lastMousePos = Input.mousePosition;
+    }
 
     private void Update()
     {

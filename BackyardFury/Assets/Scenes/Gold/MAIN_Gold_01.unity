@@ -23256,36 +23256,6 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1454714160147206, guid: 4d0b14fa4344e754a8a762dd3faceff0, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114107925161976270, guid: 4d0b14fa4344e754a8a762dd3faceff0,
-        type: 2}
-      propertyPath: m_FontData.m_FontStyle
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114107925161976270, guid: 4d0b14fa4344e754a8a762dd3faceff0,
-        type: 2}
-      propertyPath: m_Text
-      value: Main Menu
-      objectReference: {fileID: 0}
-    - target: {fileID: 114072133990996620, guid: 4d0b14fa4344e754a8a762dd3faceff0,
-        type: 2}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 145d9ec0ba1e5e042b649bfc4fcf74d7,
-        type: 3}
-    - target: {fileID: 114072133990996620, guid: 4d0b14fa4344e754a8a762dd3faceff0,
-        type: 2}
-      propertyPath: m_Type
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114072133990996620, guid: 4d0b14fa4344e754a8a762dd3faceff0,
-        type: 2}
-      propertyPath: m_PreserveAspect
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 114387483196947838, guid: 4d0b14fa4344e754a8a762dd3faceff0,
         type: 2}
       propertyPath: tetrisContainer
