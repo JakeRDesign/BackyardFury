@@ -7994,6 +7994,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentMode: {fileID: 0}
+  animator: {fileID: 531139122}
+  movingBoolName: isMoving
+  animatingSpeed: 1
   holdPoint: {fileID: 104084948}
   moveSpeed: 6
   forwardDirection: 1
@@ -8037,6 +8040,11 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
+--- !u!95 &531139122 stripped
+Animator:
+  m_PrefabParentObject: {fileID: 9500000, guid: 696b392793589404c93a05a0a83eed45,
+    type: 3}
+  m_PrefabInternal: {fileID: 135757494}
 --- !u!1 &532707049 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: 3d463a95698ec374d968eb9c7f1223e6, type: 3}
@@ -18460,6 +18468,11 @@ Transform:
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: 696b392793589404c93a05a0a83eed45, type: 3}
   m_PrefabInternal: {fileID: 1588328000}
+--- !u!95 &1242957779 stripped
+Animator:
+  m_PrefabParentObject: {fileID: 9500000, guid: 696b392793589404c93a05a0a83eed45,
+    type: 3}
+  m_PrefabInternal: {fileID: 1588328000}
 --- !u!4 &1242957780 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 696b392793589404c93a05a0a83eed45, type: 3}
@@ -18476,6 +18489,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentMode: {fileID: 0}
+  animator: {fileID: 1242957779}
+  movingBoolName: isMoving
+  animatingSpeed: 1
   holdPoint: {fileID: 1113452779}
   moveSpeed: 6
   forwardDirection: 1
@@ -23395,6 +23411,36 @@ Prefab:
     - target: {fileID: 224597261199311148, guid: 4d0b14fa4344e754a8a762dd3faceff0,
         type: 2}
       propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1454714160147206, guid: 4d0b14fa4344e754a8a762dd3faceff0, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114107925161976270, guid: 4d0b14fa4344e754a8a762dd3faceff0,
+        type: 2}
+      propertyPath: m_FontData.m_FontStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114107925161976270, guid: 4d0b14fa4344e754a8a762dd3faceff0,
+        type: 2}
+      propertyPath: m_Text
+      value: Main Menu
+      objectReference: {fileID: 0}
+    - target: {fileID: 114072133990996620, guid: 4d0b14fa4344e754a8a762dd3faceff0,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 145d9ec0ba1e5e042b649bfc4fcf74d7,
+        type: 3}
+    - target: {fileID: 114072133990996620, guid: 4d0b14fa4344e754a8a762dd3faceff0,
+        type: 2}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114072133990996620, guid: 4d0b14fa4344e754a8a762dd3faceff0,
+        type: 2}
+      propertyPath: m_PreserveAspect
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
