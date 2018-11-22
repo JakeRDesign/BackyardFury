@@ -42,6 +42,7 @@ public class UIController : MonoBehaviour
     [Tooltip("Percentage of the screen that the menu will be from its side!\n" + 
         "e.g. 0.2 means the buttons will be 20% of the screen width away from the side of the screen")]
     public float distanceFromSide = 0.2f;
+    public RectTransform tetrisContainer;
 
     [Header("Help Menu")]
     public GameObject helpGroup;
@@ -200,6 +201,8 @@ public class UIController : MonoBehaviour
     public void ShowBuildPresets(bool show)
     {
         buildPresetsGroup.gameObject.SetActive(show);
+        tetrisContainer.gameObject.SetActive(show);
+        tetrisContainer.transform.parent.gameObject.SetActive(show);
     }
 
     public void SetPresetPosition(bool left)
@@ -211,7 +214,12 @@ public class UIController : MonoBehaviour
         buildPresetsGroup.anchorMin = anchorPos;
         buildPresetsGroup.anchorMax = anchorPos;
 
+        anchorPos = new Vector2(anchorX, 0.05f);
+        tetrisContainer.anchorMin = anchorPos;
+        tetrisContainer.anchorMax = anchorPos;
+
         buildPresetsGroup.anchoredPosition = Vector2.zero;
+        tetrisContainer.anchoredPosition = Vector2.zero;
     }
 
     public void SelectPreset(int index)
