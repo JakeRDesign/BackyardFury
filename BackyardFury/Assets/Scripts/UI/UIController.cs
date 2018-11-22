@@ -159,7 +159,7 @@ public class UIController : MonoBehaviour
     {
         if (time < 0)
             timerText.text = "";
-        timerText.text = Mathf.Floor(time).ToString();
+        timerText.text = Mathf.CeilToInt(time).ToString();
     }
 
     public void SetShotMeter(float percentage)
