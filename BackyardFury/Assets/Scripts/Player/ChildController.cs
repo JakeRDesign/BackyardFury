@@ -10,6 +10,11 @@ public class ChildController : MonoBehaviour
     // setting the projectile when we reach the launcher
     public ShootPlayerMode parentMode;
 
+    [Header("Animation")]
+    public Animator animator;
+    public string movingBoolName = "isMoving";
+    public float animatingSpeed = 1.0f;
+
     public GameObject holdPoint;
     public float moveSpeed = 6.0f;
     public float forwardDirection = 1.0f;
@@ -48,17 +53,16 @@ public class ChildController : MonoBehaviour
         Vector3 rightMovement = xRawInput * right;
         Vector3 forwardMovement = yRawInput * forward;
 
-        //Vector3 pos = transform.position;
         Vector3 dif = (rightMovement + forwardMovement) * moveSpeed * Time.fixedDeltaTime * 1000.0f;
-        //pos -= new Vector3(xMov, 0.0f, yMov) * moveSpeed * Time.fixedDeltaTime;
-        //transform.position = pos;
         body.AddForce(dif);
 
         Vector3 vel = body.velocity;
+        if (animator != null)
+            animator.SetBool(movingBoolName, vel.magnitude > 1.0f);
         if (vel.sqrMagnitude > 1.0f)
         {
-            float ang = Mathf.Atan2(vel.x, vel.z) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(0.0f, ang, 0.0f);
+            float ang = (Mathf.Atan2(vel.x, vel.z) * Mathf.Rad2Deg) - 90.0f;
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0.0f, ang, 0.0f), Time.deltaTime * 10.0f);
         }
 
         if (holding != null)
