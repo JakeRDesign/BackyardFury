@@ -12,6 +12,7 @@ public class ChildController : MonoBehaviour
 
     [Header("Animation")]
     public Animator animator;
+    public Animator hairAnimator;
     public string movingBoolName = "isMoving";
     public float animatingSpeed = 1.0f;
     public float turnLerpiness = 5.0f;
@@ -58,8 +59,12 @@ public class ChildController : MonoBehaviour
         body.AddForce(dif);
 
         Vector3 vel = body.velocity;
+
+        bool moving = vel.magnitude > 1.0f;
         if (animator != null)
-            animator.SetBool(movingBoolName, vel.magnitude > 1.0f);
+            animator.SetBool(movingBoolName, moving);
+        if (hairAnimator != null)
+            hairAnimator.SetBool(movingBoolName, moving);
         if (vel.sqrMagnitude > 1.0f)
         {
             float ang = (Mathf.Atan2(vel.x, vel.z) * Mathf.Rad2Deg) - 90.0f;
@@ -116,7 +121,11 @@ public class ChildController : MonoBehaviour
 
     private void OnDisable()
     {
-        animator.SetBool(movingBoolName, false);
+        if (animator != null)
+            animator.SetBool(movingBoolName, false);
+        if (hairAnimator != null)
+            hairAnimator.SetBool(movingBoolName, false);
+
     }
 
 }
