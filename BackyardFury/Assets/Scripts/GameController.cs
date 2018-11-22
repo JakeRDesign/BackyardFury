@@ -107,7 +107,7 @@ public class GameController : MonoBehaviour
         if (uiController.IsInPauseMenu())
             return;
 
-        if (currentTurn < 0 || gameOver)
+        if (currentTurn < 0)
             return;
 
         BaseInput currentInput = GetCurrentPlayer().GetComponent<BaseInput>();
@@ -120,6 +120,9 @@ public class GameController : MonoBehaviour
 
         if (currentInput.PausePressed())
             uiController.OpenPauseMenu(currentInput);
+
+        if (gameOver)
+            return;
 
         if (GetCurrentPlayer().enabled)
             turnTimer -= Time.deltaTime;
@@ -141,8 +144,6 @@ public class GameController : MonoBehaviour
             mainCamera.transform.position -=
                 (mainCamera.transform.position - destPosition) *
                 cameraFollowStrength * Time.deltaTime;
-
-            return;
         }
     }
 
@@ -338,11 +339,14 @@ public class GameController : MonoBehaviour
     public void PlayerLost(PlayerController loser)
     {
         // grab index of winning player
+        PlayerController winner = players[0];
         int index = -1;
         for (int i = 0; i < players.Count; ++i)
         {
             if (players[i] != loser)
             {
+                winner = players[i];
+
                 index = i;
                 break;
             }
@@ -356,6 +360,10 @@ public class GameController : MonoBehaviour
         // disable all player controllers :)
         foreach (PlayerController p in players)
             p.Disable();
+
+        winner.ourInput.SetInputEnabled(true);
+        uiController.SetCursorVisible(true);
+
         gameOver = true;
     }
 
