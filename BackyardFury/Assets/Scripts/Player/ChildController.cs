@@ -113,4 +113,9 @@ public class ChildController : MonoBehaviour
         }
     }
 
+    private void OnDisable()
+    {
+        animator.SetBool(movingBoolName, false);
+    }
+
 }
