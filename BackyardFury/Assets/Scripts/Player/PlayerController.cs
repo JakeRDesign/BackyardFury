@@ -62,17 +62,17 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (ourInput.AltPressed())
-        {
-            // don't allow switching modes if we're in the build phase
-            if (gameController.IsBuildPhase())
-                return;
+        //if (ourInput.AltPressed())
+        //{
+        //    // don't allow switching modes if we're in the build phase
+        //    if (gameController.IsBuildPhase())
+        //        return;
 
-            if (currentMode == TurnMode.BUILD)
-                StartShootMode();
-            else
-                StartBuildMode();
-        }
+        //    if (currentMode == TurnMode.BUILD)
+        //        StartShootMode();
+        //    else
+        //        StartBuildMode();
+        //}
     }
 
     void StartBuildMode()
