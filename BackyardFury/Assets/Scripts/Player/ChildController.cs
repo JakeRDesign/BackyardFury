@@ -14,6 +14,7 @@ public class ChildController : MonoBehaviour
     public Animator animator;
     public string movingBoolName = "isMoving";
     public float animatingSpeed = 1.0f;
+    public float turnLerpiness = 5.0f;
 
     public GameObject holdPoint;
     public float moveSpeed = 6.0f;
@@ -62,7 +63,7 @@ public class ChildController : MonoBehaviour
         if (vel.sqrMagnitude > 1.0f)
         {
             float ang = (Mathf.Atan2(vel.x, vel.z) * Mathf.Rad2Deg) - 90.0f;
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0.0f, ang, 0.0f), Time.deltaTime * 10.0f);
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0.0f, ang, 0.0f), Time.fixedDeltaTime * turnLerpiness);
         }
 
         if (holding != null)
