@@ -11,10 +11,22 @@ public class MainMenuController : MonoBehaviour
     public Text player1Text;
     public Text player2Text;
 
+
+    [Header ("Input Devices")]
+    public GameObject P1ControllerIcon;
+    public GameObject P1KeyboardIcon;
+    public GameObject P2ControllerIcon;
+    public GameObject P2KeyboardIcon;
+
     private void Start()
     {
         // make sure settings show what the current controls are
         UpdateControlTexts();
+    }
+
+    private void Update()
+    {
+        InputDisplay();
     }
 
     // Loads game
@@ -120,5 +132,49 @@ public class MainMenuController : MonoBehaviour
             player2Text.text = settings.player2Control.ToString();
         }
     }
+
+    #region User Input
+    public void InputDisplay()
+    {
+        GlobalSettings settings = GlobalSettings.Instance();
+
+        if (P1ControllerIcon == null)
+            return;
+        if (P1KeyboardIcon == null)
+            return;
+        if (P2ControllerIcon == null)
+            return;
+        if (P2KeyboardIcon == null)
+            return;
+
+
+        // Checkin Player 1 Inputs Devices
+        bool isPlayer1Keyboard = settings.player1Control == ControlTypes.KeyboardMouse;
+        if(isPlayer1Keyboard)
+        {
+            P1ControllerIcon.SetActive(false);
+            P1KeyboardIcon.SetActive(true);
+        }
+        else
+        {
+            P1KeyboardIcon.SetActive(false);
+            P1ControllerIcon.SetActive(true);
+        }
+
+        // Checkin Player 2 Inputs Devices
+        bool isPlayer2Keyboard = settings.player2Control == ControlTypes.KeyboardMouse;
+        if (isPlayer2Keyboard)
+        {
+            P2ControllerIcon.SetActive(false);
+            P2KeyboardIcon.SetActive(true);
+        }
+        else
+        {
+            P2KeyboardIcon.SetActive(false);
+            P2ControllerIcon.SetActive(true);
+        }
+    }
+
+    #endregion
 
 }
