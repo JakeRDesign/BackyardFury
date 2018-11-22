@@ -1,0 +1,165 @@
+fileFormatVersion: 2
+guid: 696b392793589404c93a05a0a83eed45
+timeCreated: 1542847199
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: character_low_poly
+    100004: JNT_Ankle_Left
+    100006: JNT_Ankle_Right
+    100008: JNT_Elbow_Left
+    100010: JNT_Elbow_Right
+    100012: JNT_Fingers1_Left
+    100014: JNT_Fingers1_Right
+    100016: JNT_Fingers2_Left
+    100018: JNT_Fingers2_Right
+    100020: JNT_Fingers3_Left
+    100022: JNT_Fingers3_Right
+    100024: JNT_Hair1
+    100026: JNT_Hair2
+    100028: JNT_Hair3
+    100030: JNT_Hair4
+    100032: JNT_Head
+    100034: JNT_HeadTop
+    100036: JNT_Hip_Left
+    100038: JNT_Hip_Right
+    100040: JNT_Knee_Left
+    100042: JNT_Knee_Right
+    100044: JNT_Neck
+    100046: JNT_Root
+    100048: JNT_Shoulder_Left
+    100050: JNT_Shoulder_Right
+    100052: JNT_Spine1
+    100054: JNT_Spine2
+    100056: JNT_Spine3
+    100058: JNT_Thumb1_Left
+    100060: JNT_Thumb1_Right
+    100062: JNT_Thumb2_Left
+    100064: JNT_Thumb2_Right
+    100066: JNT_Toe_Left
+    100068: JNT_Toe_Right
+    100070: JNT_Wrist_Left
+    100072: JNT_Wrist_Right
+    400000: //RootNode
+    400002: character_low_poly
+    400004: JNT_Ankle_Left
+    400006: JNT_Ankle_Right
+    400008: JNT_Elbow_Left
+    400010: JNT_Elbow_Right
+    400012: JNT_Fingers1_Left
+    400014: JNT_Fingers1_Right
+    400016: JNT_Fingers2_Left
+    400018: JNT_Fingers2_Right
+    400020: JNT_Fingers3_Left
+    400022: JNT_Fingers3_Right
+    400024: JNT_Hair1
+    400026: JNT_Hair2
+    400028: JNT_Hair3
+    400030: JNT_Hair4
+    400032: JNT_Head
+    400034: JNT_HeadTop
+    400036: JNT_Hip_Left
+    400038: JNT_Hip_Right
+    400040: JNT_Knee_Left
+    400042: JNT_Knee_Right
+    400044: JNT_Neck
+    400046: JNT_Root
+    400048: JNT_Shoulder_Left
+    400050: JNT_Shoulder_Right
+    400052: JNT_Spine1
+    400054: JNT_Spine2
+    400056: JNT_Spine3
+    400058: JNT_Thumb1_Left
+    400060: JNT_Thumb1_Right
+    400062: JNT_Thumb2_Left
+    400064: JNT_Thumb2_Right
+    400066: JNT_Toe_Left
+    400068: JNT_Toe_Right
+    400070: JNT_Wrist_Left
+    400072: JNT_Wrist_Right
+    2100000: StingrayPBS1
+    4300000: character_low_poly
+    9500000: //RootNode
+    13700000: character_low_poly
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
