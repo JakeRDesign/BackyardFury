@@ -7,8 +7,6 @@ using UnityEngine.UI;
 public class GamemodesMenuController : MonoBehaviour {
 
 	void Start () {
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
     }
 
     public void LastBoxMode()

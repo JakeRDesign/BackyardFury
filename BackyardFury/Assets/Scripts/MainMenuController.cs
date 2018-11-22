@@ -13,11 +13,6 @@ public class MainMenuController : MonoBehaviour
 
     private void Start()
     {
-        // make cursor free and visible - just undoing what CursorLock.cs 
-        // does in game
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-
         // make sure settings show what the current controls are
         UpdateControlTexts();
     }
