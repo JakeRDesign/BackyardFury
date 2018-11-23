@@ -128,9 +128,23 @@ public class MainMenuController : MonoBehaviour
 
         if (player1Text != null)
         {
-            player1Text.text = settings.player1Control.ToString();
-            player2Text.text = settings.player2Control.ToString();
+            player1Text.text = GetControlText(settings.player1Control);
+            player2Text.text = GetControlText(settings.player2Control);
         }
+    }
+
+    string GetControlText(ControlTypes type)
+    {
+        string[] names =
+        {
+            "Keyboard + Mouse",
+            "Controller 1",
+            "Controller 2",
+            "Controller 3",
+            "Controller 4"
+        };
+
+        return names[(int)type];
     }
 
     #region User Input

@@ -21056,6 +21056,16 @@ Prefab:
       propertyPath: selectedMode
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114993407636954932, guid: 74c51555bfd3779488a7949e11fc51a4,
+        type: 2}
+      propertyPath: player1Control
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114993407636954932, guid: 74c51555bfd3779488a7949e11fc51a4,
+        type: 2}
+      propertyPath: player2Control
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 74c51555bfd3779488a7949e11fc51a4, type: 2}
   m_IsPrefabParent: 0

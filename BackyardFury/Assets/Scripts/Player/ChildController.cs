@@ -125,7 +125,6 @@ public class ChildController : MonoBehaviour
             animator.SetBool(movingBoolName, false);
         if (hairAnimator != null)
             hairAnimator.SetBool(movingBoolName, false);
-
     }
 
 }
