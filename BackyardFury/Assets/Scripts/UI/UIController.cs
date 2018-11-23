@@ -50,6 +50,10 @@ public class UIController : MonoBehaviour
     [Header("COOLCRATES")]
     public GameObject coolCrateText;
 
+    [Header("Particles")]
+    public GameObject blueConfetti;
+    public GameObject redConfetti;
+
     [Header("Audio")]
     public AudioMixer mixer;
 
@@ -124,9 +128,11 @@ public class UIController : MonoBehaviour
         {
             case 1:
                 player1Won.SetActive(true);
+                blueConfetti.SetActive(true);
                 break;
             case 2:
                 player2Won.SetActive(true);
+                redConfetti.SetActive(true);
                 break;
         }
     }
