@@ -18,6 +18,7 @@ public class BuildPlayerMode : PlayerModeBase
     public GameObject regularBox;
     public List<GameObject> buildingPresets;
     public int presetLimit = 5;
+    private int presetsPlaced = 0;
 
     private Queue<GameObject> tetrisQueue = new Queue<GameObject>();
 
@@ -158,14 +159,11 @@ public class BuildPlayerMode : PlayerModeBase
         //      - box isn't intersecting with anything (obstacles)
         //      - previously placed box has finished being placed
         bool isValidPosition =
-            //Encapsulates(parentController.buildZone, ghostCollider.bounds) &&
             EncapsulatesRecursive(parentController.buildZone, ghostBuilding.transform) &&
-            (boxesToWait == 0) && !intersecting;////!ghostBuilding.GetComponent<GhostBox>().IsIntersecting();
+            (boxesToWait == 0) && !intersecting;
 
         // set translucent box's material based on whether 
         // or not it can be placed
-        //ghostBuilding.GetComponent<MeshRenderer>().material =
-        //    isValidPosition ? ghostMaterial : ghostMaterialError;
         SetGhostMaterial(ghostBuilding.transform, isValidPosition ? ghostMaterial : ghostMaterialError);
 
         // click to build
@@ -173,20 +171,17 @@ public class BuildPlayerMode : PlayerModeBase
         {
             if (!isValidPosition)
             {
-                //gameController.audioSource.PlayOneShot(gameController.cantPlaceSound);
                 SoundManager.instance.Play("BoxError");
                 return;
             }
             placedThisTurn = 0;
             // make our new building
-            GameObject newBuilding = Instantiate(selectedPreset);//Instantiate(boxPrefab);
-            //BuildingComponent cmp = newBuilding.GetComponent<BuildingComponent>();
+            GameObject newBuilding = Instantiate(selectedPreset);
             // place where the ghost cube is
             newBuilding.transform.position = newPos;
             // make the rotation the same as the ghost
             newBuilding.transform.rotation = ghostBuilding.transform.rotation;
             // set the flag which stops us from bulding while box is falling
-            //waitingForBox = true;
 
             // check if this is a special building
             if (!placedSpecialBoxes && gameController.defendingBoxes)
@@ -204,14 +199,17 @@ public class BuildPlayerMode : PlayerModeBase
             PlacedPreset(newBuilding.transform);
 
             if (selectedIndex > 0)
-            {
-                // mark preset as used
                 hasUsedPreset = true;
-                // select single box
-            }
             if (!singleBoxSelected)
+            {
                 tetrisQueue.Dequeue();
+                presetsPlaced++;
+            }
             UpdateQueue();
+
+            if (presetsPlaced >= presetLimit)
+                singleBoxSelected = true;
+
             SelectBuildPreset(singleBoxSelected ? 0 : 1);
         }
     }
@@ -236,22 +234,18 @@ public class BuildPlayerMode : PlayerModeBase
         BuildingComponent cmp = obj.GetComponent<BuildingComponent>();
         if (cmp != null)
         {
-            if (cmp.specialBox)
-                return;
-            Transform oldObj = obj;
-            // replace with a regular box prefab
-            obj = Instantiate(regularBox, obj.transform.position, Quaternion.identity).transform;
-
-            Destroy(oldObj.gameObject);
-
-            cmp = obj.GetComponent<BuildingComponent>();
+            if (!cmp.specialBox)
+            {
+                Transform oldObj = obj;
+                // replace with a regular box prefab
+                obj = Instantiate(regularBox, obj.transform.position, Quaternion.identity).transform;
+                Destroy(oldObj.gameObject);
+                cmp = obj.GetComponent<BuildingComponent>();
+            }
 
             boxesToWait++;
-            Debug.Log(boxesToWait);
             cmp.onDestroy += BuildingDestroyed;
             cmp.onFinishedPlacing += x => boxesToWait--;
-            //if (regularBox != null)
-                //cmp.massScale = regularBox.GetComponent<BuildingComponent>().massScale;
 
             buildingObjects.Add(obj.gameObject);
         }
@@ -261,9 +255,6 @@ public class BuildPlayerMode : PlayerModeBase
         {
             drp.AddDelay(placedThisTurn * 0.08f);
             placedThisTurn++;
-
-            //if (regularBox != null)
-            //    drp.dustParticles = regularBox.GetComponent<ObjectDropper>().dustParticles;
         }
 
         foreach (Transform child in obj)
@@ -350,6 +341,9 @@ public class BuildPlayerMode : PlayerModeBase
         // defending boxes
         if (index > 0 && gameController.defendingBoxes && !placedSpecialBoxes)
             return;
+
+        if (presetsPlaced >= presetLimit)
+            index = 0;
 
         singleBoxSelected = (index == 0);
 
