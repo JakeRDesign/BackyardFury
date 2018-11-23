@@ -236,6 +236,8 @@ public class BuildPlayerMode : PlayerModeBase
         BuildingComponent cmp = obj.GetComponent<BuildingComponent>();
         if (cmp != null)
         {
+            if (cmp.specialBox)
+                return;
             Transform oldObj = obj;
             // replace with a regular box prefab
             obj = Instantiate(regularBox, obj.transform.position, Quaternion.identity).transform;
