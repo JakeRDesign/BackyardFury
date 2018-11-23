@@ -173,4 +173,7 @@ MonoBehaviour:
   springMaxDistance: 0.5
   isAlive: 1
   specialBox: 0
+  breakParticles: {fileID: 1865874284428804, guid: b54a523d5c4b35b43a5e937d5db5a6ee,
+    type: 2}
   massScale: 2
+  timeToActivate: 2

@@ -17,6 +17,7 @@ public class BuildPlayerMode : PlayerModeBase
     // prefab used to build
     public GameObject regularBox;
     public List<GameObject> buildingPresets;
+    public int presetLimit = 5;
 
     private Queue<GameObject> tetrisQueue = new Queue<GameObject>();
 
@@ -235,11 +236,20 @@ public class BuildPlayerMode : PlayerModeBase
         BuildingComponent cmp = obj.GetComponent<BuildingComponent>();
         if (cmp != null)
         {
+            Transform oldObj = obj;
+            // replace with a regular box prefab
+            obj = Instantiate(regularBox, obj.transform.position, Quaternion.identity).transform;
+
+            Destroy(oldObj.gameObject);
+
+            cmp = obj.GetComponent<BuildingComponent>();
+
             boxesToWait++;
+            Debug.Log(boxesToWait);
             cmp.onDestroy += BuildingDestroyed;
             cmp.onFinishedPlacing += x => boxesToWait--;
-            if (regularBox != null)
-                cmp.massScale = regularBox.GetComponent<BuildingComponent>().massScale;
+            //if (regularBox != null)
+                //cmp.massScale = regularBox.GetComponent<BuildingComponent>().massScale;
 
             buildingObjects.Add(obj.gameObject);
         }
@@ -250,8 +260,8 @@ public class BuildPlayerMode : PlayerModeBase
             drp.AddDelay(placedThisTurn * 0.08f);
             placedThisTurn++;
 
-            if (regularBox != null)
-                drp.dustParticles = regularBox.GetComponent<ObjectDropper>().dustParticles;
+            //if (regularBox != null)
+            //    drp.dustParticles = regularBox.GetComponent<ObjectDropper>().dustParticles;
         }
 
         foreach (Transform child in obj)

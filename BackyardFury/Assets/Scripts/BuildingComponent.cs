@@ -30,6 +30,8 @@ public class BuildingComponent : MonoBehaviour
     public bool isAlive = true;
     public bool specialBox = false;
 
+    public GameObject breakParticles;
+
     [Header("Mass Calculation")]
     // mass testing thing
     [Tooltip("Factor to multiply by for each box on top of this one")]
@@ -119,6 +121,8 @@ public class BuildingComponent : MonoBehaviour
 
             yield return new WaitForEndOfFrame();
         }
+
+        Instantiate(breakParticles, transform.position, Quaternion.identity);
 
         // call onDestroy before Destroy so we can still access this object
         if (onDestroy != null)
