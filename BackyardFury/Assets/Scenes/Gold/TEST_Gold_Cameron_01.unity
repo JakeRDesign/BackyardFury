@@ -3073,21 +3073,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114090154350050928, guid: 958605eae093047469c456119003040e,
-        type: 2}
-      propertyPath: sounds.Array.data[11].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 9da10bff1c71634488e7c50fe9ace2ee, type: 3}
-    - target: {fileID: 114090154350050928, guid: 958605eae093047469c456119003040e,
-        type: 2}
-      propertyPath: sounds.Array.data[12].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 820395262c4276a4f9e71501a446e8b7, type: 3}
-    - target: {fileID: 114090154350050928, guid: 958605eae093047469c456119003040e,
-        type: 2}
-      propertyPath: sounds.Array.data[13].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 991362d9a7028ea4da5635970514b903, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 958605eae093047469c456119003040e, type: 2}
   m_IsPrefabParent: 0
@@ -6047,7 +6032,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &379175175
 Transform:
   m_ObjectHideFlags: 0
@@ -8308,7 +8293,7 @@ MonoBehaviour:
   hairAnimator: {fileID: 0}
   movingBoolName: isMoving
   animatingSpeed: 1
-  footstepSpeed: 0.2
+  footstepSpeed: 0.25
   turnLerpiness: 5
   holdPoint: {fileID: 104084948}
   moveSpeed: 6
@@ -18742,7 +18727,7 @@ MonoBehaviour:
   hairAnimator: {fileID: 0}
   movingBoolName: isMoving
   animatingSpeed: 1
-  footstepSpeed: 0.2
+  footstepSpeed: 0.25
   turnLerpiness: 5
   holdPoint: {fileID: 1113452779}
   moveSpeed: 6

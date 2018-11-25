@@ -39,7 +39,7 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public void Play(string name, float vol = 1.0f)
+    public void Play(string name, float vol = 1.0f, bool restart = true)
     {
         Sound s = GetSound(name);
         if (s != null)
@@ -49,7 +49,8 @@ public class SoundManager : MonoBehaviour
 
             s.source.volume = s.volume * vol;
 
-            s.source.Play();
+            if(!s.source.isPlaying || restart)
+                s.source.Play();
         }
     }
 

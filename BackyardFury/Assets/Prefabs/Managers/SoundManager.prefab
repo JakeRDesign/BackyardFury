@@ -179,3 +179,30 @@ MonoBehaviour:
     randomPitch: 1
     minPitch: 0.91
     maxPitch: 2.07
+  - clip: {fileID: 8300000, guid: 5ba98eb90f2eaf043a0f0053fa6b1571, type: 3}
+    source: {fileID: 0}
+    name: LevelMusic
+    volume: 0.3
+    pitch: 1
+    loop: 1
+    randomPitch: 0
+    minPitch: 0.91
+    maxPitch: 2.07
+  - clip: {fileID: 8300000, guid: 037c63df48153ac4197f95898b90ef91, type: 3}
+    source: {fileID: 0}
+    name: MenuMusic
+    volume: 0.3
+    pitch: 1
+    loop: 1
+    randomPitch: 0
+    minPitch: 0.91
+    maxPitch: 2.07
+  - clip: {fileID: 8300000, guid: 483243d6b6b8f75458b43d8e1ffafc64, type: 3}
+    source: {fileID: 0}
+    name: GameOver
+    volume: 0.3
+    pitch: 1
+    loop: 0
+    randomPitch: 0
+    minPitch: 0.91
+    maxPitch: 2.07

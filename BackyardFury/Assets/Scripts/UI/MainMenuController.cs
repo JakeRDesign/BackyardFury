@@ -20,6 +20,8 @@ public class MainMenuController : MonoBehaviour
 
     private void Start()
     {
+        SoundManager.instance.Stop("LevelMusic");
+        SoundManager.instance.Play("MenuMusic", 1.0f, false);
         // make sure settings show what the current controls are
         UpdateControlTexts();
     }

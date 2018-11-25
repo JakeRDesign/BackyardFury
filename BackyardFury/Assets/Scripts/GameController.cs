@@ -72,6 +72,9 @@ public class GameController : MonoBehaviour
                     );
         }
 
+        SoundManager.instance.Stop("MenuMusic");
+        SoundManager.instance.Play("LevelMusic");
+
         // grab the camera so we can control it like moving between positions and stuff
         GameObject camObject = GameObject.FindGameObjectWithTag("MainCamera");
         mainCamera = camObject.GetComponent<Camera>();
@@ -365,6 +368,10 @@ public class GameController : MonoBehaviour
         uiController.SetCursorVisible(true);
 
         gameOver = true;
+
+        SoundManager.instance.Stop("LevelMusic");
+        if(loser != null)
+            SoundManager.instance.Play("GameOver");
     }
 
     public void ProjectileAdded(GameObject newProjectile)
