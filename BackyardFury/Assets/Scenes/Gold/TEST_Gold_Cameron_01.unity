@@ -8257,7 +8257,7 @@ Prefab:
     - target: {fileID: 114896829903059074, guid: a36bbc5bb1b805b41a0bd92c22082543,
         type: 2}
       propertyPath: presetLimit
-      value: 7
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a36bbc5bb1b805b41a0bd92c22082543, type: 2}
@@ -14362,7 +14362,7 @@ Prefab:
     - target: {fileID: 114234871577243050, guid: a1506eb55ba10d84ea5108962e7ef8f2,
         type: 2}
       propertyPath: presetLimit
-      value: 7
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a1506eb55ba10d84ea5108962e7ef8f2, type: 2}

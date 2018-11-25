@@ -39,7 +39,7 @@ public class ProjectileReturner : MonoBehaviour
     // this'll delete it after a while idk it doesn't matter
     IEnumerator DeleteObjectEventually(GameObject obj)
     {
-        yield return new WaitForSeconds(Random.Range(5.0f, 500.0f));
+        yield return new WaitForSeconds(Random.Range(2.0f, 5.0f));
         Destroy(obj);
     }
 
