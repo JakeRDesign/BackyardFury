@@ -54,10 +54,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildSnap: {x: 1, y: 0.5, z: 1}
+  regularBox: {fileID: 1508892945706150, guid: 4dfe996d89f60d0458cf3f385f864e74, type: 2}
   buildingPresets:
   - {fileID: 1508892945706150, guid: 4dfe996d89f60d0458cf3f385f864e74, type: 2}
   - {fileID: 1997188910836518, guid: ca49bb5cbcfd1e04b9586115e5cdd249, type: 2}
   - {fileID: 1098284558247686, guid: 52f78293853675545b27b368c7eb9576, type: 2}
+  presetLimit: 5
   hasUsedPreset: 0
   gridPrefab: {fileID: 1214957971526560, guid: 6c2ea87397e6eaa4bbca2acd8dcf14a1, type: 2}
   ghostMaterial: {fileID: 2100000, guid: 698fc149eebb7814fb393a1ab6f36996, type: 2}
@@ -79,11 +81,12 @@ MonoBehaviour:
   shootStrength: 18
   startingAngle: {x: 70, y: 90, z: 0}
   shotDestination: {x: 10.16, y: 0, z: -12.89}
-  shotHeight: 3
+  shotHeight: 1.8
   arcLineMaterial: {fileID: 2100000, guid: 92298df8fcba44c4a83b33b19e93ced9, type: 2}
   arcLineWidth: 0.1
   arcPreviewLength: 5
   aimSensitivity: 5
+  heightChange: 1
   wobbleVertical: 0.2
   wobbleHorizontal: 0.05
   wobbleSpeed: 50
@@ -108,3 +111,5 @@ MonoBehaviour:
     m_Extent: {x: 12, y: 10, z: 10}
   buildMode: {fileID: 0}
   shootMode: {fileID: 0}
+  ourInput: {fileID: 0}
+  soundSet: Boy

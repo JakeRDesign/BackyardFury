@@ -200,7 +200,7 @@ MonoBehaviour:
   - clip: {fileID: 8300000, guid: 483243d6b6b8f75458b43d8e1ffafc64, type: 3}
     source: {fileID: 0}
     name: GameOver
-    volume: 0.3
+    volume: 0.11
     pitch: 1
     loop: 0
     randomPitch: 0
@@ -211,6 +211,60 @@ MonoBehaviour:
     name: ShotCharge
     volume: 1
     pitch: 0.3
+    loop: 0
+    randomPitch: 0
+    minPitch: 0.91
+    maxPitch: 2.07
+  - clip: {fileID: 8300000, guid: 8aa9c8b3c8bcbe140bd4509bf62a9e8b, type: 3}
+    source: {fileID: 0}
+    name: BoyStart
+    volume: 1
+    pitch: 1
+    loop: 0
+    randomPitch: 0
+    minPitch: 0.91
+    maxPitch: 2.07
+  - clip: {fileID: 8300000, guid: e65bf7b6518d657429900076f225af01, type: 3}
+    source: {fileID: 0}
+    name: GirlStart
+    volume: 1
+    pitch: 1
+    loop: 0
+    randomPitch: 0
+    minPitch: 0.91
+    maxPitch: 2.07
+  - clip: {fileID: 8300000, guid: 8123d14be00ccca46afa2380ce729b7c, type: 3}
+    source: {fileID: 0}
+    name: GirlLose
+    volume: 1
+    pitch: 1
+    loop: 0
+    randomPitch: 0
+    minPitch: 0.91
+    maxPitch: 2.07
+  - clip: {fileID: 8300000, guid: 68c191abeb72ddf4a817ae05d59d94b5, type: 3}
+    source: {fileID: 0}
+    name: BoyLose
+    volume: 1
+    pitch: 1
+    loop: 0
+    randomPitch: 0
+    minPitch: 0.91
+    maxPitch: 2.07
+  - clip: {fileID: 8300000, guid: 35120ca3a14c06a4e82d09b4c76fc882, type: 3}
+    source: {fileID: 0}
+    name: GirlWin
+    volume: 1
+    pitch: 1
+    loop: 0
+    randomPitch: 0
+    minPitch: 0.91
+    maxPitch: 2.07
+  - clip: {fileID: 8300000, guid: 6457ec4ca393adc419a519ea6982476f, type: 3}
+    source: {fileID: 0}
+    name: BoyWin
+    volume: 1
+    pitch: 1
     loop: 0
     randomPitch: 0
     minPitch: 0.91

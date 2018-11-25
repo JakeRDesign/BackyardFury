@@ -166,11 +166,12 @@ public class GameController : MonoBehaviour
 
             PlayerController p = players[i];
             placer.isPlacing = true;
+            SoundManager.instance.Play(players[i].soundSet + "Start");
             StartCoroutine(placer.PlaceObstacles(p.buildZone));
             while (placer.isPlacing)
                 yield return new WaitForSeconds(0.1f);
 
-            yield return new WaitForSeconds(1.0f);
+            yield return new WaitForSeconds(2.0f);
         }
 
         currentTurn = -1;
@@ -371,7 +372,17 @@ public class GameController : MonoBehaviour
 
         SoundManager.instance.Stop("LevelMusic");
         if(loser != null)
-            SoundManager.instance.Play("GameOver");
+        {
+            StartCoroutine(PlayGameOverSounds(winner, loser));
+        }
+    }
+
+    IEnumerator PlayGameOverSounds(PlayerController winner, PlayerController loser) {
+        SoundManager.instance.Play("GameOver");
+        SoundManager.instance.Play(winner.soundSet + "Win");
+        yield return new WaitForSeconds(3.0f);
+        SoundManager.instance.Play(loser.soundSet + "Lose");
+        yield return new WaitForSeconds(3.0f);
     }
 
     public void ProjectileAdded(GameObject newProjectile)

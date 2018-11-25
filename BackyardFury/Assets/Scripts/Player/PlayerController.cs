@@ -37,6 +37,9 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]
     public BaseInput ourInput;
 
+    [Header("Sound Settings")]
+    public string soundSet = "Boy";
+
     private UIController uiController;
     private GameController gameController;
 
