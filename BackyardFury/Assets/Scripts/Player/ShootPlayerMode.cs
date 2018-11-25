@@ -177,6 +177,8 @@ public class ShootPlayerMode : PlayerModeBase
         // chargy charge!
         if (parentController.ourInput.FireHeld())
         {
+            if(shootPowerAbs <= 0.0f)
+                SoundManager.instance.Play("ShotCharge");
             shootPowerAbs += Time.deltaTime * increaseSpeed;
             // limit shoot power to 1
             if (shootPowerAbs > 1.0f)
@@ -199,6 +201,7 @@ public class ShootPlayerMode : PlayerModeBase
                 shotDestination, shotHeight + (heightChange * shootPowerAbs));//dir * shootStrength;
             ShootProjectile(shootForce);
         }
+        SoundManager.instance.Stop("ShotCharge");
         shootPowerAbs = 0.0f;
 
         uiController.SetShotMeter(Elastic(shootPowerAbs));

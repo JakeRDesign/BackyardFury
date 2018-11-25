@@ -206,3 +206,12 @@ MonoBehaviour:
     randomPitch: 0
     minPitch: 0.91
     maxPitch: 2.07
+  - clip: {fileID: 8300000, guid: e89e6b5a9f0792e4baf26f589e2ba9b3, type: 3}
+    source: {fileID: 0}
+    name: ShotCharge
+    volume: 1
+    pitch: 0.3
+    loop: 0
+    randomPitch: 0
+    minPitch: 0.91
+    maxPitch: 2.07
