@@ -3041,11 +3041,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114090154350050928, guid: 958605eae093047469c456119003040e,
-        type: 2}
-      propertyPath: sounds.Array.size
-      value: 24
-      objectReference: {fileID: 0}
     - target: {fileID: 4318492797899400, guid: 958605eae093047469c456119003040e, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3080,123 +3075,8 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114090154350050928, guid: 958605eae093047469c456119003040e,
         type: 2}
-      propertyPath: sounds.Array.data[20].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 8123d14be00ccca46afa2380ce729b7c, type: 3}
-    - target: {fileID: 114090154350050928, guid: 958605eae093047469c456119003040e,
-        type: 2}
-      propertyPath: sounds.Array.data[20].name
-      value: GirlLose
-      objectReference: {fileID: 0}
-    - target: {fileID: 114090154350050928, guid: 958605eae093047469c456119003040e,
-        type: 2}
-      propertyPath: sounds.Array.data[20].volume
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114090154350050928, guid: 958605eae093047469c456119003040e,
-        type: 2}
-      propertyPath: sounds.Array.data[20].pitch
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114090154350050928, guid: 958605eae093047469c456119003040e,
-        type: 2}
-      propertyPath: sounds.Array.data[20].minPitch
-      value: 0.91
-      objectReference: {fileID: 0}
-    - target: {fileID: 114090154350050928, guid: 958605eae093047469c456119003040e,
-        type: 2}
-      propertyPath: sounds.Array.data[20].maxPitch
-      value: 2.07
-      objectReference: {fileID: 0}
-    - target: {fileID: 114090154350050928, guid: 958605eae093047469c456119003040e,
-        type: 2}
-      propertyPath: sounds.Array.data[21].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 68c191abeb72ddf4a817ae05d59d94b5, type: 3}
-    - target: {fileID: 114090154350050928, guid: 958605eae093047469c456119003040e,
-        type: 2}
-      propertyPath: sounds.Array.data[21].name
-      value: BoyLose
-      objectReference: {fileID: 0}
-    - target: {fileID: 114090154350050928, guid: 958605eae093047469c456119003040e,
-        type: 2}
-      propertyPath: sounds.Array.data[21].volume
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114090154350050928, guid: 958605eae093047469c456119003040e,
-        type: 2}
-      propertyPath: sounds.Array.data[21].pitch
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114090154350050928, guid: 958605eae093047469c456119003040e,
-        type: 2}
-      propertyPath: sounds.Array.data[21].minPitch
-      value: 0.91
-      objectReference: {fileID: 0}
-    - target: {fileID: 114090154350050928, guid: 958605eae093047469c456119003040e,
-        type: 2}
-      propertyPath: sounds.Array.data[21].maxPitch
-      value: 2.07
-      objectReference: {fileID: 0}
-    - target: {fileID: 114090154350050928, guid: 958605eae093047469c456119003040e,
-        type: 2}
-      propertyPath: sounds.Array.data[22].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 35120ca3a14c06a4e82d09b4c76fc882, type: 3}
-    - target: {fileID: 114090154350050928, guid: 958605eae093047469c456119003040e,
-        type: 2}
-      propertyPath: sounds.Array.data[22].name
-      value: GirlWin
-      objectReference: {fileID: 0}
-    - target: {fileID: 114090154350050928, guid: 958605eae093047469c456119003040e,
-        type: 2}
-      propertyPath: sounds.Array.data[22].volume
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114090154350050928, guid: 958605eae093047469c456119003040e,
-        type: 2}
-      propertyPath: sounds.Array.data[22].pitch
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114090154350050928, guid: 958605eae093047469c456119003040e,
-        type: 2}
-      propertyPath: sounds.Array.data[22].minPitch
-      value: 0.91
-      objectReference: {fileID: 0}
-    - target: {fileID: 114090154350050928, guid: 958605eae093047469c456119003040e,
-        type: 2}
-      propertyPath: sounds.Array.data[22].maxPitch
-      value: 2.07
-      objectReference: {fileID: 0}
-    - target: {fileID: 114090154350050928, guid: 958605eae093047469c456119003040e,
-        type: 2}
-      propertyPath: sounds.Array.data[23].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 6457ec4ca393adc419a519ea6982476f, type: 3}
-    - target: {fileID: 114090154350050928, guid: 958605eae093047469c456119003040e,
-        type: 2}
-      propertyPath: sounds.Array.data[23].name
-      value: BoyWin
-      objectReference: {fileID: 0}
-    - target: {fileID: 114090154350050928, guid: 958605eae093047469c456119003040e,
-        type: 2}
-      propertyPath: sounds.Array.data[23].volume
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114090154350050928, guid: 958605eae093047469c456119003040e,
-        type: 2}
-      propertyPath: sounds.Array.data[23].pitch
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114090154350050928, guid: 958605eae093047469c456119003040e,
-        type: 2}
-      propertyPath: sounds.Array.data[23].minPitch
-      value: 0.91
-      objectReference: {fileID: 0}
-    - target: {fileID: 114090154350050928, guid: 958605eae093047469c456119003040e,
-        type: 2}
-      propertyPath: sounds.Array.data[23].maxPitch
-      value: 2.07
+      propertyPath: sounds.Array.data[14].volume
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 958605eae093047469c456119003040e, type: 2}
@@ -8374,6 +8254,11 @@ Prefab:
       propertyPath: childObject
       value: 
       objectReference: {fileID: 1242957781}
+    - target: {fileID: 114896829903059074, guid: a36bbc5bb1b805b41a0bd92c22082543,
+        type: 2}
+      propertyPath: presetLimit
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a36bbc5bb1b805b41a0bd92c22082543, type: 2}
   m_IsPrefabParent: 0
@@ -14474,6 +14359,11 @@ Prefab:
       propertyPath: childObject
       value: 
       objectReference: {fileID: 531139118}
+    - target: {fileID: 114234871577243050, guid: a1506eb55ba10d84ea5108962e7ef8f2,
+        type: 2}
+      propertyPath: presetLimit
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a1506eb55ba10d84ea5108962e7ef8f2, type: 2}
   m_IsPrefabParent: 0
@@ -21492,12 +21382,12 @@ Prefab:
     - target: {fileID: 114993407636954932, guid: 74c51555bfd3779488a7949e11fc51a4,
         type: 2}
       propertyPath: player1Control
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114993407636954932, guid: 74c51555bfd3779488a7949e11fc51a4,
         type: 2}
       propertyPath: player2Control
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 74c51555bfd3779488a7949e11fc51a4, type: 2}

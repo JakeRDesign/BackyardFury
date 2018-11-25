@@ -324,6 +324,8 @@ public class BuildPlayerMode : PlayerModeBase
         gridObject.SetActive(b);
         // hide/show UI cursor
         uiController.SetCursorVisible(b);
+        // always try to start off with tetris pieces
+        SelectBuildPreset(1);
         // hide/show translucent building
         ghostBuilding.gameObject.SetActive(b);
 

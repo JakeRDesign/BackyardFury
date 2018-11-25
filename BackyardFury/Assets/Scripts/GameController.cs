@@ -372,9 +372,7 @@ public class GameController : MonoBehaviour
 
         SoundManager.instance.Stop("LevelMusic");
         if(loser != null)
-        {
             StartCoroutine(PlayGameOverSounds(winner, loser));
-        }
     }
 
     IEnumerator PlayGameOverSounds(PlayerController winner, PlayerController loser) {
