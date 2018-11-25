@@ -15,6 +15,7 @@ public class ChildController : MonoBehaviour
     public Animator hairAnimator;
     public string movingBoolName = "isMoving";
     public float animatingSpeed = 1.0f;
+    public float footstepSpeed = 0.4f;
     public float turnLerpiness = 5.0f;
 
     public GameObject holdPoint;
@@ -25,6 +26,7 @@ public class ChildController : MonoBehaviour
     private Rigidbody body;
     private Camera cam;
     private Vector3 homePosition;
+    private float footstepTimer = 0.0f;
 
     private void Awake()
     {
@@ -65,6 +67,18 @@ public class ChildController : MonoBehaviour
             animator.SetBool(movingBoolName, moving);
         if (hairAnimator != null)
             hairAnimator.SetBool(movingBoolName, moving);
+
+        if(moving)
+        footstepTimer += Time.fixedDeltaTime;
+        else
+        footstepTimer = 0.0f;
+
+        if(footstepTimer >= footstepSpeed) {
+            string stepName = "Footsteps" + Random.Range(1, 4);
+            footstepTimer = 0.0f;
+            SoundManager.instance.Play(stepName);
+        }
+
         if (vel.sqrMagnitude > 1.0f)
         {
             float ang = (Mathf.Atan2(vel.x, vel.z) * Mathf.Rad2Deg) - 90.0f;

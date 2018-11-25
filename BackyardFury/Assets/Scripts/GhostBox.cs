@@ -28,7 +28,7 @@ public class GhostBox : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!colliding.Contains(other) && !ignoredTags.Contains(other.gameObject.tag)) 
+        if (!colliding.Contains(other) && !ignoredTags.Contains(other.gameObject.tag))
             colliding.Add(other);
     }
 
@@ -40,7 +40,21 @@ public class GhostBox : MonoBehaviour
 
     public bool IsIntersecting()
     {
+        RemoveDestroyedObjects();
         return colliding.Count > 0;
+    }
+
+    void RemoveDestroyedObjects()
+    {
+        foreach (Collider c in colliding)
+        {
+            if (c == null || c.gameObject == null)
+            {
+                colliding.Remove(c);
+                RemoveDestroyedObjects();
+                return;
+            }
+        }
     }
 
 }

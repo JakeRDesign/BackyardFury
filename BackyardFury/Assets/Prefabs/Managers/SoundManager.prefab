@@ -143,3 +143,39 @@ MonoBehaviour:
     randomPitch: 0
     minPitch: 0.8
     maxPitch: 2.27
+  - clip: {fileID: 8300000, guid: 46b6a8a4aa6ac8446b1ec36ca41ffb67, type: 3}
+    source: {fileID: 0}
+    name: BoxBreak
+    volume: 0.644
+    pitch: 1
+    loop: 0
+    randomPitch: 1
+    minPitch: 0.8
+    maxPitch: 2.27
+  - clip: {fileID: 8300000, guid: 9da10bff1c71634488e7c50fe9ace2ee, type: 3}
+    source: {fileID: 0}
+    name: Footsteps1
+    volume: 0.644
+    pitch: 1
+    loop: 0
+    randomPitch: 1
+    minPitch: 0.91
+    maxPitch: 2.07
+  - clip: {fileID: 8300000, guid: 820395262c4276a4f9e71501a446e8b7, type: 3}
+    source: {fileID: 0}
+    name: Footsteps2
+    volume: 0.644
+    pitch: 1
+    loop: 0
+    randomPitch: 1
+    minPitch: 0.91
+    maxPitch: 2.07
+  - clip: {fileID: 8300000, guid: 991362d9a7028ea4da5635970514b903, type: 3}
+    source: {fileID: 0}
+    name: Footsteps3
+    volume: 0.644
+    pitch: 1
+    loop: 0
+    randomPitch: 1
+    minPitch: 0.91
+    maxPitch: 2.07

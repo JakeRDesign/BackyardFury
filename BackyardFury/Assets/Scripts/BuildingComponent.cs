@@ -123,6 +123,7 @@ public class BuildingComponent : MonoBehaviour
         }
 
         Instantiate(breakParticles, transform.position, Quaternion.identity);
+        SoundManager.instance.Play("BoxBreak");
 
         // call onDestroy before Destroy so we can still access this object
         if (onDestroy != null)
