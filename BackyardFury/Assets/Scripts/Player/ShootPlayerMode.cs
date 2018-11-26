@@ -235,8 +235,15 @@ public class ShootPlayerMode : PlayerModeBase
         projBody.angularVelocity = angular;
 
         Projectile projCmp = storedProjectile.GetComponent<Projectile>();
+
         projCmp.EnablePhysics();
         projCmp.Shot(shootPowerAbs);
+
+        const int hitVariants = 2;
+        projCmp.soundFunction = s => {
+            string hitSoundName = parentController.soundSet + s + Random.Range(1, hitVariants+1).ToString();
+            SoundManager.instance.Play(hitSoundName);
+        };
 
         // call any attached functions
         if (parentController.onShoot != null)

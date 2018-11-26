@@ -269,3 +269,75 @@ MonoBehaviour:
     randomPitch: 0
     minPitch: 0.91
     maxPitch: 2.07
+  - clip: {fileID: 8300000, guid: 69bce66cd697a104ebbf9d13779ea8ea, type: 3}
+    source: {fileID: 0}
+    name: BoyHit1
+    volume: 1
+    pitch: 1
+    loop: 0
+    randomPitch: 0
+    minPitch: 0.91
+    maxPitch: 2.07
+  - clip: {fileID: 8300000, guid: 4dbcae98b27195c4b91f524b2b02b932, type: 3}
+    source: {fileID: 0}
+    name: BoyHit2
+    volume: 1
+    pitch: 1
+    loop: 0
+    randomPitch: 0
+    minPitch: 0.91
+    maxPitch: 2.07
+  - clip: {fileID: 8300000, guid: 50de1c32236fdd34a8169affba7df8e8, type: 3}
+    source: {fileID: 0}
+    name: BoyMiss1
+    volume: 1
+    pitch: 1
+    loop: 0
+    randomPitch: 0
+    minPitch: 0.91
+    maxPitch: 2.07
+  - clip: {fileID: 8300000, guid: acdb2a80d1947604bb31101e7d8a6e1e, type: 3}
+    source: {fileID: 0}
+    name: BoyMiss2
+    volume: 1
+    pitch: 1
+    loop: 0
+    randomPitch: 0
+    minPitch: 0.91
+    maxPitch: 2.07
+  - clip: {fileID: 8300000, guid: 12c3f20623894f74cb64d08a59b18c64, type: 3}
+    source: {fileID: 0}
+    name: GirlHit1
+    volume: 1
+    pitch: 1
+    loop: 0
+    randomPitch: 0
+    minPitch: 0.91
+    maxPitch: 2.07
+  - clip: {fileID: 8300000, guid: dc2701d2bab13c7479e213ddab3f6201, type: 3}
+    source: {fileID: 0}
+    name: GirlHit2
+    volume: 1
+    pitch: 1
+    loop: 0
+    randomPitch: 0
+    minPitch: 0.91
+    maxPitch: 2.07
+  - clip: {fileID: 8300000, guid: 1bdcf44a0c1e5694698fa44693ef13b7, type: 3}
+    source: {fileID: 0}
+    name: GirlMiss1
+    volume: 1
+    pitch: 1
+    loop: 0
+    randomPitch: 0
+    minPitch: 0.91
+    maxPitch: 2.07
+  - clip: {fileID: 8300000, guid: ea4795a7feaef054f855605549ebc749, type: 3}
+    source: {fileID: 0}
+    name: GirlMiss2
+    volume: 1
+    pitch: 1
+    loop: 0
+    randomPitch: 0
+    minPitch: 0.91
+    maxPitch: 2.07

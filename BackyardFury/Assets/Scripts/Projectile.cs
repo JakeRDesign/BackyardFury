@@ -10,6 +10,8 @@ public class Projectile : MonoBehaviour
 
     public string instantDestroyTag = "Collider";
 
+    public System.Action<string> soundFunction;
+
     public GameObject sparklePrefab;
     public float timeBeforeDestroying = 2.0f;
     public bool isRemoving = false;
@@ -61,6 +63,11 @@ public class Projectile : MonoBehaviour
         if (isRemoving)
             return;
 
+        string soundType = "Miss";
+        if(collision.collider.tag == "BuildingBox")
+            soundType = "Hit";
+        StartCoroutine(PlayVoice(soundType));
+
         onLand();
         StartCoroutine(IncreaseDrag());
         if (collision.gameObject.tag == instantDestroyTag)
@@ -76,6 +83,12 @@ public class Projectile : MonoBehaviour
 
         if (ourSparkle != null)
             ourSparkle.SetActive(true);
+    }
+
+    IEnumerator PlayVoice(string type) {
+        yield return new WaitForSeconds(0.2f);
+        if(soundFunction != null)
+            soundFunction(type);
     }
 
     public void Shot(float power = 0.0f)
