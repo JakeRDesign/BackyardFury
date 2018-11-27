@@ -12580,7 +12580,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 8
   m_Type: 1
-  m_Color: {r: 0.97794116, g: 0.9319204, b: 0.86288923, a: 1}
+  m_Color: {r: 1, g: 0.9486816, b: 0.66176474, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -12590,8 +12590,8 @@ Light:
     m_Resolution: 3
     m_CustomResolution: -1
     m_Strength: 1
-    m_Bias: 0.035
-    m_NormalBias: 1.58
+    m_Bias: 0
+    m_NormalBias: 1.2
     m_NearPlane: 0.1
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
@@ -20783,14 +20783,14 @@ Light:
   m_Enabled: 1
   serializedVersion: 8
   m_Type: 1
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7352941, g: 0.7352941, b: 0.7352941, a: 1}
   m_Intensity: 0.12
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
     m_Type: 2
-    m_Resolution: -1
+    m_Resolution: 3
     m_CustomResolution: -1
     m_Strength: 1
     m_Bias: 2
@@ -21728,6 +21728,7 @@ GameObject:
   - component: {fileID: 1446475989}
   - component: {fileID: 1446475988}
   - component: {fileID: 1446475987}
+  - component: {fileID: 1446475991}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -21800,6 +21801,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 28.500002, y: 28.5, z: 0}
+--- !u!114 &1446475991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1446475986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: f2c926e3bdb3f9a4990d1aaff4d6831e, type: 2}
 --- !u!1001 &1448107251
 Prefab:
   m_ObjectHideFlags: 0
@@ -24334,7 +24347,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 421520e246421d743abeab0e13068dc5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.84
+      value: -4.85
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 421520e246421d743abeab0e13068dc5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -30910,7 +30923,6 @@ MonoBehaviour:
   - {fileID: 1815326834354010, guid: f52729780b8da4044a53e7f872deadef, type: 2}
   - {fileID: 1340084196174180, guid: c49492999f2fc0b4186e18dcb864015f, type: 2}
   - {fileID: 1289421325689718, guid: f19a2da69b8519f4abe002215e76be8a, type: 2}
-  - {fileID: 1523651775291884, guid: 51b2430ab4e36ea4380cd37c97982092, type: 2}
   decreaseEachBuildTime: 0
   decreaseBy: 5
   minimumBuildTime: 0
