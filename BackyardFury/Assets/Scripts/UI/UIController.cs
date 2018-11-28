@@ -48,6 +48,8 @@ public class UIController : MonoBehaviour
     public GameObject helpGroup;
 
     [Header("COOLCRATES")]
+    [TextArea]
+    public string coolCrateString = "u have {0} coolcrates left";
     public GameObject coolCrateText;
 
     [Header("Particles")]
@@ -169,7 +171,7 @@ public class UIController : MonoBehaviour
     public void SetCoolCrateText(int count)
     {
         coolCrateText.SetActive(count > 0);
-        coolCrateText.GetComponent<Text>().text = string.Format("Place {0} more coolcrates\nDefend them with your life!", count);
+        coolCrateText.GetComponent<Text>().text = string.Format(coolCrateString, count);
     }
 
     #endregion
