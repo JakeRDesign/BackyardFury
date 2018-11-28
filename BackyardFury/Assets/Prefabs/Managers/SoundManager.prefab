@@ -341,3 +341,93 @@ MonoBehaviour:
     randomPitch: 0
     minPitch: 0.91
     maxPitch: 2.07
+  - clip: {fileID: 8300000, guid: 67adfd3b67b4a634187ed113545ec413, type: 3}
+    source: {fileID: 0}
+    name: BoyIdle1
+    volume: 1
+    pitch: 1
+    loop: 0
+    randomPitch: 0
+    minPitch: 0.91
+    maxPitch: 2.07
+  - clip: {fileID: 8300000, guid: b712db2550dfa6240a977a665cd61a48, type: 3}
+    source: {fileID: 0}
+    name: BoyIdle2
+    volume: 1
+    pitch: 1
+    loop: 0
+    randomPitch: 0
+    minPitch: 0.91
+    maxPitch: 2.07
+  - clip: {fileID: 8300000, guid: fd7da6881bd81c442929d1ac736174c0, type: 3}
+    source: {fileID: 0}
+    name: BoyIdle3
+    volume: 1
+    pitch: 1
+    loop: 0
+    randomPitch: 0
+    minPitch: 0.91
+    maxPitch: 2.07
+  - clip: {fileID: 8300000, guid: 3a438fd01aaa27a49a0bc6e40aebe63f, type: 3}
+    source: {fileID: 0}
+    name: GirlIdle1
+    volume: 1
+    pitch: 1
+    loop: 0
+    randomPitch: 0
+    minPitch: 0.91
+    maxPitch: 2.07
+  - clip: {fileID: 8300000, guid: b7e721e440a344d489b87f313d39f86a, type: 3}
+    source: {fileID: 0}
+    name: GirlIdle2
+    volume: 1
+    pitch: 1
+    loop: 0
+    randomPitch: 0
+    minPitch: 0.91
+    maxPitch: 2.07
+  - clip: {fileID: 8300000, guid: 2a6e54cd38adc4b4681f65ea5ecaecdd, type: 3}
+    source: {fileID: 0}
+    name: GirlIdle3
+    volume: 1
+    pitch: 1
+    loop: 0
+    randomPitch: 0
+    minPitch: 0.91
+    maxPitch: 2.07
+  - clip: {fileID: 8300000, guid: f58a1e41ca2aa284593025b885d2a93a, type: 3}
+    source: {fileID: 0}
+    name: BoyIdle4
+    volume: 1
+    pitch: 1
+    loop: 0
+    randomPitch: 0
+    minPitch: 0.91
+    maxPitch: 2.07
+  - clip: {fileID: 8300000, guid: 3d8fec128f65f794f9911989a7b1b880, type: 3}
+    source: {fileID: 0}
+    name: BoyIdle5
+    volume: 1
+    pitch: 1
+    loop: 0
+    randomPitch: 0
+    minPitch: 0.91
+    maxPitch: 2.07
+  - clip: {fileID: 8300000, guid: 28bc40231e6933a41b52c2573439a084, type: 3}
+    source: {fileID: 0}
+    name: GirlIdle4
+    volume: 1
+    pitch: 1
+    loop: 0
+    randomPitch: 0
+    minPitch: 0.91
+    maxPitch: 2.07
+  - clip: {fileID: 8300000, guid: 9192c2099cf76cf45be5716c73ba35e7, type: 3}
+    source: {fileID: 0}
+    name: GirlIdle5
+    volume: 1
+    pitch: 1
+    loop: 0
+    randomPitch: 0
+    minPitch: 0.91
+    maxPitch: 2.07
