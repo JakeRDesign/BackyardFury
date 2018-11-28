@@ -299,7 +299,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 070e744dc4c0c7141ac23150226a67ea, type: 3}
-    m_FontSize: 66
+    m_FontSize: 61
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 10
@@ -373,7 +373,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 070e744dc4c0c7141ac23150226a67ea, type: 3}
-    m_FontSize: 66
+    m_FontSize: 61
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 10
