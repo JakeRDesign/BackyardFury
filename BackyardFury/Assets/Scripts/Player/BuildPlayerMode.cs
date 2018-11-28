@@ -292,8 +292,8 @@ public class BuildPlayerMode : PlayerModeBase
             GameObject thisTetris = gameController.tetrisPieces[Random.Range(0, gameController.tetrisPieces.Count)];
             tetrisQueue.Enqueue(thisTetris);
         }
-        if (tetrisPreview != null)
-            tetrisPreview.UpdatePreviews(tetrisQueue);
+
+        uiController.ShowPreset(tetrisQueue.Peek().name);
     }
 
     public void EnableMode()
@@ -325,8 +325,8 @@ public class BuildPlayerMode : PlayerModeBase
         // hide/show translucent building
         ghostBuilding.gameObject.SetActive(b);
 
-        if (b && tetrisPreview != null)
-            tetrisPreview.UpdatePreviews(tetrisQueue);
+        if (b)
+            UpdateQueue();
 
         // enable/disable this component
         enabled = b;

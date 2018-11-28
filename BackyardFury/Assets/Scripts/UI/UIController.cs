@@ -43,6 +43,7 @@ public class UIController : MonoBehaviour
         "e.g. 0.2 means the buttons will be 20% of the screen width away from the side of the screen")]
     public float distanceFromSide = 0.2f;
     public RectTransform tetrisContainer;
+    public List<GameObject> tetrisIcons;
 
     [Header("Help Menu")]
     public GameObject helpGroup;
@@ -247,6 +248,13 @@ public class UIController : MonoBehaviour
     public void SelectPreset(int index)
     {
         gameController.GetCurrentPlayer().buildMode.SelectBuildPreset(index);
+    }
+
+    public void ShowPreset(string name)
+    {
+        Debug.Log(name);
+        foreach(GameObject o in tetrisIcons)
+            o.SetActive(o.name == name);
     }
 
     #endregion

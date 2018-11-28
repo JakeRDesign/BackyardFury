@@ -1345,7 +1345,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0.029411526, g: 0, b: 0.85294116, a: 1}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1511,7 +1511,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0.8235294, g: 0, b: 0, a: 1}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1736,7 +1736,15 @@ MonoBehaviour:
   cursorSensitivity: 500
   distanceFromSide: 0.15
   tetrisContainer: {fileID: 0}
+  tetrisIcons:
+  - {fileID: 1199466755697634}
+  - {fileID: 1350434688897626}
+  - {fileID: 1852370303924636}
+  - {fileID: 1036340070072704}
+  - {fileID: 1705811817018706}
+  - {fileID: 1084163760172116}
   helpGroup: {fileID: 1242376107828202}
+  coolCrateString: u have {0} coolcrates left
   coolCrateText: {fileID: 1572413449994216}
   blueConfetti: {fileID: 0}
   redConfetti: {fileID: 0}
