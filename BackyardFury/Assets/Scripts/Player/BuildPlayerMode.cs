@@ -43,10 +43,6 @@ public class BuildPlayerMode : PlayerModeBase
     bool placedSpecialBoxes = false;
     private int placedThisTurn = 0;
 
-    // last known position of the mouse so we can detect if mouse is being
-    // moved, used for disabling mouse input for controller
-    private Vector3 lastMousePosition;
-
     // grab a reference to the grid's material so we can set the highlight
     // position to be the position of the building
     Material gridMaterial;
@@ -342,7 +338,7 @@ public class BuildPlayerMode : PlayerModeBase
         // make sure the player places a singular box first if we're
         // defending boxes
         if (index > 0 && gameController.defendingBoxes && !placedSpecialBoxes)
-            return;
+            index = 0;
 
         if (presetsPlaced >= presetLimit)
             index = 0;
