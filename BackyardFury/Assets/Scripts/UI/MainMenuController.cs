@@ -12,7 +12,7 @@ public class MainMenuController : MonoBehaviour
     public Text player2Text;
 
 
-    [Header ("Input Devices")]
+    [Header("Input Devices")]
     public GameObject P1ControllerIcon;
     public GameObject P1KeyboardIcon;
     public GameObject P2ControllerIcon;
@@ -20,9 +20,13 @@ public class MainMenuController : MonoBehaviour
 
     private void Start()
     {
-        SoundManager.instance.Stop("LevelMusic");
-        SoundManager.instance.Stop("GameOver");
-        SoundManager.instance.Play("MenuMusic", 1.0f, false);
+        if (SoundManager.instance != null)
+        {
+            SoundManager.instance.Stop("LevelMusic");
+            SoundManager.instance.Stop("GameOver");
+            SoundManager.instance.Stop("Idiot");
+            SoundManager.instance.Play("MenuMusic", 1.0f, false);
+        }
         // make sure settings show what the current controls are
         UpdateControlTexts();
     }
@@ -167,7 +171,7 @@ public class MainMenuController : MonoBehaviour
 
         // Checkin Player 1 Inputs Devices
         bool isPlayer1Keyboard = settings.player1Control == ControlTypes.KeyboardMouse;
-        if(isPlayer1Keyboard)
+        if (isPlayer1Keyboard)
         {
             P1ControllerIcon.SetActive(false);
             P1KeyboardIcon.SetActive(true);
