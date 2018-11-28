@@ -252,7 +252,6 @@ public class UIController : MonoBehaviour
 
     public void ShowPreset(string name)
     {
-        Debug.Log(name);
         foreach(GameObject o in tetrisIcons)
             o.SetActive(o.name == name);
     }

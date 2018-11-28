@@ -22,9 +22,8 @@ public class MainMenuController : MonoBehaviour
     {
         if (SoundManager.instance != null)
         {
-            SoundManager.instance.Stop("LevelMusic");
-            SoundManager.instance.Stop("GameOver");
-            SoundManager.instance.Stop("Idiot");
+            SoundManager.instance.StopAll();
+
             SoundManager.instance.Play("MenuMusic", 1.0f, false);
         }
         // make sure settings show what the current controls are

@@ -47,7 +47,6 @@ public class BuildPlayerMode : PlayerModeBase
     // position to be the position of the building
     Material gridMaterial;
     GameObject gridObject;
-    TetrisPreview tetrisPreview;
     Vector3 buildingPos = Vector3.zero;
 
     public override void Awake()
@@ -55,8 +54,6 @@ public class BuildPlayerMode : PlayerModeBase
         base.Awake();
         // create the translucent box
         SelectBuildPreset(0);
-
-        tetrisPreview = FindObjectOfType(typeof(TetrisPreview)) as TetrisPreview;
 
         UpdateQueue();
 
