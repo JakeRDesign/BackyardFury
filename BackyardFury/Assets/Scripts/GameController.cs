@@ -119,7 +119,7 @@ public class GameController : MonoBehaviour
             currentInput = new KeyboardInputController();
 
         if (currentInput.HelpPressed())
-            uiController.ShowHelpMenu();
+            uiController.ShowHelpMenu(currentInput);
 
         if (currentInput.PausePressed())
             uiController.OpenPauseMenu(currentInput);

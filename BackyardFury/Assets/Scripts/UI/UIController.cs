@@ -60,6 +60,7 @@ public class UIController : MonoBehaviour
     private RectTransform cursorImage;
     private GameController gameController;
     private BaseInput pauseOwner;
+    private float closeHelpTime = 0.0f;
 
     private void Awake()
     {
@@ -75,8 +76,11 @@ public class UIController : MonoBehaviour
 
     private void Update()
     {
-        if (pauseOwner != null && pauseOwner.PausePressed() && !windowLeaving && IsInPauseMenu())
+        if (pauseOwner != null && pauseOwner.PausePressed() && !windowLeaving && pauseGroup.activeSelf)
             ClosePauseMenu();
+
+        if (pauseOwner != null && pauseOwner.HelpPressed() && helpGroup.activeSelf)
+            HideHelpMenu();
     }
 
     #region Displayed Cursor
@@ -137,14 +141,24 @@ public class UIController : MonoBehaviour
         }
     }
 
-    public void ShowHelpMenu()
+    public void ShowHelpMenu(BaseInput opener)
     {
+        if (Time.timeSinceLevelLoad - closeHelpTime < 0.2f)
+            return;
+        closeHelpTime = Time.timeSinceLevelLoad;
+        wasBuildBaseVisible = buildBaseText.gameObject.activeSelf;
+        pauseOwner = opener;
         helpGroup.SetActive(true);
+        ShowPause(true, false);
     }
 
     public void HideHelpMenu()
     {
+        if (Time.timeSinceLevelLoad - closeHelpTime < 0.2f)
+            return;
+        closeHelpTime = Time.timeSinceLevelLoad;
         helpGroup.SetActive(false);
+        ShowPause(false, false);
     }
 
     public void BuildPhaseOver()
@@ -279,12 +293,19 @@ public class UIController : MonoBehaviour
     }
 
     // sets the active state of all relevant objects to show or hide pause
-    private void ShowPause(bool show)
+    private void ShowPause(bool show, bool isPause = true)
     {
-        pauseGroup.SetActive(show);
+        if (isPause)
+            pauseGroup.SetActive(show);
+        else
+            helpGroup.SetActive(show);
         timerText.gameObject.SetActive(!show);
         buildPresetsGroup.gameObject.SetActive(!show);
-        buildBaseText.gameObject.SetActive(wasBuildBaseVisible);
+
+        bool showBuildBase = !show;
+        if (!show)
+            showBuildBase = wasBuildBaseVisible;
+        buildBaseText.gameObject.SetActive(showBuildBase);
     }
 
     // starts closing pause menu
@@ -303,7 +324,7 @@ public class UIController : MonoBehaviour
 
     public bool IsInPauseMenu()
     {
-        return pauseGroup.activeSelf;
+        return pauseGroup.activeSelf || helpGroup.activeSelf;
     }
 
     public void VolumeChanged(float newVol)

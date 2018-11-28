@@ -27,6 +27,7 @@ public class ChildController : MonoBehaviour
     private Camera cam;
     private Vector3 homePosition;
     private float footstepTimer = 0.0f;
+    private UIController uiController;
 
     private void Awake()
     {
@@ -34,10 +35,13 @@ public class ChildController : MonoBehaviour
 
         body = GetComponent<Rigidbody>();
         cam = Camera.main;
+
+        uiController = GameObject.FindGameObjectWithTag("UIController").GetComponent<UIController>();
     }
 
     private void FixedUpdate()
     {
+
         // get camera's forward and right directions so we move in the proper
         // direction :)
         Vector3 right = cam.transform.right;
@@ -58,7 +62,8 @@ public class ChildController : MonoBehaviour
         Vector3 forwardMovement = yRawInput * forward;
 
         Vector3 dif = (rightMovement + forwardMovement) * moveSpeed * Time.fixedDeltaTime * 1000.0f;
-        body.AddForce(dif);
+        if (!uiController.IsInPauseMenu())
+            body.AddForce(dif);
 
         Vector3 vel = body.velocity;
 
@@ -68,12 +73,13 @@ public class ChildController : MonoBehaviour
         if (hairAnimator != null)
             hairAnimator.SetBool(movingBoolName, moving);
 
-        if(moving)
-        footstepTimer += Time.fixedDeltaTime;
+        if (moving)
+            footstepTimer += Time.fixedDeltaTime;
         else
-        footstepTimer = 0.0f;
+            footstepTimer = 0.0f;
 
-        if(footstepTimer >= footstepSpeed) {
+        if (footstepTimer >= footstepSpeed)
+        {
             string stepName = "Footsteps" + Random.Range(1, 4);
             footstepTimer = 0.0f;
             SoundManager.instance.Play(stepName);
