@@ -431,3 +431,39 @@ MonoBehaviour:
     randomPitch: 0
     minPitch: 0.91
     maxPitch: 2.07
+  - clip: {fileID: 8300000, guid: 83f807453f64eb04c93f27f2e598dd82, type: 3}
+    source: {fileID: 0}
+    name: GirlIdle6
+    volume: 1
+    pitch: 1
+    loop: 0
+    randomPitch: 0
+    minPitch: 0.91
+    maxPitch: 2.07
+  - clip: {fileID: 8300000, guid: 83f807453f64eb04c93f27f2e598dd82, type: 3}
+    source: {fileID: 0}
+    name: GirlIdle7
+    volume: 1
+    pitch: 1
+    loop: 0
+    randomPitch: 0
+    minPitch: 0.91
+    maxPitch: 2.07
+  - clip: {fileID: 8300000, guid: 83f807453f64eb04c93f27f2e598dd82, type: 3}
+    source: {fileID: 0}
+    name: BoyIdle6
+    volume: 1
+    pitch: 1
+    loop: 0
+    randomPitch: 0
+    minPitch: 0.91
+    maxPitch: 2.07
+  - clip: {fileID: 8300000, guid: 83f807453f64eb04c93f27f2e598dd82, type: 3}
+    source: {fileID: 0}
+    name: BoyIdle7
+    volume: 1
+    pitch: 1
+    loop: 0
+    randomPitch: 0
+    minPitch: 0.91
+    maxPitch: 2.07

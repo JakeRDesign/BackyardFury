@@ -264,7 +264,7 @@ public class GameController : MonoBehaviour
             turnTimer = shootTurnLength;
         }
         PlayerController plr = GetCurrentPlayer();
-        SoundManager.instance.Play(plr.soundSet + "Idle" + Random.Range(1,6));
+        SoundManager.instance.Play(plr.soundSet + "Idle" + Random.Range(1,8));
         CheckProjectileCount();
 
         // reset preset used flag
