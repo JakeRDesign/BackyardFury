@@ -32,6 +32,7 @@ public class UIController : MonoBehaviour
     private bool windowLeaving = false;
     private bool wasMouseVisible = false;
     private bool wasBuildBaseVisible = false;
+    private bool wasBuildPresetsVisible = false;
 
     [Header("Controller Cursor")]
     [Tooltip("Sensitivity for the controller's movement of the cursor")]
@@ -223,9 +224,8 @@ public class UIController : MonoBehaviour
 
     public void ShowBuildPresets(bool show)
     {
+        wasBuildBaseVisible = true;
         buildPresetsGroup.gameObject.SetActive(show);
-        tetrisContainer.gameObject.SetActive(show);
-        tetrisContainer.transform.parent.gameObject.SetActive(show);
     }
 
     public void SetPresetPosition(bool left)
@@ -315,6 +315,11 @@ public class UIController : MonoBehaviour
         if (!show)
             showBuildBase = wasBuildBaseVisible;
         buildBaseText.gameObject.SetActive(showBuildBase);
+
+        bool showPresetMenu = !show;
+        if (!show)
+            showPresetMenu = wasBuildPresetsVisible;
+        buildPresetsGroup.gameObject.SetActive(showPresetMenu);
     }
 
     // starts closing pause menu

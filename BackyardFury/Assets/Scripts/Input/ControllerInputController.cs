@@ -18,11 +18,13 @@ public class ControllerInputController : BaseInput
     ButtonState lastFire = ButtonState.Released;
     ButtonState lastHelp = ButtonState.Released;
     ButtonState lastPause = ButtonState.Released;
+    ButtonState lastNextTurn = ButtonState.Released;
     // what happened this frame
     bool altPressed = false;
     bool firePressed = false;
     bool helpPressed = false;
     bool pausePressed = false;
+    bool nextTurnPressed = false;
     #endregion
 
     void Update()
@@ -35,13 +37,14 @@ public class ControllerInputController : BaseInput
         ButtonState thisFire = state.Buttons.A;
         ButtonState thisHelp = state.Buttons.Back;
         ButtonState thisPause = state.Buttons.Start;
+        ButtonState thisNextTurn = state.Buttons.Y;
 
         // determine whether or not it was pressed this frame using the last values
         altPressed = thisAlt == ButtonState.Pressed && lastAlt == ButtonState.Released;
         firePressed = thisFire == ButtonState.Pressed && lastFire == ButtonState.Released;
         helpPressed = thisHelp == ButtonState.Pressed && lastHelp == ButtonState.Released;
         pausePressed = thisPause == ButtonState.Pressed && lastPause == ButtonState.Released;
-
+        nextTurnPressed = thisNextTurn == ButtonState.Pressed && lastNextTurn == ButtonState.Released;
 
         // update cursor position
         Vector3 cursorPos = CursorPosFunc();
@@ -93,6 +96,7 @@ public class ControllerInputController : BaseInput
         lastFire = thisFire;
         lastHelp = thisHelp;
         lastPause = thisPause;
+        lastNextTurn = thisNextTurn;
     }
 
     public override bool AltPressed() { return altPressed; }
@@ -103,6 +107,7 @@ public class ControllerInputController : BaseInput
     }
     public override bool HelpPressed() { return helpPressed; }
     public override bool PausePressed() { return pausePressed; }
+    public override bool NextTurnPressed() { return nextTurnPressed; }
     public override float VerticalAxis() { return GetState().ThumbSticks.Left.Y; }
     public override float HorizontalAxis() { return GetState().ThumbSticks.Left.X; }
 
@@ -110,5 +115,4 @@ public class ControllerInputController : BaseInput
     {
         return GamePad.GetState(player);
     }
-
 }

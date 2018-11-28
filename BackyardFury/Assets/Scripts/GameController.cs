@@ -136,7 +136,7 @@ public class GameController : MonoBehaviour
         uiController.SetTimer(turnTimer);
 
         // TODO: make a proper binding for skipping turn
-        if (turnTimer <= 0.0f || Input.GetKeyDown(KeyCode.P))
+        if (turnTimer <= 0.0f || currentInput.NextTurnPressed())
             StartNextTeam();
 
         if (followingProjectile != null)

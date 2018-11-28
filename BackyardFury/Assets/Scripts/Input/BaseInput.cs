@@ -26,6 +26,7 @@ public abstract class BaseInput : MonoBehaviour {
     public abstract bool FirePressed();
     public abstract bool FireHeld();
     public abstract bool HelpPressed();
+    public abstract bool NextTurnPressed();
     public abstract bool PausePressed();
     public abstract float VerticalAxis();
     public abstract float HorizontalAxis();
