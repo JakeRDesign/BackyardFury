@@ -27,7 +27,7 @@ public class SoundManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
 
         // create audio sources
-        foreach(Sound s in sounds)
+        foreach (Sound s in sounds)
         {
             s.source = gameObject.AddComponent<AudioSource>();
 
@@ -44,12 +44,12 @@ public class SoundManager : MonoBehaviour
         Sound s = GetSound(name);
         if (s != null)
         {
-            if(s.randomPitch)
+            if (s.randomPitch)
                 s.source.pitch = Random.Range(s.minPitch, s.maxPitch);
 
             s.source.volume = s.volume * vol;
 
-            if(!s.source.isPlaying || restart)
+            if (!s.source.isPlaying || restart)
                 s.source.Play();
         }
     }
@@ -68,10 +68,11 @@ public class SoundManager : MonoBehaviour
             s.source.Stop();
     }
 
-    public void StopAll()
+    public void StopAll(string except = "")
     {
         foreach (Sound s in sounds)
-            s.source.Stop();
+            if (s.name != except)
+                s.source.Stop();
     }
 
     Sound GetSound(string name)

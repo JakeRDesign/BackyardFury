@@ -22,7 +22,7 @@ public class MainMenuController : MonoBehaviour
     {
         if (SoundManager.instance != null)
         {
-            SoundManager.instance.StopAll();
+            SoundManager.instance.StopAll("MenuMusic");
 
             SoundManager.instance.Play("MenuMusic", 1.0f, false);
         }
