@@ -159,6 +159,7 @@ GameObject:
   - component: {fileID: 224203592590859342}
   - component: {fileID: 222656574089556850}
   - component: {fileID: 114019646957215554}
+  - component: {fileID: 114001280848903646}
   m_Layer: 5
   m_Name: winnerPlayer1
   m_TagString: Untagged
@@ -308,6 +309,7 @@ GameObject:
   - component: {fileID: 224203528862436566}
   - component: {fileID: 222753944974764858}
   - component: {fileID: 114231424224698272}
+  - component: {fileID: 114138725567115280}
   m_Layer: 5
   m_Name: dropshadow
   m_TagString: Untagged
@@ -459,6 +461,9 @@ GameObject:
   - component: {fileID: 224450829380627728}
   - component: {fileID: 222105605306083218}
   - component: {fileID: 114268529227546462}
+  - component: {fileID: 114802008473986522}
+  - component: {fileID: 114044753392274218}
+  - component: {fileID: 114675500574151916}
   m_Layer: 5
   m_Name: dropshadow
   m_TagString: Untagged
@@ -961,6 +966,20 @@ Transform:
   m_Father: {fileID: 224597261199311148}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114001280848903646
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1196934607418336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 1, g: 1, b: 1, a: 0.5}
+  m_EffectDistance: {x: 3.67, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!114 &114003689223355546
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -973,7 +992,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.203}
-  m_EffectDistance: {x: 1, y: -1}
+  m_EffectDistance: {x: 2.32, y: -2.82}
   m_UseGraphicAlpha: 1
 --- !u!114 &114011003360800186
 MonoBehaviour:
@@ -1034,7 +1053,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Winner, winner you're going \nto bed without dinner!"
+  m_Text: "Winner winner, you're going \nto bed without dinner!"
 --- !u!114 &114038354276865232
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1062,6 +1081,20 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114044753392274218
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1564791347848806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!114 &114072133990996620
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1242,6 +1275,20 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114138725567115280
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1393635426624200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 1, g: 1, b: 1, a: 0.916}
+  m_EffectDistance: {x: 2.78, y: 0.12}
+  m_UseGraphicAlpha: 1
 --- !u!114 &114161812440280348
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1380,7 +1427,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.029411526, g: 0, b: 0.85294116, a: 1}
+  m_Color: {r: 0.12215114, g: 0.104455, b: 0.61764705, a: 1}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1400,7 +1447,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Winner, winner you're going \nto bed without dinner!"
+  m_Text: "Winner winner, you're going \nto bed without dinner!"
 --- !u!114 &114233967849417602
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1599,7 +1646,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 070e744dc4c0c7141ac23150226a67ea, type: 3}
-    m_FontSize: 77
+    m_FontSize: 66
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 10
@@ -1922,7 +1969,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.39705884, g: 0.39705884, b: 0.39705884, a: 0.641}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.228}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2002,8 +2049,8 @@ MonoBehaviour:
   m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.128}
-  m_EffectDistance: {x: 3.6, y: -1}
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.378}
+  m_EffectDistance: {x: 3.6, y: -2.19}
   m_UseGraphicAlpha: 1
 --- !u!114 &114496685897702228
 MonoBehaviour:
@@ -2350,8 +2397,8 @@ MonoBehaviour:
   m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.128}
-  m_EffectDistance: {x: 5.62, y: 0.5}
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.372}
+  m_EffectDistance: {x: 3.6, y: 3.44}
   m_UseGraphicAlpha: 1
 --- !u!114 &114668704186668638
 MonoBehaviour:
@@ -2413,6 +2460,20 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114675500574151916
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1564791347848806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!114 &114688447740919476
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2424,8 +2485,8 @@ MonoBehaviour:
   m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.134}
-  m_EffectDistance: {x: 2.25, y: -1}
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.372}
+  m_EffectDistance: {x: 3.01, y: 2.35}
   m_UseGraphicAlpha: 1
 --- !u!114 &114690398413825838
 MonoBehaviour:
@@ -2698,6 +2759,20 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: "Objective: \n\nKnock down the other player's base and prove\nwho is the
     best neighbour, once and for all!"
+--- !u!114 &114802008473986522
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1564791347848806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!114 &114809120215005102
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3331,7 +3406,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 1114.8, y: 390.59717}
+  m_AnchoredPosition: {x: 1114.8, y: 1556.4268}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224027096611942604
@@ -3388,7 +3463,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 2095.75, y: 1197.4}
+  m_SizeDelta: {x: 2095.75, y: 2000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224162291782579116
 RectTransform:
@@ -3518,7 +3593,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 2097.6, y: 1197.4}
+  m_SizeDelta: {x: 2097.6, y: 2000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224238523083431168
 RectTransform:
@@ -3572,7 +3647,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -234.3, y: -26.45}
+  m_AnchoredPosition: {x: -227, y: -32.2}
   m_SizeDelta: {x: 161.82, y: 357.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224302239625391840
@@ -3833,7 +3908,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 55.8, y: -23.7}
+  m_AnchoredPosition: {x: 49.6, y: -29.2}
   m_SizeDelta: {x: 431.6, y: 58.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224497511348764374
@@ -4296,14 +4371,14 @@ RectTransform:
   m_GameObject: {fileID: 1095821727565812}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 0.2771138, z: 1}
   m_Children: []
   m_Father: {fileID: 224490079001984326}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 3.1}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224918103863095126
