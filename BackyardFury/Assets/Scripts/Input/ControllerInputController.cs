@@ -14,11 +14,11 @@ public class ControllerInputController : BaseInput
 
     #region Ugly Button States
     // previous frame's state
-    ButtonState lastAlt = ButtonState.Released;
-    ButtonState lastFire = ButtonState.Released;
-    ButtonState lastHelp = ButtonState.Released;
-    ButtonState lastPause = ButtonState.Released;
-    ButtonState lastNextTurn = ButtonState.Released;
+    ButtonState lastAlt = ButtonState.Pressed;
+    ButtonState lastFire = ButtonState.Pressed;
+    ButtonState lastHelp = ButtonState.Pressed;
+    ButtonState lastPause = ButtonState.Pressed;
+    ButtonState lastNextTurn = ButtonState.Pressed;
     // what happened this frame
     bool altPressed = false;
     bool firePressed = false;
@@ -112,4 +112,5 @@ public class ControllerInputController : BaseInput
     {
         return GamePad.GetState(player);
     }
+
 }

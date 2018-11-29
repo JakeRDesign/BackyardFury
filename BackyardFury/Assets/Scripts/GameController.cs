@@ -46,6 +46,7 @@ public class GameController : MonoBehaviour
     private GameObject followingProjectile;
     private List<GameObject> activeProjectiles = new List<GameObject>();
     private Vector3 followingOffset;
+    private float timeOfTurn = 0.0f;
 
     private bool gameOver = false;
 
@@ -133,7 +134,7 @@ public class GameController : MonoBehaviour
         uiController.SetTimer(turnTimer);
 
         // TODO: make a proper binding for skipping turn
-        if (turnTimer <= 0.0f || currentInput.NextTurnPressed())
+        if (turnTimer <= 0.0f || (currentInput.NextTurnPressed() && Time.realtimeSinceStartup - timeOfTurn > 0.4f))
             StartNextTeam();
 
         if (followingProjectile != null)
@@ -200,6 +201,7 @@ public class GameController : MonoBehaviour
             }
         }
 
+        timeOfTurn = Time.realtimeSinceStartup;
 
         // make sure we're not following a projectile
         followingProjectile = null;
