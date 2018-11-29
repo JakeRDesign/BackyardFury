@@ -203,6 +203,8 @@ public class BuildPlayerMode : PlayerModeBase
             if (presetsPlaced >= presetLimit)
                 singleBoxSelected = true;
 
+            uiController.SetPresetButtonEnabled(presetsPlaced < presetLimit);
+
             SelectBuildPreset(singleBoxSelected ? 0 : 1);
         }
     }
@@ -323,7 +325,10 @@ public class BuildPlayerMode : PlayerModeBase
         ghostBuilding.gameObject.SetActive(b);
 
         if (b)
+        {
             UpdateQueue();
+            uiController.SetPresetButtonEnabled(presetsPlaced < presetLimit);
+        }
 
         // enable/disable this component
         enabled = b;
@@ -361,6 +366,7 @@ public class BuildPlayerMode : PlayerModeBase
         if (ghostBuilding != null)
             Destroy(ghostBuilding);
         ghostBuilding = MakePresetGhost(selectedPreset);
+            uiController.SetPresetButtonEnabled(presetsPlaced < presetLimit);
     }
 
     private GameObject MakePresetGhost(GameObject toGhost)

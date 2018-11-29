@@ -45,6 +45,7 @@ public class UIController : MonoBehaviour
     public float distanceFromSide = 0.2f;
     public RectTransform tetrisContainer;
     public List<GameObject> tetrisIcons;
+    public Button tetrisButton;
 
     [Header("Help Menu")]
     public GameObject helpGroup;
@@ -254,6 +255,12 @@ public class UIController : MonoBehaviour
     {
         foreach(GameObject o in tetrisIcons)
             o.SetActive(o.name == name);
+    }
+
+    public void SetPresetButtonEnabled(bool e)
+    {
+        if (tetrisButton)
+            tetrisButton.interactable = e;
     }
 
     #endregion
