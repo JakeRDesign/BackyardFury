@@ -101,10 +101,7 @@ public class ControllerInputController : BaseInput
 
     public override bool AltPressed() { return altPressed; }
     public override bool FirePressed() { return firePressed; }
-    public override bool FireHeld()
-    {
-        return GetState().Buttons.A == ButtonState.Pressed;
-    }
+    public override bool FireHeld() { return GetState().Buttons.A == ButtonState.Pressed; }
     public override bool HelpPressed() { return helpPressed; }
     public override bool PausePressed() { return pausePressed; }
     public override bool NextTurnPressed() { return nextTurnPressed; }

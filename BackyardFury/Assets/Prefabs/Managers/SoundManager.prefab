@@ -467,3 +467,21 @@ MonoBehaviour:
     randomPitch: 0
     minPitch: 0.91
     maxPitch: 2.07
+  - clip: {fileID: 8300000, guid: 9efe753f2789e7c40857b0dcca7f426d, type: 3}
+    source: {fileID: 0}
+    name: Click
+    volume: 1
+    pitch: 1
+    loop: 0
+    randomPitch: 0
+    minPitch: 0.91
+    maxPitch: 2.07
+  - clip: {fileID: 8300000, guid: 7bc824218c0440345a8778c2f498a3f5, type: 3}
+    source: {fileID: 0}
+    name: Deny
+    volume: 1
+    pitch: 1
+    loop: 0
+    randomPitch: 0
+    minPitch: 0.91
+    maxPitch: 2.07

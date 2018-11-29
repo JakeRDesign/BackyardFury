@@ -224,7 +224,7 @@ public class UIController : MonoBehaviour
 
     public void ShowBuildPresets(bool show)
     {
-        wasBuildBaseVisible = true;
+        wasBuildPresetsVisible = true;
         buildPresetsGroup.gameObject.SetActive(show);
     }
 
