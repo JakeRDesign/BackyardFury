@@ -129,9 +129,6 @@ public class GameController : MonoBehaviour
 
         if (GetCurrentPlayer().enabled)
             turnTimer -= Time.deltaTime;
-        // debug key to add time to a turn
-        if (Input.GetKeyDown(KeyCode.O))
-            turnTimer += 10.0f;
 
         uiController.SetTimer(turnTimer);
 
