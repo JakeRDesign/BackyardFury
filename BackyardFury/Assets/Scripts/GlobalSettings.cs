@@ -48,7 +48,6 @@ public class GlobalSettings : MonoBehaviour
         // if it's still null, create a new instance
         if (instance == null)
         {
-            Debug.Log("Making new settings manager");
             GameObject newObj = new GameObject("SettingsManager");
             instance = newObj.AddComponent<GlobalSettings>();
 
