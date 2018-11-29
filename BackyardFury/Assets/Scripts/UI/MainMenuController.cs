@@ -76,7 +76,7 @@ public class MainMenuController : MonoBehaviour
     // Quits Game
     public void QuitGame()
     {
-        Application.Quit();
+		SceneManager.LoadScene(5);
     }
 
     // Control togglies
