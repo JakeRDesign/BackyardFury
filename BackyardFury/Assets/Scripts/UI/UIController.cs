@@ -228,7 +228,7 @@ public class UIController : MonoBehaviour
 
     public void ShowBuildPresets(bool show)
     {
-        wasBuildPresetsVisible = true;
+        //wasBuildPresetsVisible = true;
         buildPresetsGroup.gameObject.SetActive(show);
     }
 
@@ -319,7 +319,6 @@ public class UIController : MonoBehaviour
         else
             helpGroup.SetActive(show);
         timerText.gameObject.SetActive(!show);
-        buildPresetsGroup.gameObject.SetActive(!show);
 
         bool showBuildBase = !show;
         if (!show)
@@ -329,6 +328,8 @@ public class UIController : MonoBehaviour
         bool showPresetMenu = !show;
         if (!show)
             showPresetMenu = wasBuildPresetsVisible;
+        else
+            wasBuildPresetsVisible = buildPresetsGroup.gameObject.activeSelf;
         buildPresetsGroup.gameObject.SetActive(showPresetMenu);
     }
 
