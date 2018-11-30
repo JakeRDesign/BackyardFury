@@ -25116,6 +25116,22 @@ Prefab:
       propertyPath: redConfetti
       value: 
       objectReference: {fileID: 949633883}
+    - target: {fileID: 1196934607418336, guid: 4d0b14fa4344e754a8a762dd3faceff0, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1860468524542426, guid: 4d0b14fa4344e754a8a762dd3faceff0, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1454714160147206, guid: 4d0b14fa4344e754a8a762dd3faceff0, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1678287109668490, guid: 4d0b14fa4344e754a8a762dd3faceff0, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4d0b14fa4344e754a8a762dd3faceff0, type: 2}
   m_IsPrefabParent: 0

@@ -2532,7 +2532,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.372}
-  m_EffectDistance: {x: 3.01, y: -2.15}
+  m_EffectDistance: {x: 1, y: 1}
   m_UseGraphicAlpha: 1
 --- !u!114 &114690398413825838
 MonoBehaviour:
@@ -4121,10 +4121,10 @@ RectTransform:
   m_Father: {fileID: 224597261199311148}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -715, y: 471}
-  m_SizeDelta: {x: 380.3, y: 84.2}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 245, y: -69}
+  m_SizeDelta: {x: 380.3, y: 84.20001}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224515610610828152
 RectTransform:
