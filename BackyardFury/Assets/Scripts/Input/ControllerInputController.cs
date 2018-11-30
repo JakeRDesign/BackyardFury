@@ -10,7 +10,7 @@ public class ControllerInputController : BaseInput
 {
 
     public PlayerIndex player = PlayerIndex.One;
-    public float cursorSensitivity = 300.0f;
+    public float cursorSensitivity = 500.0f;
 
     #region Ugly Button States
     // previous frame's state
