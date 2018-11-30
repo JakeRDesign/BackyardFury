@@ -26,7 +26,7 @@ public class UIController : MonoBehaviour
     public GameObject pauseGroup;
     public RectTransform pauseWindow;
     public Image pauseBackground;
-    [Tooltip("How long it takes for the pause menu to scroll in/out of view\n" + 
+    [Tooltip("How long it takes for the pause menu to scroll in/out of view\n" +
         "Should probably change this to using an actual Animation")]
     public float scrollTime = 0.3f;
     private bool windowLeaving = false;
@@ -40,7 +40,7 @@ public class UIController : MonoBehaviour
     private Vector3 lastMousePosition;
 
     [Header("Preset Menu")]
-    [Tooltip("Percentage of the screen that the menu will be from its side!\n" + 
+    [Tooltip("Percentage of the screen that the menu will be from its side!\n" +
         "e.g. 0.2 means the buttons will be 20% of the screen width away from the side of the screen")]
     public float distanceFromSide = 0.2f;
     public RectTransform tetrisContainer;
@@ -133,7 +133,7 @@ public class UIController : MonoBehaviour
     public void ShowWinnerText(int player)
     {
         gameOver.SetActive(true);
-        switch(player)
+        switch (player)
         {
             case 1:
                 player1Won.SetActive(true);
@@ -150,11 +150,13 @@ public class UIController : MonoBehaviour
     {
         if (Time.timeSinceLevelLoad - closeHelpTime < 0.2f)
             return;
+        wasMouseVisible = cursorImage.gameObject.activeSelf;
         closeHelpTime = Time.timeSinceLevelLoad;
         wasBuildBaseVisible = buildBaseText.gameObject.activeSelf;
         pauseOwner = opener;
         helpGroup.SetActive(true);
         ShowPause(true, false);
+        SetCursorVisible(true);
     }
 
     public void HideHelpMenu()
@@ -164,6 +166,7 @@ public class UIController : MonoBehaviour
         closeHelpTime = Time.timeSinceLevelLoad;
         helpGroup.SetActive(false);
         ShowPause(false, false);
+        SetCursorVisible(wasMouseVisible);
     }
 
     public void BuildPhaseOver()
@@ -201,7 +204,7 @@ public class UIController : MonoBehaviour
     {
         // disable the text if the interval is super high, meaning we're 
         // probably testing the idea of only having one initial build phase
-        if(interval > 50)
+        if (interval > 50)
         {
             nextBuildText.gameObject.SetActive(false);
             return;
@@ -253,7 +256,7 @@ public class UIController : MonoBehaviour
 
     public void ShowPreset(string name)
     {
-        foreach(GameObject o in tetrisIcons)
+        foreach (GameObject o in tetrisIcons)
             o.SetActive(o.name == name);
     }
 
@@ -277,8 +280,8 @@ public class UIController : MonoBehaviour
         wasBuildBaseVisible = buildBaseText.gameObject.activeSelf;
         // start window off the screen
         pauseWindow.anchoredPosition = new Vector3(0.0f, 999.9f);
-        SetCursorVisible(true);
         ShowPause(true);
+        SetCursorVisible(true);
         windowLeaving = true;
         StartCoroutine(MoveWindowTo(999.9f, 0.0f, false));
     }
